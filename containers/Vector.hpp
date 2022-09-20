@@ -10,28 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+ * @file Vector.hpp
+ * @author rida ennasry
+ * @brief Vector container re-implementation.
+ * @date 2022/09/20
+*/
+
+
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
 # include <iostream>
 
-/* The vector conatainer is implemented i
- * 
- *
- */
-
 namespace ft
 {
-  template <class T, class Alloc = std::allocator<T> >
+  template <typename T, typename Alloc = std::allocator<T> >
+
   class vector {
   public:
-	// iterator class
-	class iterator {
-	public:
-	  typedef T value_type;
+	/* value type member type */
+	typedef T value_type;
+	/* allocator type member type */
+	typedef Alloc allocator_type;
+	/* reference to allocator type member type */
+	typedef typename allocator_type::reference reference;
+	/* const reference to allocator type member type */
+	typedef typename allocator_type::const_reference const_reference;
+
+	
+	
+  private:
+	/* underlying array */
+	T* _array;
+	/* size of the vector */
+	size_t _size;
+	/* capacity of the vector */
+	size_t _capacity;
+   
 	  
-	private:
-	  T* _ptr;
+   
 	  
 	}
   private:
