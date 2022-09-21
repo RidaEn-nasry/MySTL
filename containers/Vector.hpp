@@ -6,9 +6,10 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/09/14 22:11:34 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:18:26 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 /*
  * @file Vector.hpp
@@ -17,7 +18,6 @@
  * @date 2022/09/20
 */
 
-
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
@@ -25,36 +25,37 @@
 
 namespace ft
 {
-  template <typename T, typename Alloc = std::allocator<T> >
+	template <typename T, typename Alloc = std::allocator<T> >
 
-  class vector {
-  public:
-	/* value type member type */
-	typedef T value_type;
-	/* allocator type member type */
-	typedef Alloc allocator_type;
-	/* reference to allocator type member type */
-	typedef typename allocator_type::reference reference;
-	/* const reference to allocator type member type */
-	typedef typename allocator_type::const_reference const_reference;
+	class vector {
+	public:
+		/* value type member type */
+		typedef T value_type;
 
-	
-	
-  private:
-	/* underlying array */
-	T* _array;
-	/* size of the vector */
-	size_t _size;
-	/* capacity of the vector */
-	size_t _capacity;
-   
-	  
-   
-	  
-	}
-  private:
-	
-  }
+		/* allocator type member type */
+		typedef Alloc allocator_type;
+
+		/* reference to allocator type member type */
+		typedef typename allocator_type::reference reference;
+
+		/* const reference to allocator type member type */
+		typedef typename allocator_type::const_reference const_reference;
+
+		/* pointer to allocator type member type */
+		typedef typename allocator_type::pointer pointer;
+
+		/* pointer pointer to allocator type member typedef */
+		typedef allocator_type::const_pointer const_pointer;
+
+
+	private:
+		/* underlying array */
+		T* _array;
+		/* size of the vector */
+		size_t _size;
+		/* capacity of the vector */
+		size_t _capacity;
+	};
 }
 
 #endif
