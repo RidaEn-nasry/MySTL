@@ -6,58 +6,80 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/09/21 12:18:26 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:34:06 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 /*
  * @file Vector.hpp
  * @author rida ennasry
  * @brief Vector container re-implementation.
  * @date 2022/09/20
-*/
+ */
 
 #ifndef VECTOR_HPP
-# define VECTOR_HPP
+#define VECTOR_HPP
 
-# include <iostream>
+#include <iostream>
 
-namespace ft
-{
-	template <typename T, typename Alloc = std::allocator<T> >
+namespace ft {
+  template <typename T, typename Alloc = std::allocator<T>>
 
-	class vector {
-	public:
-		/* value type member type */
-		typedef T value_type;
+  class vector {
+  public:
 
-		/* allocator type member type */
-		typedef Alloc allocator_type;
+	/*************** Member types ***************/
+	
+    /* value type member type */
+    typedef T value_type;
 
-		/* reference to allocator type member type */
-		typedef typename allocator_type::reference reference;
+    /* allocator type member type */
+    typedef Alloc allocator_type;
 
-		/* const reference to allocator type member type */
-		typedef typename allocator_type::const_reference const_reference;
+    /* reference to allocator type member type */
+    typename typedef allocator_type::reference reference;
 
-		/* pointer to allocator type member type */
-		typedef typename allocator_type::pointer pointer;
+    /* const reference to allocator type member type */
+    typedef typename allocator_type::const_reference const_reference;
 
-		/* pointer pointer to allocator type member typedef */
-		typedef allocator_type::const_pointer const_pointer;
+    /* pointer to allocator type member type */
+    typedef typename allocator_type::pointer pointer;
 
+    /* pointer pointer to allocator type member typedef */
+    typedef typename allocator_type::const_pointer const_pointer;
 
-	private:
-		/* underlying array */
-		T* _array;
-		/* size of the vector */
-		size_t _size;
-		/* capacity of the vector */
-		size_t _capacity;
+	
+    /* iterator class */
+	class	iterator {
+		// TODO
 	};
-}
 
+	/************* Constructors **************/
+	/* default constructor */
+	explicit vector(const allocator_type& alloc = allocator_type());
+
+	/* fill constructor */
+	explicit vector(size_type n, const value_type& val = value_type(),
+					const allocator_type& alloc = allocator_type());
+		
+	/* range constructor */
+	template <class InputIterator>
+	vector(InputIterator first, InputIterator last,
+		   const allocator_type& alloc = allocator_type());
+
+	/* copy constructor */
+	vector(const vector& x);
+
+	
+	
+  private:
+    /* underlying array */
+    T* _array;
+    /* size of the vector */
+    size_t _size;
+    /* capacity of the vector */
+    size_t _capacity;
+  };
+} 
 #endif
-
 
