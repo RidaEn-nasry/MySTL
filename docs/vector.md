@@ -39,4 +39,36 @@ your perspective probably looks something like :
 ok that's it, i needed that ranting out of my system, i think you get the point , that's why we need `std::vector` ? ok now let's implement the container, exactly let's solve a problem that has been solved 1000 times before us, and we're not even sure if we're doing it right? probably not ! most likely not !.
 
 ## Here we go !
-There are
+
+### The vector's interface:
+
+Vector is an STL citizen, a templated class that takes a type as a template paramter and an optional allocator that defaults to `std::allocator` , if you're not familiar with allocators, jump here (another article i wrote). and come back.
+```
+template <typename T, typename Allocator = std::allocator<T>>
+class Vector {
+	// other stuff here
+	// ...
+};
+```
+
+### Member types of `std::vector`:
+X
+
+```
+template <typename T, typename Allocator = std::allocator<T>>
+class Vector {
+	typedef T value_type;
+	typedef Allocator allocator_type;
+	typedef typename allocator_type::reference reference;
+	typedef typename allocator_type::const_reference const_reference;
+	typedef typename allocator_type::pointer pointer;
+	typedef typename allocator_type::const_pointer const_pointer;
+		
+```
+
+
+
+
+
+
+

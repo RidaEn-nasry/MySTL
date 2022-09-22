@@ -30,47 +30,65 @@ namespace ft {
 
 	/*************** Member types ***************/
 	
-    /* value type member type */
+    /* elements type */
     typedef T value_type;
 
-    /* allocator type member type */
+    /* allocater type */
     typedef Alloc allocator_type;
 
-    /* reference to allocator type member type */
-    typename typedef allocator_type::reference reference;
+    /* reference */
+	typedef typename allocator_type::reference reference;
 
-    /* const reference to allocator type member type */
+	/* const reference to chunk of memory allocated by allocater */
     typedef typename allocator_type::const_reference const_reference;
 
-    /* pointer to allocator type member type */
+	/* pointer to memory allocater by std::allocater */
     typedef typename allocator_type::pointer pointer;
 
-    /* pointer pointer to allocator type member typedef */
+    /* const pointer to chunk of memory allocated by allocater */ 
     typedef typename allocator_type::const_pointer const_pointer;
-
 	
     /* iterator class */
 	class	iterator {
-		// TODO
+	  
+		// TODO	
 	};
-
+	
 	/************* Constructors **************/
+	
 	/* default constructor */
-	explicit vector(const allocator_type& alloc = allocator_type());
-
+	explicit vector(const allocator_type& alloc = allocator_type()){
+	  this->_array = alloc.allocate(0);
+	  this->_size = 0;
+	  this->_capacity = 0;
+	}
+	
+  
 	/* fill constructor */
 	explicit vector(size_type n, const value_type& val = value_type(),
-					const allocator_type& alloc = allocator_type());
+					const allocator_type& alloc = allocator_type()){
+
+	}
 		
 	/* range constructor */
 	template <class InputIterator>
 	vector(InputIterator first, InputIterator last,
-		   const allocator_type& alloc = allocator_type());
+		   const allocator_type& alloc = allocator_type()) {
+	}
 
 	/* copy constructor */
-	vector(const vector& x);
+	vector(const vector& x) {
 
+	}
+
+
+	// capacity member functions
+	bool empty() const {
+	  return (this->_size == 0);
+	}
 	
+			  
+
 	
   private:
     /* underlying array */
@@ -82,4 +100,6 @@ namespace ft {
   };
 } 
 #endif
+
+
 
