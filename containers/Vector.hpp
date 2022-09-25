@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/09/21 20:34:06 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/09/24 17:26:24 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,83 +23,77 @@
 #include <iostream>
 
 namespace ft {
-  template <typename T, typename Alloc = std::allocator<T>>
+template <typename T, typename Alloc = std::allocator<T> >
 
-  class vector {
-  public:
+class vector {
 
-	/*************** Member types ***************/
-	
-    /* elements type */
-    typedef T value_type;
+public:
+  
+  /*************** Member types ***************/
 
-    /* allocater type */
-    typedef Alloc allocator_type;
+  /* elements type */
+  typedef T value_type;
 
-    /* reference */
-	typedef typename allocator_type::reference reference;
+  /* allocater type */
+  typedef Alloc allocator_type;
 
-	/* const reference to chunk of memory allocated by allocater */
-    typedef typename allocator_type::const_reference const_reference;
+  /* reference */
+  typedef typename allocator_type::reference reference;
 
-	/* pointer to memory allocater by std::allocater */
-    typedef typename allocator_type::pointer pointer;
+  /* const reference to chunk of memory allocated by allocater */
+  typedef typename allocator_type::const_reference const_reference;
+ 
+  /* pointer to memory allocater by std::allocater */
+  typedef typename allocator_type::pointer pointer;
 
-    /* const pointer to chunk of memory allocated by allocater */ 
-    typedef typename allocator_type::const_pointer const_pointer;
-	
-    /* iterator class */
-	class	iterator {
+  /* const pointer to chunk of memory allocated by allocater */
+  typedef typename allocator_type::const_pointer const_pointer;
+
+  /* difference type */ 
+  typedef typename allocator_type::difference_type difference_type;
+
+  /* size type */
+  typedef typename allocator_type::size_type size_type;
+ 
+  /* iterator */
+  
+  /****************** iterator interface ********************/
+
+  struct iterator {
+	iterator() {
 	  
-		// TODO	
+	};
+	/* copy constructible */
+	iterator(const iterator& other) {
+	};
+	/* copy assingable */
+	iterator& operator=(const iterator& rhs) {
+	  return *this; 
+	};
+	/* destructible */
+	~iterator(){
+	  
 	};
 	
-	/************* Constructors **************/
-	
-	/* default constructor */
-	explicit vector(const allocator_type& alloc = allocator_type()){
-	  this->_array = alloc.allocate(0);
-	  this->_size = 0;
-	  this->_capacity = 0;
-	}
-	
-  
-	/* fill constructor */
-	explicit vector(size_type n, const value_type& val = value_type(),
-					const allocator_type& alloc = allocator_type()){
-
-	}
-		
-	/* range constructor */
-	template <class InputIterator>
-	vector(InputIterator first, InputIterator last,
-		   const allocator_type& alloc = allocator_type()) {
-	}
-
-	/* copy constructor */
-	vector(const vector& x) {
-
-	}
-
-
-	// capacity member functions
-	bool empty() const {
-	  return (this->_size == 0);
-	}
-	
-			  
-
-	
-  private:
-    /* underlying array */
-    T* _array;
-    /* size of the vector */
-    size_t _size;
-    /* capacity of the vector */
-    size_t _capacity;
   };
-} 
+  /************* Constructors **************/
+
+  /* default constructor */
+
+  /* fill constructor */
+
+  /* range constructor */
+
+  /* copy constructor */
+
+  // capacity member functions
+  bool empty() const { return (this->_size == 0); }
+
+private:
+  /* allocater */
+  allocator_type _allocater;
+
+};
+  
+} // namespace ft
 #endif
-
-
-
