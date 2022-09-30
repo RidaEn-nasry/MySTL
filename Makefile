@@ -1,26 +1,27 @@
 
-
-NAME=./container
+NAME=test
 
 # Variables
 CXX=c++
-CXXFLAGS=-std=c++98 -Wall -Wextra -Werror
+CXXFLAGS=-std=c++98 -Wall -Wextra -Werror -g
 RM=rm -f
 
-OTHERS=./others/iterator_traits.hpp
-	   ./otherrs/iterator_wrapper.hpp
-CONTAINERS=./containers/Vector.hpp
-TESTS=./tests/tests.cpp \
-	  ./tests/vector_tests.cpp
+OTHERS=-I./others/ -I./tests/
+CONTAINERS=-I./containers/
+TESTS=./tests/vector.cpp\
+			./tests/test.cpp
+
+DEP=./containers/vector.hpp\
+	./others/iterator_traits.hpp\
+	./tests/test.hpp
 
 TEST_OBJS=$(TESTS:.cpp=.o)
 
-%.o: %.cpp $(CONTAINERS) $(OTHERS)
-	$(CXX) $(CXXFLAGS) -c $< -o $@ $(CONTAINERS) $(OTHERS)
-
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@  $(OTHERS) $(CONTAINERS)
 all: $(NAME)
 
-$(NAME): $(TEST_OBJS)
+$(NAME): $(TEST_OBJS) $(DEP) 
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(TEST_OBJS)
 
 clean: 
@@ -32,4 +33,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

@@ -1,9 +1,10 @@
 
 
+#include <iostream>
+#include <test.hpp>
 
-#include <vector>
 
-int main ( void ) {
-  std::vector < int > v;
+int main() {
+  std::vector<int> v; 
+  return 0;
 }
-
