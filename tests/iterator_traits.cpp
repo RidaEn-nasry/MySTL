@@ -18,3 +18,4 @@ void ft_iterator_traits_tests_suite() {
     INFO_OK(test_name);
   }
 }
+

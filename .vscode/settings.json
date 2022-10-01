@@ -68,6 +68,9 @@
     "vector": "cpp",
     "bit": "cpp",
     "algorithm": "cpp",
-    "memory_resource": "cpp"
+    "memory_resource": "cpp",
+    "filesystem": "cpp",
+    "functional": "cpp",
+    "iterator": "cpp"
   }
 }

@@ -14,7 +14,7 @@
         "vector"
       ],
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "build",
+     
 
     }
 
