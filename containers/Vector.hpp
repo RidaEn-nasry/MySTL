@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/01 22:00:12 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/02 12:33:37 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,12 +295,13 @@ namespace ft {
     };
 
 
-    /* reverse iterator */
-    // typedef reverse_iterator<const_iterator> const_reverse_iterator;
-    // typedef reverse_iterator<iterator> reverse_iterator;
-    // typedef reverse_iterator<iterator> reverse_iterator;
-    // typedef reverse_iterator<const_iterator> const_reverse_iterator;
+    /* reverse iterator from reverse_iterator header */
+    // typedef std::reverse_iterator<iterator> reverse_iterator;
+    // typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+    typedef reverse_iterator<const_iterator> const_reverse_iterator;
+    typedef reverse_iterator<iterator> reverse_iterator;
+    
 
 
 
@@ -357,15 +358,15 @@ namespace ft {
     };
 
     // reverse iterator 
-    // reverse_iterator rbegin() { return reverse_iterator(this->end()); };
-    // reverse_iterator rend() { return reverse_iterator(this->begin()); };
+    reverse_iterator rbegin() { return reverse_iterator(this->end()); };
+    reverse_iterator rend() { return reverse_iterator(this->begin()); };
 
-    // const_reverse_iterator crbegin() const {
-    //   return const_reverse_iterator(this->cend());
-    // };
-    // const_reverse_iterator crend() const {
-    //   return const_reverse_iterator(this->cbegin());
-    // };
+    const_reverse_iterator crbegin() const {
+      return const_reverse_iterator(this->cend());
+    };
+    const_reverse_iterator crend() const {
+      return const_reverse_iterator(this->cbegin());
+    };
 
     /* capacity member functions */
 

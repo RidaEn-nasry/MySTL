@@ -695,7 +695,7 @@ void ft_vector_tests_suite() {
       ft_v1[i] = i;
       std_v1[i] = i;
     }
-    
+
     ft_v1.clear();
     std_v1.clear();
     REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`clear` should set the size to 0");
@@ -725,7 +725,7 @@ void ft_vector_tests_suite() {
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
-   
+
     ft_v1.insert(ft_v1.begin(), (size_t)5, 10);
     std_v1.insert(std_v1.begin(), 5, 10);
     ft_v1.shrink_to_fit();
@@ -761,20 +761,60 @@ void ft_vector_tests_suite() {
     ft_v1.push_back(10);
     std_v1.push_back(10);
     REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`push_back` should increase the size by 1");
-    REQUIRE_EQ(ft_v1.capacity(), std_v1.capacity(), test_name, "`push_back` should increase the capacity if needed");
+
+
     REQUIRE_EQ(ft_v1[0], std_v1[0], test_name, "`push_back` should add the element at the end of the vector");
-    for (size_t i = 0; i < 100; i++) {
+    for (size_t i = 0; i < 10; i++) {
       ft_v1.push_back(i);
       std_v1.push_back(i);
     }
     REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`push_back` should increase the size by 1");
-    REQUIRE_EQ(ft_v1.capacity(), std_v1.capacity(), test_name, "`push_back` should increase the capacity if needed");
+
     for (size_t i = 0; i < ft_v1.size(); i++) {
       REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`push_back` should add the element at the end of the vector");
     }
-    
     INFO_OK(test_name);
-    
   }
 
+  // reverse iterator 
+  {
+
+    char* test_name = strdup("reverse iterator tests ");
+    (void)test_name;
+    ft::vector<int> ft_v1;
+    std::vector<int> std_v1;
+    for (size_t i = 0; i < 10; i++) {
+      ft_v1.push_back(i);
+      std_v1.push_back(i);
+    }
+    ft::vector<int>::reverse_iterator ft_it = ft_v1.rbegin();
+    std::vector<int>::reverse_iterator std_it = std_v1.rbegin();
+    ft_it++;
+    std_it++;
+    REQUIRE_EQ(*ft_it, *std_it, test_name, "`reverse_iterator` should be in reverse order");
+    for (; ft_it != ft_v1.rend(); ft_it++, std_it++) {
+      REQUIRE_EQ(*ft_it, *std_it, test_name, "`reverse_iterator` should iterate in reverse order");
+    }
+
+    // base 
+    REQUIRE_EQ(ft_it.base(), ft_v1.begin(), test_name, "`base` should return the base iterator");
+    INFO_OK(test_name);
+  }
+
+  // pop back
+  {
+    char* test_name = strdup("pop_back member function tests ");
+    ft::vector<int> ft_v1((size_t)5, 10);
+    std::vector<int> std_v1((size_t)5, 10);
+
+    ft_v1.pop_back();
+    std_v1.pop_back();
+    REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`pop_back` should decrease the size by 1");
+
+    for (size_t i = 0; i < ft_v1.size(); i++) {
+      REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`pop_back` should remove the last element");
+    }
+
+    INFO_OK(test_name);
+  }
 }
