@@ -8,15 +8,19 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stack>
 #include <algorithm>
 #include <iterator>
 #include <cstring>
 
+// my shit
 #include <vector.hpp>
 #include <iterator_traits.hpp>
 #include <reverse_iterator.hpp>
-#include <unistd.h>
+#include <stack.hpp>
 
+
+#include <unistd.h>
 #include <sys/wait.h>
 #include <typeinfo>
 

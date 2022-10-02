@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/02 12:33:37 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/02 19:58:47 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,16 +294,12 @@ namespace ft {
       pointer _ptr;
     };
 
-
     /* reverse iterator from reverse_iterator header */
     // typedef std::reverse_iterator<iterator> reverse_iterator;
     // typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
     typedef reverse_iterator<const_iterator> const_reverse_iterator;
     typedef reverse_iterator<iterator> reverse_iterator;
-    
-
-
 
     /************* Constructors **************/
 
@@ -342,7 +338,7 @@ namespace ft {
       this->_alloc = x._alloc;
       this->_size = 0;
       this->_capacity = 0;
-      this->assign(x.begin(), x.end());
+      this->assign(x.cbegin(), x.cend());
     };
 
     /************** Member functions *************/
@@ -357,7 +353,7 @@ namespace ft {
       return const_iterator(this->_vector + this->_size);
     };
 
-    // reverse iterator 
+    // reverse iterator
     reverse_iterator rbegin() { return reverse_iterator(this->end()); };
     reverse_iterator rend() { return reverse_iterator(this->begin()); };
 
@@ -399,7 +395,7 @@ namespace ft {
     size_type capacity() const { return this->_capacity; };
     bool empty() const { return this->_size == 0; };
 
-    // max size 
+    // max size
     size_type max_size() const {
       return std::numeric_limits<size_type>::max() / sizeof(value_type);
     };
@@ -457,7 +453,7 @@ namespace ft {
     // clear
     void clear() { erase(this->begin(), this->end()); };
 
-    // erase 
+    // erase
     iterator erase(iterator position) {
 
       if (position == this->end())
@@ -489,12 +485,11 @@ namespace ft {
 
     // insert single element
     iterator insert(iterator position, const value_type& val) {
-      if (this->_size == this->_capacity)
-      {
+      if (this->_size == this->_capacity) {
         // get position index
         size_type index = position - this->begin();
         reserve(this->_capacity == 0 ? 1 : this->_capacity * 1.5);
-        // reassign position  
+        // reassign position
         position = this->begin() + index;
       }
       this->_size++;
@@ -507,8 +502,7 @@ namespace ft {
 
     // insert fill
     void insert(iterator position, size_type n, const value_type& val) {
-      for (size_type i = 0; i < n; i++)
-      {
+      for (size_type i = 0; i < n; i++) {
         position = insert(position, val);
         position++;
       }
@@ -523,9 +517,7 @@ namespace ft {
       }
     };
     // push back
-    void push_back(const value_type& val) {
-      insert(this->end(), val);
-    };
+    void push_back(const value_type& val) { insert(this->end(), val); };
 
     // pop back
     void pop_back() { erase(this->end() - 1); };
@@ -543,15 +535,10 @@ namespace ft {
       other._capacity = tmp_capacity;
     };
 
-    // emplace 
-    // template <class... Args>
-    //   iterator emplace(iterator position, Args&&... args) {
-
-    // };
-      /*** allocator member functions ***/
-    allocator_type get_allocator() const {
-      return this->_alloc;
-    };
+    // emplace
+    // emplace back
+    /*** allocator member functions ***/
+    allocator_type get_allocator() const { return this->_alloc; };
 
   private:
     allocator_type _alloc;
@@ -572,7 +559,7 @@ namespace ft {
       this->_capacity = new_capacity;
     }
   };
-  // non-member function overloads 
+  // non-member function overloads
 
   // relational operators
   template <class T, class Alloc>
@@ -617,13 +604,14 @@ namespace ft {
     return (lhs > rhs) || (lhs == rhs);
   };
 
-  // swap 
+  // swap
   template <class T, class Alloc>
   void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) {
     x.swap(y);
   };
 
   // oooooh, fuck me.
+
 } // namespace ft
 
 #endif

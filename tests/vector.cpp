@@ -218,7 +218,8 @@ void ft_vector_tests_suite() {
     std_it -= 2;
     REQUIRE_EQ(*ft_it1, *std_it, test_name, "`*iterator` should return the value of the element pointed by `iterator` after decrementing it by `n`");
     REQUIRE_EQ(ft_it1[2], std_it[2], test_name, "`iterator[n]` should return the value of the element pointed by `iterator` after incrementing it by `n`");
-    INFO_OK(test_name);
+    char *test_name2 = strdup("Iterator requirements tests ");
+    INFO_OK(test_name2);
 
   }
 
@@ -811,8 +812,8 @@ void ft_vector_tests_suite() {
     std_v1.pop_back();
     REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`pop_back` should decrease the size by 1");
 
-    for (size_t i = 0; i < ft_v1.size(); i++) {
-      REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`pop_back` should remove the last element");
+	   for (size_t i = 0; i < ft_v1.size(); i++) {
+	      REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`pop_back` should remove the last element");
     }
 
     INFO_OK(test_name);

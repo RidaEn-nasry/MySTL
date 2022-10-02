@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:47:18 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/02 13:05:58 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/02 20:17:33 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  /* changing their behaviour.                                                               */
  /*******************************************************************************************/
 
+
 namespace ft {
 #ifndef STACK_HPP
 #define STACK_HPP
@@ -25,61 +26,87 @@ namespace ft {
   template <class T, class Container = vector<T> >
   class stack {
     /************************** Member types **************************/
-
+  public:
     typedef T value_type;
     typedef Container container_type;
     typedef size_t size_type;
 
     /************************** Member functions **************************/
-    explicit  stack(const container_type& ctnr = container_type()) : _ctnr(ctnr) {}
+    explicit  stack(const container_type& cntr = container_type()) : _cntr(cntr) {}
 
-    bool empty() const { return _ctnr.empty(); }
-    size_type size() const { return _ctnr.size(); }
+    bool empty() const { return _cntr.empty(); }
+    size_type size() const { return _cntr.size(); }
 
-    value_type& top() { return _ctrn.back(); }
-    const value_type& top() const { return _ctnr.back(); }
+    value_type& top() { return _cntr.back(); }
+    const value_type& top() const { return _cntr.back(); }
 
-    void push(const value_type& val) { _ctnr.push_back(val); }
+    void push(const value_type& val) {
+      _cntr.push_back(val);
+    }
 
-    void pop() { _ctnr.pop_back(); }
+    void pop() { _cntr.pop_back(); }
 
-    void swap(stack& x) noexcept { _ctnr.swap(x._ctnr); }
+    void swap(stack& x) { _cntr.swap(x._cntr); }
 
-    // todo: emplace member function
+    friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
+      return lhs._cntr == rhs._cntr;
+    }
+
+    friend bool operator!= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
+      return !(lhs == rhs);
+    }
+
+    friend bool operator<  (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
+      return lhs._cntr < rhs._cntr;
+    }
+
+    friend bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
+      return !(rhs < lhs);
+    }
+
+    friend bool operator>  (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
+      return rhs < lhs;
+    }
+    friend bool operator>= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
+      return !(lhs < rhs);
+    }
+
+  private:
+    container_type _cntr;
   };
   /************************* non-member functions *************************/
   template <class T, class Container>
   bool operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._ctnr == rhs._ctnr;
+    return lhs._cntr == rhs._cntr;
   };
 
   template <class T, class Container>
   bool operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._ctnr != rhs._ctnr;
+    return lhs._cntr != rhs._cntr;
   };
 
   template <class T, class Container>
   bool operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._ctnr < rhs._ctnr;
+    return lhs._cntr < rhs._cntr;
   };
 
   template <class T, class Container>
   bool operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._ctnr <= rhs._ctnr;
+    return lhs._cntr <= rhs._cntr;
   };
-  
+
   template <class T, class Container>
   bool operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._ctnr > rhs._ctnr;
+    return lhs._cntr > rhs._cntr;
   };
 
   template <class T, class Container>
   bool operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._ctnr >= rhs._ctnr;
+    return lhs._cntr >= rhs._cntr;
   };
 
   template <class T, class Container>
-  void swap(stack<T, Container>& x, stack<T, Container>& y) noexcept {
+  void swap(stack<T, Container>& x, stack<T, Container>& y) {
     x.swap(y);
   };
 

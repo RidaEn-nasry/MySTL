@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:49:06 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/02 11:22:04 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/02 19:23:47 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void  ft_run_all_tests() {
   // ft_iterator_traits_tests_suite();
   ft_vector_tests_suite();
+  ft_stack_tests_suite();
   // ft_list_tests_suite();
   
 }
