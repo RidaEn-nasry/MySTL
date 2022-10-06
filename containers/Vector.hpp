@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/02 19:58:47 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:49:12 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,166 +56,63 @@ namespace ft {
 
     /******************** Iterators ********************/
 
-    /* iterator implementation */
-    class iterator {
+    /* iterator base implementation */
+    template <bool Const = false>
+    class iterator_base {
     public:
+
       /* iterator traits */
       typedef std::random_access_iterator_tag iterator_category;
       typedef T value_type;
       typedef std::ptrdiff_t difference_type;
-      typedef T* pointer;
-      typedef T& reference;
-
-      /* constructors & destcructors */
-
-      /* default constructible */
-      iterator() : _ptr(NULL) {};
-      /* copy constructible */
-      iterator(const iterator& other) : _ptr(other._ptr) {};
-      /* copy assignable */
-      iterator& operator=(const iterator& other) {
-        _ptr = other._ptr;
-        return *this;
-      };
-
-      /* constructible from pointer */
-      iterator(pointer ptr) : _ptr(ptr) {};
-
-      /* destructible */
-      ~iterator() {};
-
-      /* member functions */
-
-      /* equality operators */
-      bool operator==(const iterator& other) const { return _ptr == other._ptr; };
-      bool operator!=(const iterator& other) const { return _ptr != other._ptr; };
-
-      /* increment operators */
-
-      /* prefix */
-      inline iterator& operator++() {
-        _ptr++;
-        return *this;
-      };
-      /* postfix */
-      inline iterator operator++(int) {
-        iterator tmp(*this);
-        operator++();
-        return tmp;
-      };
-
-      /* dereferenceable */
-      inline reference operator*() const { return *_ptr; };
-
-      /* decrement operators */
-
-      /* prefix */
-      inline iterator& operator--() {
-        _ptr--;
-        return *this;
-      };
-
-      /* postfix */
-      inline iterator operator--(int) {
-        iterator tmp(*this);
-        operator--();
-        return tmp;
-      };
-
-      /* arithmetic operators */
-
-      /* addition iterator + n */
-      inline iterator operator+(difference_type n) const {
-        return iterator(_ptr + n);
-      };
-
-      /* addition n + iterator */
-      inline friend iterator operator+(difference_type n, const iterator& it) {
-        return iterator(it._ptr + n);
-      };
-
-      /* subtraction iterator - n */
-      inline iterator operator-(difference_type n) const {
-        return iterator(_ptr - n);
-      };
-
-      /* subtraction iterator - iterator */
-      inline difference_type operator-(const iterator& other) const {
-        return _ptr - other._ptr;
-      };
-
-      /* equality relational operators */
-      bool operator<(const iterator& other) const { return _ptr < other._ptr; };
-      bool operator>(const iterator& other) const { return _ptr > other._ptr; };
-      bool operator<=(const iterator& other) const { return _ptr <= other._ptr; };
-      bool operator>=(const iterator& other) const { return _ptr >= other._ptr; };
-
-      /* compound assignment operators */
-
-      inline iterator& operator+=(difference_type n) {
-        _ptr += n;
-        return *this;
-      };
-      inline iterator& operator-=(difference_type n) {
-        _ptr -= n;
-        return *this;
-      };
-
-      /* subscript operator */
-      inline reference operator[](difference_type n) const { return _ptr[n]; };
-
-    private:
-      pointer _ptr;
-    };
-
-    /* const iterator implementation */
-    class const_iterator {
-    public:
-      /* iterator traits */
-      typedef std::random_access_iterator_tag iterator_category;
-      typedef T value_type;
-      typedef std::ptrdiff_t difference_type;
+#if Const
       typedef const T* pointer;
       typedef const T& reference;
+#else
+      typedef T* pointer;
+      typedef T& reference;
+#endif
 
       /* constructors & destcructors */
-      inline const_iterator() : _ptr(NULL) {};
-      inline const_iterator(const const_iterator& other) : _ptr(other._ptr) {};
-      inline const_iterator& operator=(const const_iterator& other) {
+      inline iterator_base() : _ptr(NULL) {};
+      inline iterator_base(const iterator_base& other) : _ptr(other._ptr) {};
+      inline iterator_base& operator=(const iterator_base& other) {
         _ptr = other._ptr;
         return *this;
       };
-      // a copy assingment operator from iterator to const_iterator
-      inline const_iterator& operator=(const iterator& other) {
-        _ptr = other._ptr;
-        return *this;
-      };
-      inline const_iterator(const iterator& other) : _ptr(other._ptr) {};
-      inline const_iterator(pointer ptr) : _ptr(ptr) {};
+      // a conversion constructor and operator= for converting from iterator to const_iterator
 
-      inline ~const_iterator() {};
+#if Const
+      inline iterator_base(const iterator_base<false>& other) : _ptr(other._ptr) {};
+      inline iterator_base& operator=(const iterator_base<false>& other) {
+        _ptr = other._ptr;
+        return *this;
+      };
+#endif
+
+      inline ~iterator_base() {};
 
       /* member functions */
 
       /* equality operators */
-      inline bool operator==(const const_iterator& other) const {
+      inline bool operator==(const iterator_base& other) const {
         return _ptr == other._ptr;
       };
-      inline bool operator!=(const const_iterator& other) const {
+      inline bool operator!=(const iterator_base& other) const {
         return _ptr != other._ptr;
       };
 
       /* increment operators */
 
       /* prefix */
-      inline const_iterator& operator++() {
+      inline iterator_base& operator++() {
         _ptr++;
         return *this;
       };
 
       /* postfix */
-      inline const_iterator operator++(int) {
-        const_iterator tmp(*this);
+      inline iterator_base operator++(int) {
+        iterator_base tmp(*this);
         operator++();
         return tmp;
       };
@@ -226,14 +123,14 @@ namespace ft {
       /* decrement operators */
 
       /* prefix */
-      inline const_iterator& operator--() {
+      inline iterator_base& operator--() {
         _ptr--;
         return *this;
       };
 
       /* postfix */
-      inline const_iterator operator--(int) {
-        const_iterator tmp(*this);
+      inline iterator_base operator--(int) {
+        iterator_base tmp(*this);
         operator--();
         return tmp;
       };
@@ -241,48 +138,48 @@ namespace ft {
       /* arithmetic operators */
 
       /* addition iterator + n */
-      inline const_iterator operator+(difference_type n) const {
-        return const_iterator(_ptr + n);
+      inline iterator_base operator+(difference_type n) const {
+        return iterator_base(_ptr + n);
       };
 
       /* addition n + iterator */
-      inline friend const_iterator operator+(difference_type n,
-        const const_iterator& it) {
-        return const_iterator(it._ptr + n);
+      inline friend iterator_base operator+(difference_type n,
+        const iterator_base& it) {
+        return iterator_base(it._ptr + n);
       };
 
       /* subtraction iterator - n */
-      inline const_iterator operator-(difference_type n) const {
-        return const_iterator(_ptr - n);
+      inline iterator_base operator-(difference_type n) const {
+        return iterator_base(_ptr - n);
       };
 
       /* subtraction iterator - iterator */
-      inline difference_type operator-(const const_iterator& other) const {
+      inline difference_type operator-(const iterator_base& other) const {
         return _ptr - other._ptr;
       };
 
       /* equality relational operators */
-      inline bool operator<(const const_iterator& other) const {
+      inline bool operator<(const iterator_base& other) const {
         return _ptr < other._ptr;
       };
-      inline bool operator>(const const_iterator& other) const {
+      inline bool operator>(const iterator_base& other) const {
         return _ptr > other._ptr;
       };
-      inline bool operator<=(const const_iterator& other) const {
+      inline bool operator<=(const iterator_base& other) const {
         return _ptr <= other._ptr;
       };
-      inline bool operator>=(const const_iterator& other) const {
+      inline bool operator>=(const iterator_base& other) const {
         return _ptr >= other._ptr;
       };
 
       /* compound assignment operators */
 
-      inline const_iterator& operator+=(difference_type n) {
+      inline iterator_base& operator+=(difference_type n) {
         _ptr += n;
         return *this;
       };
 
-      inline const_iterator& operator-=(difference_type n) {
+      inline iterator_base& operator-=(difference_type n) {
         _ptr -= n;
         return *this;
       };
@@ -293,12 +190,132 @@ namespace ft {
     private:
       pointer _ptr;
     };
+    
+    typedef iterator_base<false> iterator;
+    typedef iterator_base<true> const_iterator;
+    
+    
+    //   class iterator {
+    // public:
+    //   /* iterator traits */
+    //   typedef std::random_access_iterator_tag iterator_category;
+    //   typedef T value_type;
+    //   typedef std::ptrdiff_t difference_type;
+    //   typedef T* pointer;
+    //   typedef T& reference;
+
+    //   /* constructors & destcructors */
+
+    //   /* default constructible */
+    //   iterator() : _ptr(NULL) {};
+    //   /* copy constructible */
+    //   iterator(const iterator& other) : _ptr(other._ptr) {};
+    //   /* copy assignable */
+    //   iterator& operator=(const iterator& other) {
+    //     _ptr = other._ptr;
+    //     return *this;
+    //   };
+
+    //   /* constructible from pointer */
+    //   iterator(pointer ptr) : _ptr(ptr) {};
+
+    //   /* destructible */
+    //   ~iterator() {};
+
+    //   /* member functions */
+
+    //   /* equality operators */
+    //   bool operator==(const iterator& other) const { return _ptr == other._ptr; };
+    //   bool operator!=(const iterator& other) const { return _ptr != other._ptr; };
+
+    //   /* increment operators */
+
+    //   /* prefix */
+    //   inline iterator& operator++() {
+    //     _ptr++;
+    //     return *this;
+    //   };
+    //   /* postfix */
+    //   inline iterator operator++(int) {
+    //     iterator tmp(*this);
+    //     operator++();
+    //     return tmp;
+    //   };
+
+    //   /* dereferenceable */
+    //   inline reference operator*() const { return *_ptr; };
+
+    //   /* decrement operators */
+
+    //   /* prefix */
+    //   inline iterator& operator--() {
+    //     _ptr--;
+    //     return *this;
+    //   };
+
+    //   /* postfix */
+    //   inline iterator operator--(int) {
+    //     iterator tmp(*this);
+    //     operator--();
+    //     return tmp;
+    //   };
+
+    //   /* arithmetic operators */
+
+    //   /* addition iterator + n */
+    //   inline iterator operator+(difference_type n) const {
+    //     return iterator(_ptr + n);
+    //   };
+
+    //   /* addition n + iterator */
+    //   inline friend iterator operator+(difference_type n, const iterator& it) {
+    //     return iterator(it._ptr + n);
+    //   };
+
+    //   /* subtraction iterator - n */
+    //   inline iterator operator-(difference_type n) const {
+    //     return iterator(_ptr - n);
+    //   };
+
+    //   /* subtraction iterator - iterator */
+    //   inline difference_type operator-(const iterator& other) const {
+    //     return _ptr - other._ptr;
+    //   };
+
+    //   /* equality relational operators */
+    //   bool operator<(const iterator& other) const { return _ptr < other._ptr; };
+    //   bool operator>(const iterator& other) const { return _ptr > other._ptr; };
+    //   bool operator<=(const iterator& other) const { return _ptr <= other._ptr; };
+    //   bool operator>=(const iterator& other) const { return _ptr >= other._ptr; };
+
+    //   /* compound assignment operators */
+
+    //   inline iterator& operator+=(difference_type n) {
+    //     _ptr += n;
+    //     return *this;
+    //   };
+    //   inline iterator& operator-=(difference_type n) {
+    //     _ptr -= n;
+    //     return *this;
+    //   };
+
+    //   /* subscript operator */
+    //   inline reference operator[](difference_type n) const { return _ptr[n]; };
+
+    // private:
+    //   pointer _ptr;
+    // };
+
+    /* const iterator implementation */
+    class iterator_base {
+    public:
+    };
 
     /* reverse iterator from reverse_iterator header */
     // typedef std::reverse_iterator<iterator> reverse_iterator;
-    // typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+    // typedef std::reverse_iterator<iterator_base> const_reverse_iterator;
 
-    typedef reverse_iterator<const_iterator> const_reverse_iterator;
+    typedef reverse_iterator<iterator_base> const_reverse_iterator;
     typedef reverse_iterator<iterator> reverse_iterator;
 
     /************* Constructors **************/
@@ -348,9 +365,9 @@ namespace ft {
     iterator begin() { return iterator(this->_vector); };
     iterator end() { return iterator(this->_vector + this->_size); };
 
-    const_iterator cbegin() const { return const_iterator(this->_vector); };
-    const_iterator cend() const {
-      return const_iterator(this->_vector + this->_size);
+    iterator_base cbegin() const { return iterator_base(this->_vector); };
+    iterator_base cend() const {
+      return iterator_base(this->_vector + this->_size);
     };
 
     // reverse iterator
@@ -615,3 +632,4 @@ namespace ft {
 } // namespace ft
 
 #endif
+

@@ -1,5 +1,14 @@
 
+# todo
+- support a converting copy constructor from iterator to const_iterator
+- support equality operator from iterator to const_iterator
+
 # Resources:
+
+
+TOOLS
+See in real time how template functions/classes are generated
+https://cppinsights.io/
 
 STL
 
@@ -50,7 +59,13 @@ The guy that tutored in these videos have been maintaining Microsoft’s STL sin
 <br>
 <br>Ok wait ? iterator invalidation is extremely an important idea to understand how iterators work!!!! So what is iterator invalidation ?
 <br>https://stackoverflow.com/questions/16904454/what-is-iterator-invalidation
-<br>
+<br>what is namelookup & arg-dep lookup & overloadresolution...?
+<br>https://learn.microsoft.com/en-us/shows/c9-lectures-stephan-t-lavavej-core-c-/stephan-t-lavavej-core-c-1-of-n
+<br>https://abseil.io/tips/49#:~:text=Overview,for%20a%20matching%20function%20declaration.
 <br>Why fill insert member function isn’t valid after filling ?
 <br>https://stackoverflow.com/questions/23845033/why-iterator-vectorinsert-is-not-valid-after-filling-iterator-insert-const-i
-
+<br> what the heck is SFINEA ?
+<br>https://blog.abhattacharyea.dev/sfinae-in-cpp/
+<br>https://www.cppstories.com/2016/02/notes-on-c-sfinae/
+<br>`enable_if` and SFINEA ? 
+<br>https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/enable-if

@@ -12,10 +12,12 @@ TESTS=./tests/vector.cpp\
 			./tests/test.cpp\
 			./tests/iterator_traits.cpp\
 			./tests/reverse_iterator.cpp\
-			./tests/stack.cpp
+			./tests/stack.cpp\
+			./tests/enable_if.cpp
 
 DEP=./containers/vector.hpp\
 	./type_traits/iterator_traits.hpp\
+	./type_traits/enable_if.hpp\
 	./adapters/reverse_iterator.hpp\
 	./adapters/stack.hpp\
 	./tests/test.hpp

@@ -9,29 +9,31 @@ void ft_iterator_traits_tests_suite() {
   {
     char* test_name = strdup("Iterator traits tests ");
 
-    // ft::vector<char> v((size_t)5, 'a');
-    // ft::vector<char>::iterator it;
+    // iterator traits for Iter / pointer / const pointer
+    ft::vector<int> v((size_t)5, 42);
+    ft::vector<int>::iterator it = v.begin();
 
+    /*** ITERATOR TRAITS of Iterator type ***/
+    REQUIRE_STREQ(typeid(ft::iterator_traits<ft::vector<int>::iterator>::iterator_category).name(), typeid(std::random_access_iterator_tag).name(), test_name, "iterator_traits<iterator>::iterator_category should be of type std::iterator_traits<iterator>::iterator_category");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<ft::vector<int>::iterator>::value_type).name(), typeid(int).name(), test_name, "iterator_traits<iterator>::value_type should be of type std::iterator_traits<iterator>::value_type");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<ft::vector<int>::iterator>::difference_type).name(), typeid(std::ptrdiff_t).name(), test_name, "iterator_traits<iterator>::difference_type should be of type std::iterator_traits<iterator>::difference_type");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<ft::vector<int>::iterator>::pointer).name(), typeid(int*).name(), test_name, "iterator_traits<iterator>::pointer should be of type std::iterator_traits<iterator>::pointer");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<ft::vector<int>::iterator>::reference).name(), typeid(int&).name(), test_name, "iterator_traits<iterator>::reference should be of type std::iterator_traits<iterator>::reference");
 
-    // getting types 
-    // ft::iterator_traits<it>::iterator_category cat;
-    // ft::iterator_traits<ft::vector<char>::iterator>::iterator_category category;
-    // typedef ft::iterator_traits<ft::vector<char>::iterator>::value_type value_type;
-    // typedef ft::iterator_traits<ft::vector<char>::iterator>::difference_type difference_type;
-    // typedef ft::iterator_traits<ft::vector<char>::iterator>::pointer pointer;
-    // typedef ft::iterator_traits<ft::vector<char>::iterator>::reference reference;
-    // std::cout << typeid(cat).name() << std::endl;
-    // REQUIRE_STREQ(typeid(cat).name(), typeid(std::random_access_iterator_tag).name(), test_name, "`ft::iterator_traits<ft::vector<T>::iterator>::iterator_category` should be `std::random_access_iterator_tag`");
+    /*** ITERATOR TRAITS of pointer type ***/
+    REQUIRE_STREQ(typeid(ft::iterator_traits<int*>::iterator_category).name(), typeid(std::random_access_iterator_tag).name(), test_name, "iterator_traits<pointer>::iterator_category should be of type std::random_access_iterator_tag");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<int*>::value_type).name(), typeid(int).name(), test_name, "iterator_traits<pointer>::value_type should be of type int");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<int*>::difference_type).name(), typeid(std::ptrdiff_t).name(), test_name, "iterator_traits<pointer>::difference_type should be of type std::ptrdiff_t");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<int*>::pointer).name(), typeid(int*).name(), test_name, "iterator_traits<pointer>::pointer should be of type int*");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<int*>::reference).name(), typeid(int&).name(), test_name, "iterator_traits<pointer>::reference should be of type int&");
+
+    /*** ITERATOR TRAITS of const pointer type ***/
+    REQUIRE_STREQ(typeid(ft::iterator_traits<const int*>::iterator_category).name(), typeid(std::random_access_iterator_tag).name(), test_name, "iterator_traits<const pointer>::iterator_category should be of type std::random_access_iterator_tag");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<const int*>::value_type).name(), typeid(int).name(), test_name, "iterator_traits<const pointer>::value_type should be of type int");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<const int*>::difference_type).name(), typeid(std::ptrdiff_t).name(), test_name, "iterator_traits<const pointer>::difference_type should be of type std::ptrdiff_t");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<const int*>::pointer).name(), typeid(const int*).name(), test_name, "iterator_traits<const pointer>::pointer should be of type const int*");
+    REQUIRE_STREQ(typeid(ft::iterator_traits<const int*>::reference).name(), typeid(const int&).name(), test_name, "iterator_traits<const pointer>::reference should be of type const int&");
     
-
-
-
-
-    // REQUIRE_STREQ((typeid(ft::iterator_traits<ft::vector<char>::iterator>::iterator_category).name()), (typeid(std::random_access_iterator_tag).name()), test_name, "`ft::iterator_traits<ft::vector<T>::iterator>::iterator_category` should be `std::random_access_iterator_tag`");
-    // REQUIRE_STREQ((typeid(ft::iterator_traits<ft::vector<char>::iterator>::value_type).name()), (typeid(char).name(), test_name), "`ft::iterator_traits<ft::vector<T>::iterator>::value_type` should be `T`");
-    // REQUIRE_STREQ((typeid(ft::iterator_traits<ft::vector<char>::iterator>::difference_type).name()), (typeid(std::ptrdiff_t).name()), test_name, "`ft::iterator_traits<ft::vector<T>::iterator>::difference_type` should be `std::ptrdiff_t`");
-    // REQUIRE_STREQ((typeid(ft::iterator_traits<ft::vector<char>::iterator>::pointer).name()), (typeid(char*).name()), test_name, "`ft::iterator_traits<ft::vector<T>::iterator>::pointer` should be `T*`");
-    // REQUIRE_STREQ((typeid(ft::iterator_traits<ft::vector<char>::iterator>::reference).name()), (typeid(char&).name()), test_name, "`ft::iterator_traits<ft::vector<T>::iterator>::reference` should be `T&`");
     INFO_OK(test_name);
   }
 }

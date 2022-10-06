@@ -13,9 +13,7 @@
       "args": [
         "vector"
       ],
-      "cwd": "${workspaceFolder}",
-     
-
+      "cwd": "${cwd}",
     }
 
   ]

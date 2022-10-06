@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 20:12:30 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/02 11:01:05 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/06 11:48:58 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ namespace ft {
   class reverse_iterator {
     /*********************** Member types ***********************/
   public:
-    typedef typename ft::iterator_traits<Iter>::iterator_category iterator_category;
-    typedef typename ft::iterator_traits<Iter>::value_type value_type;
-    typedef typename ft::iterator_traits<Iter>::difference_type difference_type;
-    typedef typename ft::iterator_traits<Iter>::pointer pointer;
-    typedef typename ft::iterator_traits<Iter>::reference reference;
+    typedef typename iterator_traits<Iter>::iterator_category iterator_category;
+    typedef typename iterator_traits<Iter>::value_type value_type;
+    typedef typename iterator_traits<Iter>::difference_type difference_type;
+    typedef typename iterator_traits<Iter>::pointer pointer;
+    typedef typename iterator_traits<Iter>::reference reference;
 
     /* ********************* Member functions ********************* */
 

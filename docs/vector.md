@@ -41,7 +41,7 @@ ok that's it, i needed that ranting out of my system, i think you get the point 
 
 ### The vector's interface:
 
-Vector is an STL citizen, a templated class that takes a type as a template paramter and an optional allocator that defaults to `std::allocator` , if you're not familiar with allocators, jump here (another article i wrote). and come back.
+Vector is an STL citizen, a templated class that takes a type as a template parameter and an optional allocator that defaults to `std::allocator` , if you're not familiar with allocators, jump here (another article i wrote). and come back.
 
 ```
 template <typename T, typename Allocator = std::allocator<T>>
@@ -50,6 +50,12 @@ class Vector {
 	// ...
 };
 ```
+
+
+## Overview of the vector's implementation
+Container's implementation is just neat !!! it gives a new taste of software design, it answers the question **what a beutiful software looks like** ? and yeah there's a thing such as beutiful software , alexander stepanov et al. just proved it to us.
+`vector` is one of those implementation, now we'll try to give a big picture of the whole structure , then we'll dive into the details.
+
 
 ### Member types of `std::vector`:
 
@@ -64,5 +70,7 @@ class Vector {
 	typedef typename allocator_type::const_reference const_reference;
 	typedef typename allocator_type::pointer pointer;
 	typedef typename allocator_type::const_pointer const_pointer;
+	typedef typename allocator_type::size_type size_type;
+	typedef typename allocator_type::difference_type difference_type;
 
 ```

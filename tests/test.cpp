@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:49:06 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/02 19:23:47 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:06:05 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int main(int argc, char** argv) {
   else if (strcmp(argv[1], "iterator_traits") == 0)
     ft_iterator_traits_tests_suite();
   else if (strcmp(argv[1], "reverse_iterator"))
-      ft_reverse_iterator_tests_suite();
+    ft_reverse_iterator_tests_suite();
+  else if (strcmp(argv[1], "enable_if") == 0)
+    ft_enable_if_tests_suite();
   else
   {
     std::cout << "Test not found" << std::endl;
