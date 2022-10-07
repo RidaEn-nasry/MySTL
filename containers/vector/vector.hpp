@@ -7,6 +7,7 @@ namespace ft {
 
   template <class T, class Alloc = std::allocator<T> >
   class vector {
+    
   public:
     /************** Member types ****************/
     typedef typename T value_type;
@@ -21,6 +22,9 @@ namespace ft {
     /* Iterator base */
     template <bool Const = false>
     class iterator_base {
+    protected:
+      inline iterator_base(pointer ptr) : _ptr(ptr) {};
+
     public:
       /* iterator traits */
       typedef std::random_access_iterator_tag iterator_category;
@@ -54,7 +58,7 @@ namespace ft {
       };
 
       inline self operator++(int) {
-        iterator_base tmp = *this;
+        self tmp = *this;
         return ++(*this);
       }
 
@@ -73,33 +77,63 @@ namespace ft {
       inline pointer operator->() {
         return _ptr;
       }
+      
       inline self operator--() {
         --_ptr;
         return *this;
       }
 
       inline self operator--(int) {
-        iterator_base tmp = *this;
+        self tmp = *this;
         return --(*this);
       }
 
       inline self operator+(difference_type n) {
-        _ptr + n;
-        return *this;
+        return self(_ptr + n);
       }
       inline friend self operator+(difference_type n, const self& rhs_it) {
-
+        return self(rhs_it._ptr + n);
       }
 
+      inline self operator-(difference_type n) {
+        return self(_ptr - n);
+      }
 
+      inline difference_type operator-(const self& other) const {
+        return (_ptr - other._ptr);
+      }
 
+      inline bool operator<(const self& other) const {
+        return _ptr < other._ptr;
+      }
+      inline bool operator<(const self& other) const {
+        return _ptr > other._ptr;
+      }
+
+      inline bool operator<=(const self& other) const {
+        return _ptr <= other._ptr;
+      }
+
+      inline bool operator>=(const self& other) const {
+        return _ptr >= other._ptr;
+      }
+
+      inline self& operator+=(difference_type n) {
+        _ptr += n;
+        return (*this);
+      }
+      
+      inline self& operator-=(difference_type n) {
+        _ptr -= n;
+        return (*this);
+      }
+
+      inline reference operator[](size_type offset) {
+        return *(_ptr + n);
+      }
     private:
       pointer _ptr;
       typedef iterator_base self;
-      // self private 
-
-
-
     }
 
     typedef iterator_base<false> iterator;
