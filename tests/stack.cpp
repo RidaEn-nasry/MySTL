@@ -98,6 +98,8 @@ void ft_stack_tests_suite() {
     ft::stack<std::vector<std::string> > ft_stack;
     ft_stack.push(v);
     REQUIRE_EQ(ft_stack.size(), (size_t)1, test_name, "ft::stack should be compatabile with std::vector");
+    REQUIRE_EQ(ft_stack.top(), v, test_name, "ft::stack should be compatabile with std::vector");
+
     INFO_OK(test_name);    
   }
 };

@@ -4,6 +4,16 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+    // build pre-launch task 
+    // {
+    //   "name": "build",
+    //   "type": "shell",
+    //   "command": "cargo build",
+    //   "group": "build",
+    //   "presentation": {
+    //     "reveal": "silent"
+    //   }
+    // },
     // debuging c++ using lldb  
     {
       "name": "(lldb) Launch",
@@ -14,6 +24,9 @@
         "all"
       ],
       "cwd": "${cwd}",
+
+      // "preLaunchTask": "build"
     }
+
   ]
 }

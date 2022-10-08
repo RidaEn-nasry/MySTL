@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.hpp                                         :+:      :+:    :+:   */
+/*   Vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 21:15:43 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:32:45 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,14 +392,6 @@ namespace ft {
 
     // insert single element
     iterator insert(iterator position, const value_type& val) {
-      // if (_size == 0) {
-      //   if (_capacity == 0)
-      //     _vector = _alloc.allocate(1);
-      //   _alloc.construct(this->_vector, val);
-      //   _size++;
-      //   _capacity = _size;
-      //   return position;
-      // };
       if (_capacity == 0)
       {
         reserve(1);

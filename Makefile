@@ -5,7 +5,9 @@ CXX=c++
 CXXFLAGS=-std=c++98 -Wall -Wextra -Werror -g
 RM=rm -f
 
-OTHERS=-I./type_traits/ -I./tests/ -I./adapters/ -I./others/ -I./utility/
+OTHERS=-I./type_traits/ -I./tests/ -I./adapters/ -I./others/ -I./utility/ -I./algorithms/ -I./functional
+
+
 CONTAINERS=-I./containers/
 TESTS=./tests/vector.cpp\
 			./tests/test.cpp\
@@ -13,7 +15,10 @@ TESTS=./tests/vector.cpp\
 			./tests/reverse_iterator.cpp\
 			./tests/stack.cpp\
 			./tests/enable_if.cpp\
-			./tests/pair.cpp
+			./tests/pair.cpp\
+			./tests/lexico_compare.cpp\
+			./tests/is_integral.cpp\
+			./tests/equal.cpp
 
 DEP=./others/choose_type.hpp\
 	./containers/vector.hpp\
@@ -23,10 +28,11 @@ DEP=./others/choose_type.hpp\
 	./adapters/reverse_iterator.hpp\
 	./adapters/stack.hpp\
 	./algorithms/equal.hpp\
-	./algorithms/lexicographical_compare.hpp\
+	./algorithms/lexico_compare.hpp\
 	./utility/make_pair.hpp\
 	./functional/less.hpp\
 	./utility/pair.hpp\
+	./functional/less.hpp\
 	./tests/test.hpp
 
 TEST_OBJS=$(TESTS:.cpp=.o)
