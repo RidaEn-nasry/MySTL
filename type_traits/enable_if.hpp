@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:45:19 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/06 15:16:10 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/07 21:13:43 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 
 namespace ft {
+
 #ifndef ENABLE_IF_HPP
 #define ENABLE_IF_HPP
 
@@ -37,5 +38,6 @@ namespace ft {
     typedef T type;
   };
 
+  
 #endif
 } // namespace ft

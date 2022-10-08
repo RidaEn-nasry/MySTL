@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:47:18 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/02 20:17:33 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/07 19:17:47 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ namespace ft {
     void pop() { _cntr.pop_back(); }
 
     void swap(stack& x) { _cntr.swap(x._cntr); }
-
+    // adding templates to all these guys.
     friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
       return lhs._cntr == rhs._cntr;
     }

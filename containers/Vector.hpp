@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/06 20:49:12 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/08 14:48:18 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
  * @date 2022/09/20
  */
 
- // TODO : add emplace() and emplace_back() methods
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 #include <memory>
 #include <reverse_iterator.hpp>
+#include <choose_type.hpp>
 
 namespace ft {
   template <typename T, typename Alloc = std::allocator<T> >
@@ -59,19 +59,26 @@ namespace ft {
     /* iterator base implementation */
     template <bool Const = false>
     class iterator_base {
+
+      // protected:
+
     public:
 
       /* iterator traits */
       typedef std::random_access_iterator_tag iterator_category;
       typedef T value_type;
       typedef std::ptrdiff_t difference_type;
-#if Const
-      typedef const T* pointer;
-      typedef const T& reference;
-#else
-      typedef T* pointer;
-      typedef T& reference;
-#endif
+
+      typedef typename choose_type<Const, const T*, T*>::type pointer;
+      typedef typename choose_type<Const, const T&, T&>::type  reference;
+      // choose_type < Const, const T*,
+// #if Const == 1
+//       typedef const T* pointer;
+//       typedef const T& reference;
+// #elif Const == 0
+//       typedef T* pointer;
+//       typedef T& reference;
+// #endif
 
       /* constructors & destcructors */
       inline iterator_base() : _ptr(NULL) {};
@@ -80,15 +87,16 @@ namespace ft {
         _ptr = other._ptr;
         return *this;
       };
+      iterator_base(pointer ptr) : _ptr(ptr) {};
       // a conversion constructor and operator= for converting from iterator to const_iterator
 
-#if Const
-      inline iterator_base(const iterator_base<false>& other) : _ptr(other._ptr) {};
-      inline iterator_base& operator=(const iterator_base<false>& other) {
-        _ptr = other._ptr;
-        return *this;
-      };
-#endif
+// #if Const
+//       inline iterator_base(const iterator_base<false>& other) : _ptr(other._ptr) {};
+//       inline iterator_base& operator=(const iterator_base<false>& other) {
+//         _ptr = other._ptr;
+//         return *this;
+//       };
+// #endif
 
       inline ~iterator_base() {};
 
@@ -189,133 +197,14 @@ namespace ft {
 
     private:
       pointer _ptr;
+
     };
-    
+
     typedef iterator_base<false> iterator;
     typedef iterator_base<true> const_iterator;
-    
-    
-    //   class iterator {
-    // public:
-    //   /* iterator traits */
-    //   typedef std::random_access_iterator_tag iterator_category;
-    //   typedef T value_type;
-    //   typedef std::ptrdiff_t difference_type;
-    //   typedef T* pointer;
-    //   typedef T& reference;
 
-    //   /* constructors & destcructors */
 
-    //   /* default constructible */
-    //   iterator() : _ptr(NULL) {};
-    //   /* copy constructible */
-    //   iterator(const iterator& other) : _ptr(other._ptr) {};
-    //   /* copy assignable */
-    //   iterator& operator=(const iterator& other) {
-    //     _ptr = other._ptr;
-    //     return *this;
-    //   };
-
-    //   /* constructible from pointer */
-    //   iterator(pointer ptr) : _ptr(ptr) {};
-
-    //   /* destructible */
-    //   ~iterator() {};
-
-    //   /* member functions */
-
-    //   /* equality operators */
-    //   bool operator==(const iterator& other) const { return _ptr == other._ptr; };
-    //   bool operator!=(const iterator& other) const { return _ptr != other._ptr; };
-
-    //   /* increment operators */
-
-    //   /* prefix */
-    //   inline iterator& operator++() {
-    //     _ptr++;
-    //     return *this;
-    //   };
-    //   /* postfix */
-    //   inline iterator operator++(int) {
-    //     iterator tmp(*this);
-    //     operator++();
-    //     return tmp;
-    //   };
-
-    //   /* dereferenceable */
-    //   inline reference operator*() const { return *_ptr; };
-
-    //   /* decrement operators */
-
-    //   /* prefix */
-    //   inline iterator& operator--() {
-    //     _ptr--;
-    //     return *this;
-    //   };
-
-    //   /* postfix */
-    //   inline iterator operator--(int) {
-    //     iterator tmp(*this);
-    //     operator--();
-    //     return tmp;
-    //   };
-
-    //   /* arithmetic operators */
-
-    //   /* addition iterator + n */
-    //   inline iterator operator+(difference_type n) const {
-    //     return iterator(_ptr + n);
-    //   };
-
-    //   /* addition n + iterator */
-    //   inline friend iterator operator+(difference_type n, const iterator& it) {
-    //     return iterator(it._ptr + n);
-    //   };
-
-    //   /* subtraction iterator - n */
-    //   inline iterator operator-(difference_type n) const {
-    //     return iterator(_ptr - n);
-    //   };
-
-    //   /* subtraction iterator - iterator */
-    //   inline difference_type operator-(const iterator& other) const {
-    //     return _ptr - other._ptr;
-    //   };
-
-    //   /* equality relational operators */
-    //   bool operator<(const iterator& other) const { return _ptr < other._ptr; };
-    //   bool operator>(const iterator& other) const { return _ptr > other._ptr; };
-    //   bool operator<=(const iterator& other) const { return _ptr <= other._ptr; };
-    //   bool operator>=(const iterator& other) const { return _ptr >= other._ptr; };
-
-    //   /* compound assignment operators */
-
-    //   inline iterator& operator+=(difference_type n) {
-    //     _ptr += n;
-    //     return *this;
-    //   };
-    //   inline iterator& operator-=(difference_type n) {
-    //     _ptr -= n;
-    //     return *this;
-    //   };
-
-    //   /* subscript operator */
-    //   inline reference operator[](difference_type n) const { return _ptr[n]; };
-
-    // private:
-    //   pointer _ptr;
-    // };
-
-    /* const iterator implementation */
-    class iterator_base {
-    public:
-    };
-
-    /* reverse iterator from reverse_iterator header */
-    // typedef std::reverse_iterator<iterator> reverse_iterator;
-    // typedef std::reverse_iterator<iterator_base> const_reverse_iterator;
-
-    typedef reverse_iterator<iterator_base> const_reverse_iterator;
+    typedef reverse_iterator<const_iterator> const_reverse_iterator;
     typedef reverse_iterator<iterator> reverse_iterator;
 
     /************* Constructors **************/
@@ -337,6 +226,7 @@ namespace ft {
       this->_vector = this->_alloc.allocate(n);
       for (size_type i = 0; i < n; i++)
         this->_alloc.construct(this->_vector + i, val);
+
     }
 
     /* range constructor */
@@ -365,9 +255,9 @@ namespace ft {
     iterator begin() { return iterator(this->_vector); };
     iterator end() { return iterator(this->_vector + this->_size); };
 
-    iterator_base cbegin() const { return iterator_base(this->_vector); };
-    iterator_base cend() const {
-      return iterator_base(this->_vector + this->_size);
+    const_iterator cbegin() const { return const_iterator(this->_vector); };
+    const_iterator cend() const {
+      return const_iterator(this->_vector + this->_size);
     };
 
     // reverse iterator
@@ -418,16 +308,16 @@ namespace ft {
     };
 
     // shrink to fit
-    void shrink_to_fit() {
-      if (this->_size == this->_capacity)
-        return;
-      pointer tmp = this->_alloc.allocate(this->_size);
-      for (size_type i = 0; i < this->_size; i++)
-        this->_alloc.construct(tmp + i, this->_vector[i]);
-      this->_alloc.deallocate(this->_vector, this->_capacity);
-      this->_vector = tmp;
-      this->_capacity = this->_size;
-    };
+    // void shrink_to_fit() {
+    //   if (this->_size == this->_capacity)
+    //     return;
+    //   pointer tmp = this->_alloc.allocate(this->_size);
+    //   for (size_type i = 0; i < this->_size; i++)
+    //     this->_alloc.construct(tmp + i, this->_vector[i]);
+    //   this->_alloc.deallocate(this->_vector, this->_capacity);
+    //   this->_vector = tmp;
+    //   this->_capacity = this->_size;
+    // };
 
     /* element access member functions */
     reference front() { return this->_vector[0]; };
@@ -555,7 +445,44 @@ namespace ft {
     // emplace
     // emplace back
     /*** allocator member functions ***/
-    allocator_type get_allocator() const { return this->_alloc; };
+    allocator_type get_allocator() const { return this->_alloc; }; 
+
+    /* non-member functions */
+    friend bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+      if (lhs.size() != rhs.size())
+        return false;
+      for (size_t i = 0; i < lhs.size(); i++)
+        if (lhs[i] != rhs[i])
+          return false;
+      return true;
+    };
+    friend bool operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+      return !(lhs == rhs);
+    };
+
+    friend bool operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+      for (size_t i = 0; i < lhs.size() && i < rhs.size(); i++)
+        if (lhs[i] < rhs[i])
+          return true;
+        else if (lhs[i] > rhs[i])
+          return false;
+      return lhs.size() < rhs.size();
+    }
+    
+    friend bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+      return rhs < lhs;
+    };
+
+    friend bool operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+      return (lhs < rhs) || (lhs == rhs);
+    };
+    friend bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+      return (lhs > rhs) || (lhs == rhs);
+    };
+    // swap 
+    friend void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) {
+      x.swap(y);
+    };
 
   private:
     allocator_type _alloc;
@@ -576,59 +503,8 @@ namespace ft {
       this->_capacity = new_capacity;
     }
   };
-  // non-member function overloads
-
-  // relational operators
-  template <class T, class Alloc>
-  bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-
-    if (lhs.size() != rhs.size())
-      return false;
-    for (size_t i = 0; i < lhs.size(); i++)
-      if (lhs[i] != rhs[i])
-        return false;
-    return true;
-  };
-
-  template <class T, class Alloc>
-  bool operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-    return !(lhs == rhs);
-  };
-
-  template <class T, class Alloc>
-  bool operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-
-    for (size_t i = 0; i < lhs.size() && i < rhs.size(); i++)
-      if (lhs[i] < rhs[i])
-        return true;
-      else if (lhs[i] > rhs[i])
-        return false;
-    return lhs.size() < rhs.size();
-  }
-
-  template <class T, class Alloc>
-  bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-    return rhs < lhs;
-  };
-
-  template <class T, class Alloc>
-  bool operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-    return (lhs < rhs) || (lhs == rhs);
-  };
-
-  template <class T, class Alloc>
-  bool operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-    return (lhs > rhs) || (lhs == rhs);
-  };
-
-  // swap
-  template <class T, class Alloc>
-  void swap(vector<T, Alloc>& x, vector<T, Alloc>& y) {
-    x.swap(y);
-  };
-
-  // oooooh, fuck me.
-
+  // eeeeewf, fuck me.
+  
 } // namespace ft
 
 #endif

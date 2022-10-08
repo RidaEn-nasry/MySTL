@@ -69,3 +69,5 @@ The guy that tutored in these videos have been maintaining Microsoft’s STL sin
 <br>https://www.cppstories.com/2016/02/notes-on-c-sfinae/
 <br>`enable_if` and SFINEA ? 
 <br>https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/enable-if
+<br> destructing non-class types ?? WTF ??? 
+https://stackoverflow.com/questions/60006759/do-primitive-types-in-c-have-destructors

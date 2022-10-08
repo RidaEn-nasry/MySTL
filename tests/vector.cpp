@@ -721,19 +721,19 @@ void ft_vector_tests_suite() {
   }
 
   // shrink_to_fit
-  {
-    char* test_name = strdup("shrink_to_fit member function tests ");
-    ft::vector<int> ft_v1(10);
-    std::vector<int> std_v1(10);
+  // {
+  //   char* test_name = strdup("shrink_to_fit member function tests ");
+  //   ft::vector<int> ft_v1(10);
+  //   std::vector<int> std_v1(10);
 
 
-    ft_v1.insert(ft_v1.begin(), (size_t)5, 10);
-    std_v1.insert(std_v1.begin(), 5, 10);
-    ft_v1.shrink_to_fit();
-    std_v1.shrink_to_fit();
-    REQUIRE_EQ(ft_v1.capacity(), std_v1.capacity(), test_name, "`shrink_to_fit` should set the capacity to the size");
-    INFO_OK(test_name);
-  }
+  //   ft_v1.insert(ft_v1.begin(), (size_t)5, 10);
+  //   std_v1.insert(std_v1.begin(), 5, 10);
+  //   ft_v1.shrink_to_fit();
+  //   std_v1.shrink_to_fit();
+  //   REQUIRE_EQ(ft_v1.capacity(), std_v1.capacity(), test_name, "`shrink_to_fit` should set the capacity to the size");
+  //   INFO_OK(test_name);
+  // }
 
   // swap 
   {

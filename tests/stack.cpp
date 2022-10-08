@@ -14,7 +14,6 @@
 
 #include <test.hpp>
 
-
 void ft_stack_tests_suite() {
 
 
@@ -36,6 +35,7 @@ void ft_stack_tests_suite() {
     REQUIRE_STREQ(typeid(ft_size).name(), typeid(size_t).name(), test_name, "`ft::stack` should use `size_t` as default size type");
     REQUIRE_STREQ(typeid(ft_value).name(), typeid(int).name(), test_name, "`ft::stack` should use `T` as default value type");
     INFO_OK(test_name);
+    free(test_name);
   }
 
   /*****************************************************************************/
@@ -43,7 +43,7 @@ void ft_stack_tests_suite() {
   /****************************************************************************/
 
   {
-    char* test_name = strdup("stack: member functions test");
+    char* test_name = strdup("stack: member functions test ");
 
     ft::stack<std::string> ft_stack;
 
