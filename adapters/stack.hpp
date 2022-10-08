@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:47:18 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/07 19:17:47 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:14:29 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ namespace ft {
     void pop() { _cntr.pop_back(); }
 
     void swap(stack& x) { _cntr.swap(x._cntr); }
-    // adding templates to all these guys.
+    /************************* non-member functions *************************/
+
     friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
       return lhs._cntr == rhs._cntr;
     }
@@ -71,44 +72,14 @@ namespace ft {
       return !(lhs < rhs);
     }
 
+    void swap(stack<T, Container>& x, stack<T, Container>& y) {
+      x.swap(y);
+    };
+
   private:
     container_type _cntr;
   };
-  /************************* non-member functions *************************/
-  template <class T, class Container>
-  bool operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._cntr == rhs._cntr;
-  };
 
-  template <class T, class Container>
-  bool operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._cntr != rhs._cntr;
-  };
-
-  template <class T, class Container>
-  bool operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._cntr < rhs._cntr;
-  };
-
-  template <class T, class Container>
-  bool operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._cntr <= rhs._cntr;
-  };
-
-  template <class T, class Container>
-  bool operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._cntr > rhs._cntr;
-  };
-
-  template <class T, class Container>
-  bool operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-    return lhs._cntr >= rhs._cntr;
-  };
-
-  template <class T, class Container>
-  void swap(stack<T, Container>& x, stack<T, Container>& y) {
-    x.swap(y);
-  };
 
 #endif
 } // namespace ft

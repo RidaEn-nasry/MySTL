@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 14:48:18 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:15:43 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
  * @brief Vector container re-implementation.
  * @date 2022/09/20
  */
+
+ // TODO: a conversion constructor and operator= for converting from iterator to const_iterator
+ 
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
@@ -71,14 +74,6 @@ namespace ft {
 
       typedef typename choose_type<Const, const T*, T*>::type pointer;
       typedef typename choose_type<Const, const T&, T&>::type  reference;
-      // choose_type < Const, const T*,
-// #if Const == 1
-//       typedef const T* pointer;
-//       typedef const T& reference;
-// #elif Const == 0
-//       typedef T* pointer;
-//       typedef T& reference;
-// #endif
 
       /* constructors & destcructors */
       inline iterator_base() : _ptr(NULL) {};
@@ -88,15 +83,9 @@ namespace ft {
         return *this;
       };
       iterator_base(pointer ptr) : _ptr(ptr) {};
-      // a conversion constructor and operator= for converting from iterator to const_iterator
+      
 
-// #if Const
-//       inline iterator_base(const iterator_base<false>& other) : _ptr(other._ptr) {};
-//       inline iterator_base& operator=(const iterator_base<false>& other) {
-//         _ptr = other._ptr;
-//         return *this;
-//       };
-// #endif
+
 
       inline ~iterator_base() {};
 
@@ -223,8 +212,8 @@ namespace ft {
       this->_alloc = alloc;
       this->_size = n;
       this->_capacity = n;
-      this->_vector = this->_alloc.allocate(n);
-      for (size_type i = 0; i < n; i++)
+      this->_vector = this->_alloc.allocate(_capacity);
+      for (size_type i = 0; i < _capacity; i++)
         this->_alloc.construct(this->_vector + i, val);
 
     }
@@ -234,10 +223,17 @@ namespace ft {
     vector(InputIterator first, InputIterator last,
       const allocator_type& alloc = allocator_type()) {
       this->_alloc = alloc;
-      this->_size = 0;
-      this->_capacity = 0;
-      this->_vector = NULL;
-      this->assign(first, last);
+      // clearing everything
+      clear();
+      // getting the size of the range
+      _size = last - first;
+      _capacity = _size;
+      // allocating memory
+      _vector = _alloc.allocate(_capacity);
+      for (size_type i = 0; i < _size; i++) {
+        _alloc.construct(_vector + i, *first);
+        first++;
+      }
     };
 
     /* copy constructor */
@@ -275,11 +271,13 @@ namespace ft {
 
     // reserve
     void reserve(size_type n) {
-      if (n > this->_capacity) {
+
+       if (n > this->_capacity) {
         pointer tmp = this->_alloc.allocate(n);
         for (size_type i = 0; i < this->_size; i++)
           this->_alloc.construct(tmp + i, this->_vector[i]);
-        this->_alloc.deallocate(this->_vector, this->_capacity);
+        if (this->_vector)
+          this->_alloc.deallocate(this->_vector, this->_capacity);
         this->_vector = tmp;
         this->_capacity = n;
       }
@@ -327,7 +325,11 @@ namespace ft {
     reference operator[](size_type n) { return this->_vector[n]; };
     const_reference operator[](size_type n) const { return this->_vector[n]; };
 
-    value_type* data() { return this->_vector; };
+    value_type* data() { 
+      if (this->_size == 0)
+        return NULL;
+      return this->_vector;
+    };
     const value_type* data() const { return this->_vector; };
 
     reference at(size_type n) {
@@ -362,7 +364,6 @@ namespace ft {
 
     // erase
     iterator erase(iterator position) {
-
       if (position == this->end())
         return position;
       // move all elements after position to the left
@@ -375,7 +376,6 @@ namespace ft {
 
     // erase range
     iterator erase(iterator first, iterator last) {
-
       if (first == last)
         return first;
       // get range
@@ -392,10 +392,26 @@ namespace ft {
 
     // insert single element
     iterator insert(iterator position, const value_type& val) {
-      if (this->_size == this->_capacity) {
+      // if (_size == 0) {
+      //   if (_capacity == 0)
+      //     _vector = _alloc.allocate(1);
+      //   _alloc.construct(this->_vector, val);
+      //   _size++;
+      //   _capacity = _size;
+      //   return position;
+      // };
+      if (_capacity == 0)
+      {
+        reserve(1);
+        _alloc.construct(this->_vector, val);
+        _size++;
+        return position;
+      }
+      else if (this->_size == this->_capacity) {
         // get position index
         size_type index = position - this->begin();
         reserve(this->_capacity == 0 ? 1 : this->_capacity * 1.5);
+        reserve(_capacity * 1.5);
         // reassign position
         position = this->begin() + index;
       }
@@ -403,7 +419,8 @@ namespace ft {
       // move all elements after position to the right
       for (iterator it = this->end() - 1; it != position; it--)
         *it = *(it - 1);
-      this->_alloc.construct(this->_vector + (position - this->begin()), val);
+      pointer toConstruct = this->_vector + (position - this->begin());
+      this->_alloc.construct(toConstruct, val);
       return position;
     };
 
@@ -424,7 +441,17 @@ namespace ft {
       }
     };
     // push back
-    void push_back(const value_type& val) { insert(this->end(), val); };
+    void push_back(const value_type& val) {
+      if (_capacity == 0)
+      {
+        _vector = _alloc.allocate(1);
+        _alloc.construct(this->_vector, val);
+        _capacity = 1;
+        _size = _capacity;
+        return;
+      }
+      insert(this->end(), val);
+    };
 
     // pop back
     void pop_back() { erase(this->end() - 1); };

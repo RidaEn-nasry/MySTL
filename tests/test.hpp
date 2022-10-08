@@ -21,6 +21,7 @@
 #include <vector.hpp>
 #include <reverse_iterator.hpp>
 #include <stack.hpp>
+#include <pair.hpp>
 
 
 
@@ -82,5 +83,6 @@ void ft_stack_tests_suite();
 void ft_iterator_traits_tests_suite();
 void ft_reverse_iterator_tests_suite();
 void ft_enable_if_tests_suite();
+void ft_pair_tests_suite();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:35:24 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 14:41:44 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/08 17:57:14 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ namespace ft {
     /** member types **/
     typedef T1 first_type;
     typedef T2 second_type;
+    
+    /** member variables **/
+    first_type first;
+    second_type second;
 
     /** member functions **/
 
     // (1) default constructor 
-    inline pair() : firs(), second() {};
+    inline pair() : first(), second() {};
 
     // (2) copy constructor 
     template <class U, class V>
@@ -65,10 +69,7 @@ namespace ft {
       return !(lhs < rhs);
     };
 
-  private:
-    /** member variables **/
-    first_type first;
-    second_type second;
+    
 
   };
 

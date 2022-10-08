@@ -11,10 +11,9 @@
       "request": "launch",
       "program": "${workspaceFolder}/test",
       "args": [
-        "vector"
+        "all"
       ],
       "cwd": "${cwd}",
     }
-
   ]
 }

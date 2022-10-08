@@ -7,7 +7,7 @@ void ft_iterator_traits_tests_suite() {
   /***      ITERATOR TRAITS       ***/
   /*********************************/
   {
-    char* test_name = strdup("Iterator traits tests ");
+    std::string test_name("Iterator traits tests ");
 
     // iterator traits for Iter / pointer / const pointer
     ft::vector<int> v((size_t)5, 42);

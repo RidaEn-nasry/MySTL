@@ -22,7 +22,7 @@ void ft_stack_tests_suite() {
   /*****************************************************************************/
 
   {
-    char* test_name = strdup("stack: default member types test");
+    std::string test_name("ft::stack default member types test ");
 
     // stack using vector as underlying container
     ft::stack<int> ft_stack;
@@ -35,7 +35,6 @@ void ft_stack_tests_suite() {
     REQUIRE_STREQ(typeid(ft_size).name(), typeid(size_t).name(), test_name, "`ft::stack` should use `size_t` as default size type");
     REQUIRE_STREQ(typeid(ft_value).name(), typeid(int).name(), test_name, "`ft::stack` should use `T` as default value type");
     INFO_OK(test_name);
-    free(test_name);
   }
 
   /*****************************************************************************/
@@ -43,7 +42,7 @@ void ft_stack_tests_suite() {
   /****************************************************************************/
 
   {
-    char* test_name = strdup("stack: member functions test ");
+    std::string test_name("ft::stack member functions test ");
 
     ft::stack<std::string> ft_stack;
 
@@ -89,4 +88,16 @@ void ft_stack_tests_suite() {
     INFO_OK(test_name);
   }
 
+  // /***************************************************************************/
+  // /*                  Comptability with other containers test                */
+  // /***************************************************************************/
+  {
+    std::string test_name("ft:stack compatability with std::vector ");
+
+    std::vector<std::string> v;
+    ft::stack<std::vector<std::string> > ft_stack;
+    ft_stack.push(v);
+    REQUIRE_EQ(ft_stack.size(), (size_t)1, test_name, "ft::stack should be compatabile with std::vector");
+    INFO_OK(test_name);    
+  }
 };

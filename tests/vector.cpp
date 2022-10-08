@@ -49,7 +49,7 @@ void ft_vector_tests_suite() {
   /*                                 BASIC TESTS                                  */
   /********************************************************************************/
   {
-    char* test_name = strdup("Basic tests ");
+    std::string test_name("ft::vector Basic tests ");
     REQUIRE(check_basic_constructible<ft::vector<int> >() == true, test_name, "`ft::vector` should be at least default/copy/assign constructible");
     T ft::vector<int> v1;
     REQUIRE(typeid(v1).name(), test_name, "either you kidding me... or you're vector is not in the `ft` namespace"); C;
@@ -60,7 +60,7 @@ void ft_vector_tests_suite() {
   /*********************************************************************************/
 
   {
-    char* test_name = strdup("Member Types ");
+    std::string test_name("ft::vector Member Types ");
     REQUIRE_EQ(typeid(ft::vector<int>::value_type).name(), typeid(int).name(), test_name, "`value_type` member type is missing or invalid");
     REQUIRE_EQ(typeid(ft::vector<int>::pointer).name(), typeid(int*).name(), test_name, "`pointer` member type is missing or invalid");
     REQUIRE_EQ(typeid(ft::vector<int>::const_pointer).name(), typeid(const int*).name(), test_name, "`const_pointer` member type is missing or invalid");
@@ -83,9 +83,9 @@ void ft_vector_tests_suite() {
   /**********************************/
 
   {
+    std::string test_name("ft::vector Default constructor tests ");
     ft::vector<int> v1;
     std::vector<int> v2;
-    char* test_name = strdup("Default constructor tests ");
     REQUIRE(check_allocator(), test_name, "`ft::vector<T>::allocater_type` should be the same as `std::vector<T>::allocater_type`");
     REQUIRE_EQ(v1.size(), v2.size(), test_name, "`size` should be `0` when vector is default constructed");
     REQUIRE_EQ(v1.capacity(), v2.capacity(), test_name, "`capacity` should be `>= 0` when vector is default constructed");
@@ -99,9 +99,9 @@ void ft_vector_tests_suite() {
   /**********************************/
 
   {
+    std::string test_name("ft::vector Fill constructor tests ");
     ft::vector<std::string> v1(5, "hello");
     std::vector<std::string> v2(5, "hello");
-    char* test_name = strdup("Fill constructor tests ");
     REQUIRE(check_allocator(), test_name, "`ft::vector<T>::allocater_type` should be the same as `std::vector<T>::allocater_type`");
     REQUIRE_EQ(v1.size(), v2.size(), test_name, "`size` should be `size_type n` when vector is fill constructed");
     REQUIRE_EQ(v1.capacity(), v2.capacity(), test_name, "`capacity` should be `>= size_type n` when vector is fill constructed");
@@ -127,15 +127,15 @@ void ft_vector_tests_suite() {
   /*********************************/
 
   {
-    char* test_name = strdup("Range constructor tests ");
+    std::string test_name("ft::vector Range constructor tests ");
     REQUIRE(check_allocator(), test_name, "`ft::vector<T>::allocater_type` should be the same as `std::vector<T>::allocater_type`");
     ft::vector<float> v1(129, 1.2);
     ft::vector<float> v2(v1.begin(), v1.end());
     REQUIRE_EQ(v1.size(), v2.size(), test_name, "`size` should be the same as `vector2.size()` when vector is range constructed");
-    for (size_t i = 0; i < v2.size(); i++) {
+    for (size_t i = 0; i < v2.size(); i++)
       REQUIRE_EQ(v1[i], v2[i], test_name, "each `vector[n]` should be the same as `vector2[n]` when vector is range constructed");
-    }
     INFO_OK(test_name);
+
   }
 
 
@@ -147,7 +147,7 @@ void ft_vector_tests_suite() {
   /*** iterator / const_iterator member types ***/
   /**********************************************/
   {
-    char* test_name = strdup("Iterator member types tests ");
+    std::string test_name("ft::vector Iterator member types tests ");
     REQUIRE_STREQ(typeid(ft::vector<int>::iterator::iterator_category).name(), typeid(std::random_access_iterator_tag).name(), test_name, "`ft:vector<T>::iterator::iterator_category` member type should be `std::random_access_iterator_tag`");
     REQUIRE_STREQ(typeid(ft::vector<int>::iterator::value_type).name(), typeid(int).name(), test_name, "`ft:vector<T>::iterator::value_type` member type should be `T`");
     REQUIRE_STREQ(typeid(ft::vector<int>::iterator::difference_type).name(), typeid(std::ptrdiff_t).name(), test_name, "`ft:vector<T>::iterator::difference_type` member type should be `std::ptrdiff_t`");
@@ -159,6 +159,7 @@ void ft_vector_tests_suite() {
     REQUIRE_STREQ(typeid(ft::vector<int>::const_iterator::pointer).name(), typeid(const int*).name(), test_name, "`ft:vector<T>::const_iterator::pointer` member type should be `const T*`");
     REQUIRE_STREQ(typeid(ft::vector<int>::const_iterator::reference).name(), typeid(const int&).name(), test_name, "`ft:vector<T>::const_iterator::reference` member type should be `const T&`");
     INFO_OK(test_name);
+    // free(test_name);
   }
 
   /****************************************************/
@@ -166,23 +167,21 @@ void ft_vector_tests_suite() {
   /****************************************************/
 
   {
-    char* test_name = strdup("Iterator requirements tests ");
-    // REQUIRE_EQ(check_basic_constrxuctible(ft::vector<std::string>::iterator()), true, test_name, "`ft::vector<T>::iterator` should be at least default/copy/assign constructible");
+    std::string test_name("ft::vector Iterator requirements tests");
     // equality operators 
-    ft::vector<double> v1(10);
+    std::vector<double> std_v(10);
+    ft::vector<double> ft_v(10);
 
-    std::vector<double> v2(10);
-
-    for (size_t i = 0; i < v1.size(); i++)
+    for (size_t i = 0; i < 10; i++)
     {
-      v1[i] = i;
-      v2[i] = i;
+      ft_v[i] = i;
+      std_v[i] = i;
     }
-    ft::vector<double>::iterator ft_it1 = v1.begin();
-    ft::vector<double>::iterator ft_it2 = v1.begin();
+    ft::vector<double>::iterator ft_it1 = ft_v.begin();
+    ft::vector<double>::iterator ft_it2 = ft_v.begin();
 
-    std::vector<double>::iterator std_it = v2.begin();
-    std::vector<double>::iterator std_it2 = v2.begin();
+    std::vector<double>::iterator std_it = std_v.begin();
+    std::vector<double>::iterator std_it2 = std_v.begin();
 
     REQUIRE_EQ(ft_it1 == ft_it2, std_it == std_it2, test_name, "`iterator1 == iterator2` should return `true` when `iterator1` and `iterator2` are equal");
     REQUIRE_EQ(ft_it1 != ft_it2, std_it != std_it2, test_name, "`iterator1 != iterator2` should return `false` when `iterator1` and `iterator2` are inequal");
@@ -209,7 +208,7 @@ void ft_vector_tests_suite() {
     REQUIRE_EQ(ft_it1 > ft_it2, std_it > std_it2, test_name, "`iterator1 > iterator2` should return `false` when `iterator1` is less than `iterator2`");
     REQUIRE_EQ(ft_it1 <= ft_it2, std_it <= std_it2, test_name, "`iterator1 <= iterator2` should return `true` when `iterator1` is less than or equal to `iterator2`");
     REQUIRE_EQ(ft_it1 >= ft_it2, std_it >= std_it2, test_name, "`iterator1 >= iterator2` should return `false` when `iterator1` is less than or equal to `iterator2`");
-    // // arithmetic operators
+    // arithmetic operators
 
     ft_it1 += 2;
     std_it += 2;
@@ -218,8 +217,8 @@ void ft_vector_tests_suite() {
     std_it -= 2;
     REQUIRE_EQ(*ft_it1, *std_it, test_name, "`*iterator` should return the value of the element pointed by `iterator` after decrementing it by `n`");
     REQUIRE_EQ(ft_it1[2], std_it[2], test_name, "`iterator[n]` should return the value of the element pointed by `iterator` after incrementing it by `n`");
-    char *test_name2 = strdup("Iterator requirements tests ");
-    INFO_OK(test_name2);
+    // char *test_name2 = strdup("Iterator requirements tests ");
+    INFO_OK(test_name);
 
   }
 
@@ -228,7 +227,7 @@ void ft_vector_tests_suite() {
   /***               const_iterator                 ***/
   /****************************************************/
   {
-    char* test_name = strdup("Const iterator requirements tests ");
+    std::string test_name("ft::vector Const iterator requirements tests ");
     // REQUIRE_EQ(check_basic_constrxuctible(ft::vector<std::string>::const_iterator()), true, test_name, "`ft::vector<T>::const_iterator` should be at least default/copy/assign constructible");
     // equality operators 
     ft::vector<double> v1(10);
@@ -292,7 +291,7 @@ void ft_vector_tests_suite() {
 
   // begin  / end 
   {
-    char* test_name = strdup("begin / end member functions tests ");
+    std::string test_name("ft::vector begin / end member functions tests ");
 
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
@@ -312,7 +311,7 @@ void ft_vector_tests_suite() {
 
   // cbegin / cend 
   {
-    char* test_name = strdup("cbegin / cend member functions tests ");
+    std::string test_name("ft::vector cbegin / cend member functions tests ");
 
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
@@ -333,7 +332,7 @@ void ft_vector_tests_suite() {
 
   // reserve member method
   {
-    char* test_name = strdup("reserve member function tests ");
+    std::string test_name("ft::vector reserve member function tests ");
     ft::vector<int> ft_v1;
     std::vector<int> std_v1;
     ft_v1.reserve(10);
@@ -345,9 +344,10 @@ void ft_vector_tests_suite() {
     // test with negative value
     try {
       ft_v1.reserve(-10);
+
       std_v1.reserve(-10);
     }
-    catch (std::exception& e) {
+    catch (...) {
       REQUIRE_EQ(ft_v1.capacity(), std_v1.capacity(), test_name, "`capacity` should return the size of the storage space currently allocated for the vector, expressed in terms of elements");
       REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`size` should return the number of elements in the vector not the `capacity`");
       REQUIRE(ft_v1.empty() == std_v1.empty(), test_name, "`empty` should return `true` if the vector is empty");
@@ -383,7 +383,7 @@ void ft_vector_tests_suite() {
   // erase 
   {
 
-    char* test_name = strdup("erase member function tests ");
+    std::string test_name("ft::vector erase member function tests ");
     // erase with single iterator
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
@@ -433,7 +433,7 @@ void ft_vector_tests_suite() {
   // insert 
   {
     // insert with single element
-    char* test_name = strdup("insert member function tests ");
+    std::string test_name("ft::vector insert member function tests ");
     ft::vector<double> ft_v1(10);
     std::vector<double> std_v1(10);
     ft::vector<double>::iterator ft_it1 = ft_v1.begin();
@@ -505,7 +505,7 @@ void ft_vector_tests_suite() {
 
   {
     // assign with range [first, last)
-    char* test_name = strdup("assign member function tests ");
+    std::string test_name("ft::vector assign member function tests ");
     ft::vector<float> ft_v1(10);
     std::vector<float> std_v1(10);
 
@@ -545,7 +545,7 @@ void ft_vector_tests_suite() {
 
   // resize 
   {
-    char* test_name = strdup("resize member function tests ");
+    std::string test_name("ft::vector resize member function tests ");
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
@@ -568,7 +568,7 @@ void ft_vector_tests_suite() {
 
   // size / capacity / empty / max_size 
   {
-    char* test_name = strdup("size / capacity / empty / max_size member function tests ");
+    std::string test_name("ft::vector size / capacity / empty / max_size member function tests ");
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
@@ -591,7 +591,7 @@ void ft_vector_tests_suite() {
 
   // const/non-const front / back member functions
   {
-    char* test_name = strdup("front / back member function tests ");
+    std::string test_name("ft::vector front / back member function tests ");
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
@@ -613,7 +613,7 @@ void ft_vector_tests_suite() {
 
   // const / non-const subscript operator 
   {
-    char* test_name = strdup("subscript operator tests ");
+    std::string test_name("ft::vector subscript operator tests ");
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
@@ -632,7 +632,7 @@ void ft_vector_tests_suite() {
 
   // const / non-const data() member functions
   {
-    char* test_name = strdup("data member function tests ");
+    std::string test_name("ft::vector data member function tests ");
 
     ft::vector<int> ft_v1;
     std::vector<int> std_v1;
@@ -647,7 +647,7 @@ void ft_vector_tests_suite() {
 
   // at 
   {
-    char* test_name = strdup("at member function tests ");
+    std::string test_name("ft::vector at member function tests ");
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
@@ -688,7 +688,7 @@ void ft_vector_tests_suite() {
 
   // clear 
   {
-    char* test_name = strdup("clear member function tests ");
+    std::string test_name("ft::vector clear member function tests ");
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
@@ -708,7 +708,7 @@ void ft_vector_tests_suite() {
 
   // get_allocator 
   {
-    char* test_name = strdup("get_allocator member function tests ");
+    std::string test_name("ft::vector get_allocator member function tests ");
     ft::vector<int> ft_v1(10);
     std::vector<int> std_v1(10);
 
@@ -722,7 +722,7 @@ void ft_vector_tests_suite() {
 
   // shrink_to_fit
   // {
-  //   char* test_name = strdup("shrink_to_fit member function tests ");
+  //   std::string test_name("ft::vector shrink_to_fit member function tests ");
   //   ft::vector<int> ft_v1(10);
   //   std::vector<int> std_v1(10);
 
@@ -737,7 +737,7 @@ void ft_vector_tests_suite() {
 
   // swap 
   {
-    char* test_name = strdup("swap member function tests ");
+    std::string test_name("ft::vector swap member function tests ");
     ft::vector<int> ft_v1((size_t)10, 10);
     ft::vector<int> ft_v2((size_t)20, 100);
     ft_v1.swap(ft_v2);
@@ -756,7 +756,7 @@ void ft_vector_tests_suite() {
 
   // push_back 
   {
-    char* test_name = strdup("push_back member function tests ");
+    std::string test_name("ft::vector push_back member function tests ");
     ft::vector<int> ft_v1;
     std::vector<int> std_v1;
     ft_v1.push_back(10);
@@ -780,23 +780,22 @@ void ft_vector_tests_suite() {
   // reverse iterator 
   {
 
-    char* test_name = strdup("reverse iterator tests ");
-    (void)test_name;
-    ft::vector<int> ft_v1;
-    std::vector<int> std_v1;
+    std::string test_name("ft::vector reverse iterator tests ");
+    ft::vector<int> ft_v1(10);
+    std::vector<int> std_v1(10);
     for (size_t i = 0; i < 10; i++) {
-      ft_v1.push_back(i);
-      std_v1.push_back(i);
+      ft_v1[i] = i;
+      std_v1[i] = i;
     }
     ft::vector<int>::reverse_iterator ft_it = ft_v1.rbegin();
     std::vector<int>::reverse_iterator std_it = std_v1.rbegin();
     ft_it++;
     std_it++;
+
     REQUIRE_EQ(*ft_it, *std_it, test_name, "`reverse_iterator` should be in reverse order");
     for (; ft_it != ft_v1.rend(); ft_it++, std_it++) {
       REQUIRE_EQ(*ft_it, *std_it, test_name, "`reverse_iterator` should iterate in reverse order");
     }
-
     // base 
     REQUIRE_EQ(ft_it.base(), ft_v1.begin(), test_name, "`base` should return the base iterator");
     INFO_OK(test_name);
@@ -804,7 +803,7 @@ void ft_vector_tests_suite() {
 
   // pop back
   {
-    char* test_name = strdup("pop_back member function tests ");
+    std::string test_name("ft::vector pop_back member function tests ");
     ft::vector<int> ft_v1((size_t)5, 10);
     std::vector<int> std_v1((size_t)5, 10);
 
@@ -812,8 +811,8 @@ void ft_vector_tests_suite() {
     std_v1.pop_back();
     REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`pop_back` should decrease the size by 1");
 
-	   for (size_t i = 0; i < ft_v1.size(); i++) {
-	      REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`pop_back` should remove the last element");
+    for (size_t i = 0; i < ft_v1.size(); i++) {
+      REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`pop_back` should remove the last element");
     }
 
     INFO_OK(test_name);
