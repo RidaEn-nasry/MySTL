@@ -71,3 +71,6 @@ The guy that tutored in these videos have been maintaining Microsoft’s STL sin
 <br>https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/enable-if
 <br> destructing non-class types ?? WTF ??? 
 https://stackoverflow.com/questions/60006759/do-primitive-types-in-c-have-destructors
+<br>tree data structure!!!
+<br>https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm#:~:text=A%20tree%20is%20a%20nonlinear,or%20one%20or%20more%20subtrees.
+<br>https://www.youtube.com/watch?v=qH6yxkw0u78&t=544s
