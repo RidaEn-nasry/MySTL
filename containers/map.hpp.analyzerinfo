@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="2129926161493189251">
+        <error id="noConstructor" severity="style" msg="The class &apos;map&apos; does not declare a constructor although it has private member variables which likely require initialization." verbose="The class &apos;map&apos; does not declare a constructor although it has private member variables. Member variables of builtin types are left uninitialized when the class is instantiated. That may cause bugs or undefined behavior." cwe="398" file0="/Users/wa5ina/42/Reimplementing-STL-Containers./containers/map.hpp">
+            <location file="/Users/wa5ina/42/Reimplementing-STL-Containers./containers/map.hpp" line="33" column="3"/>
+            <symbol>map</symbol>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="T"/>
+    <functioncall functionName="bool"/>
+    <functioncall functionName="class"/>
+    <functioncall functionName="const"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="key"/>
+    <functioncall functionName="pair"/>
+  </FileInfo>
+</analyzerinfo>

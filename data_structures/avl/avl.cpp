@@ -9,11 +9,12 @@ int main() {
   root.add(10);
   root.add(5);
   root.add(6);
-  
-  std::cout << root.find(12) << std::endl;
-  root.remove
+  root.dump();
+
+  AVL<int> root2;
+  root2 = root;
+
+
+
   return (0);
-   
-  
-  return 0;
 }

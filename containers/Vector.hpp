@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 21:32:45 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:58:40 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,6 @@ namespace ft {
       };
       iterator_base(pointer ptr) : _ptr(ptr) {};
       
-
-
-
       inline ~iterator_base() {};
 
       /* member functions */
@@ -380,7 +377,7 @@ namespace ft {
         return first;
       // get range
       size_type n = last - first;
-      // dereference according with step range
+      // move all elements after last to the left
       for (iterator it = first; it != this->end() - n; it++)
         *it = *(it + n);
       // destroy last n elements
