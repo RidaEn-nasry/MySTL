@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<analyzerinfo hash="10879438434078344536">
-        <error id="internalAstError" severity="error" msg="Syntax Error: AST broken, binary operator &apos;=&apos; doesn&apos;t have two operands." verbose="Syntax Error: AST broken, binary operator &apos;=&apos; doesn&apos;t have two operands." file0="/Users/wa5ina/42/Reimplementing-STL-Containers./data_structures/avl/avl.hpp">
-            <location file="/Users/wa5ina/42/Reimplementing-STL-Containers./data_structures/avl/avl.hpp" line="69" column="24"/>
-        </error>
-</analyzerinfo>
