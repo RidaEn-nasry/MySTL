@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 19:12:40 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/16 20:34:45 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:40:34 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,82 @@ namespace ft
 
 		AVLTree<T>& operator=(const AVLTree<T>& other)
 		{
-			// clear the tree and then copy the other tree
-			clear();
-			// _root = copy(other._root);
-			// _size = other._size;
-			// return *this;
+
+			if (this != &other)
+			{
+				if (_root != NULL)
+					clear();
+				copy(other._root);
+				_size = other._size;
+			}
+			return *this;
 		}
 
+		~AVLTree() { clear(); }	
+
 		void clear() {
-			node_type* tmp = _root;
+			// traverse the tree and delete all the nodes
+			node_type* current = _root;
+			node_type* parent = NULL;
 
+			while (current != NULL) {
+				if (current->left() != NULL) {
+					current = current->left();
+				}
+				else if (current->right() != NULL) {
+					current = current->right();
+				}
+				else {
+					parent = current->parent();
+					// if the current node is the left child of its parent , set the parent's left child to NULL
+					if (parent != NULL && parent->left() == current) {
+						delete current;
 
+						parent->setLeft(NULL);
+					}
+					// if the current node is the right child of its parent , set the parent's right child to NULL
+					else if (parent != NULL && parent->right() == current) {
+						delete current;
+						parent->setRight(NULL);
+					}
+					--_size;
+					current = parent;
+				}
+			}
 		};
+
+		void copy(node_type* other)
+		{
+			if (other == NULL)
+				return;
+			insert(other->getData());
+			copy(other->left());
+			copy(other->right());
+		}
+
+
+		// removing a node
+		void remove(value_type& data) {
+			node_type* node = _find(data);
+			if (node->getData() != data)
+				return;
+			// if the node has no children or one child
+			if (node->left() == NULL || node->right == NULL)
+				_splice(node);
+			else {
+				// find the smallest node in the right subtree
+				node_type* min = node->right();
+				while (min->left() != NULL)
+					min = min->left();
+				// replace the data of the node with the data of the min node
+				node->setData(min->getData());
+				// remove the min node
+				_splice(min);
+			}
+		}
 
 		void insert(const value_type& data)
 		{
-
 			// if the tree is empty then add the node as the root
 			if (!_root)
 			{
@@ -84,9 +144,6 @@ namespace ft
 			else
 				tmp->setRight(_new_node(data, tmp));
 			_size++;
-			// balance factor checking 
-			// size_t bal = _root->balance();
-			// if (bal > 2 || bal < -2)
 			_balance(tmp);
 		}
 
@@ -111,6 +168,12 @@ namespace ft
 
 		// getters 
 		int height() const { return _root->height(); }
+
+
+		// traverse the tree and print the data of each node
+		void print() const {
+			_print(_root);
+		}
 
 
 	private:
@@ -157,81 +220,132 @@ namespace ft
 			node_type* tmp = node;
 			while (tmp) {
 				int bal = tmp->balance();
+
+				// if tree is balanced, continue
+				if (bal > -2 && bal < 2) {
+					tmp = tmp->parent();
+					continue;
+				}
 				// if tree is left heavy
 				if (bal > 1) {
-					// if the left child is right heavy
+					// if left child is right heavy
 					if (tmp->left()->balance() < 0)
 						_left_rotate(tmp->left());
 					_right_rotate(tmp);
 				}
-				// if tree is right heavy
-				else if (bal < -1) {
-					// if the right child is left heavy
+				// if tree is right heavy 
+				else {
+					// if right child is left heavy
 					if (tmp->right()->balance() > 0)
 						_right_rotate(tmp->right());
 					_left_rotate(tmp);
 				}
 				tmp = tmp->parent();
 			}
-		};
+		}
+
 
 		void _left_rotate(node_type* node) {
-			// if node is the root
-			if (!node->parent()) {
-				// set the new root
-				_root = node->right();
-				_root->setParent(NULL);
-			}
-			// if node is not the root
+			node_type* right_child = node->right();
+			node_type* parent = node->parent();
+			node_type* right_child_left = right_child->left();
+			// if node is root
+			if (!parent)
+				// set the right child as the root
+				_root = right_child;
 			else {
-				// if node is the left child of its parent, set node's right child as the left child of its parent
-				if (node->parent()->left() == node)
-					node->parent()->setLeft(node->right());
-				// if node is the right child of its parent
+				// if node is left child
+				if (parent->left() == node)
+					// set the right child as the left child
+					parent->setLeft(right_child);
+				// if node is right child
 				else
-					node->parent()->setRight(node->right());
-				// set the new parent of the right child
-				node->right()->setParent(node->parent());
+					// set the right child as the right child
+					parent->setRight(right_child);
 			}
-			// set the new right child of the node
-			node->setRight(node->right()->left());
-			// set the new parent of the new right child
-			if (node->right())
-				node->right()->setParent(node);
-			// set the new left child of the node
-			node->setLeft(node);
-			// set the new parent of the node
-			node->setParent(node->left());
-		};
+			// set the right child's parent to the node's parent
+			right_child->setParent(parent);
+			// set the node's parent to the right child
+			node->setParent(right_child);
+			// set the right child's left child to the node
+			right_child->setLeft(node);
+			// set the node's right child to the right child's left child
+			node->setRight(right_child_left);
+			// if the right child's left child exists
+			if (right_child_left)
+				// set the right child's left child's parent to the node
+				right_child_left->setParent(node);
+		}
+
+
 
 		void _right_rotate(node_type* node) {
-			// if node is the root
-			if (!node->parent()) {
-				// set the new root
-				_root = node->left();
+			node_type* left_child = node->left();
+			node_type* parent = node->parent();
+			node_type* left_child_right = left_child->right();
+			// if node is root
+			if (!parent)
+				// set the left child as the root
+				_root = left_child;
+			else {
+				// if node is left child
+				if (parent->left() == node)
+					// set the left child as the left child
+					parent->setLeft(left_child);
+				// if node is right child
+				else
+					// set the left child as the right child
+					parent->setRight(left_child);
+			}
+			// set the left child's parent to the node's parent
+			left_child->setParent(parent);
+			// set the node's parent to the left child
+			node->setParent(left_child);
+			// set the left child's right child to the node
+			left_child->setRight(node);
+			// set the node's left child to the left child's right child
+			node->setLeft(left_child_right);
+			// if the left child's right child exists
+			if (left_child_right)
+				// set the left child's right child's parent to the node
+				left_child_right->setParent(node);
+		};
+
+		// splice a node with 0 or 1 child
+		void _splice(node_type* node) {
+			node_type* tmp, parent;
+			// if node has left or right child
+			if (node->left() != NULL)
+				tmp = node->left();
+			else
+				tmp = node->right();
+			// if node is root, set the child as the root
+			if (node == _root) {
+				_root = tmp;
 				_root->setParent(NULL);
 			}
-			// if node is not the root
 			else {
-				// if node is the left child of its parent
-				if (node->parent()->left() == node)
-					node->parent()->setLeft(node->left());
-				// if node is the right child of its parent
+				parent = node->parent();
+				if (parent->left() == node)
+					parent->setLeft(tmp);
 				else
-					node->parent()->setRight(node->left());
-				// set the new parent of the left child
-				node->left()->setParent(node->parent());
+					parent->setRight(tmp);
 			}
-			// set the new left child of the node
-			node->setLeft(node->left()->right());
-			// set the new parent of the new left child
-			if (node->left())
-				node->left()->setParent(node);
-			// set the new right child of the node
-			node->setRight(node);
-			// set the new parent of the node
-			node->setParent(node->right());
+			if (tmp)
+				tmp->setParent(parent);
+			// delete the node
+			delete node;
+			--_size;
+		};
+
+		void _print(node_type* node) const {
+			if (node) {
+				_print(node->left());
+				std::cout << node->getData() << std::endl;
+				_print(node->right());
+			};
 		};
 	};
+
 }; // namespace ft
 #endif

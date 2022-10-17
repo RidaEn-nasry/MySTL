@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/16 19:14:55 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:00:55 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ private:
   self* _right;
   self* _left;
   self* _parent;
-
-
 };
 
 #endif

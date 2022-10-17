@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/14 21:00:25 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:40:41 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ namespace ft {
 #include <pair.hpp>
 #include <choose_type.hpp>
 #include <reverse_iterator.hpp>
-
+#include <avl.hpp>
 
 #ifndef MAP_HPP
 #define MAP_HPP
@@ -86,11 +86,15 @@ namespace ft {
        /************** Member functions **************/
       
   private:
-    allocator_type _alloc;
     key_compare _comp;
-    size_type _size;
-    node* _root;
-    node* _end;
+    allocator_type _alloc;
+    ft::AVLTree<value_type> _tree;
+    
+    
+
+    // the map will use an AVL tree to store the data
+    
+  
   }; // map class 
   
   
