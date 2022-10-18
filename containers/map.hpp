@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/17 17:40:41 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/18 14:34:48 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 /* map is allocator-aware, and reversible.                                    */
 /*****************************************************************************/
 
+
+/// TODO:
+ // think about how the copy constructor of the iterator should work
+
+
+
 namespace ft {
 
 #include <less.hpp>
@@ -24,7 +30,7 @@ namespace ft {
 #include <pair.hpp>
 #include <choose_type.hpp>
 #include <reverse_iterator.hpp>
-#include <avl.hpp>
+#include <avlnode.hpp>
 
 #ifndef MAP_HPP
 #define MAP_HPP
@@ -33,71 +39,205 @@ namespace ft {
   class map {
   public:
     /************** Member types **************/
-    // key type
     typedef key key_type;
-    // mapped type
     typedef T mapped_type;
-    // value type
     typedef ft::pair<const key, T> value_type;
-    // size type
-    typedef std::size_t size_type;
-    // difference type 
-    typedef std::ptrdiff_t difference_type;
-    // comparison algorithm 
     typedef Compare key_compare;
-    // allocator type
     typedef Alloc allocator_type;
-    // reference 
-    typedef value_type& reference;
-    // const reference
-    typedef const value_type& const_reference;
-    // pointer
-    typedef typename allocator::pointer pointer;
-    // const pointer
-    typedef typename allocator::const_pointer const_pointer;
+    typedef typename Alloc::reference reference;
+    typedef typename Alloc::const_reference const_reference;
+    typedef typename Alloc::pointer pointer;
+    typedef typename Alloc::const_pointer const_pointer;
+    typedef std::ptrdiff_t difference_type;
+    typedef size_t size_type;
+
+    // making whatever functor compares the keys only.
+    class value_compare {
+    public:
+      typedef bool result_type;
+      typedef value_type first_argument_type;
+      typedef value_type second_argument_type;
+      value_compare(Compare c) : comp(c) {}
+      bool operator()(const value_type& x, const value_type& y) const {
+        return comp(x.first, y.first);
+      }
+    protected:
+      Compare comp;
+    };
 
 
+    // iterator
     template <bool Const = false>
     class iterator_base {
     public:
-      typedef std::bidirectional_iterator iterator_category;
-      typedef ft::pair<const key, T> value_type;
+      /* iterator traits */
+      typedef std::bidirectional_iterator_tag iterator_category;
+      typedef T value_type;
       typedef std::ptrdiff_t difference_type;
+      typedef typename ft::choose_type<Const, const T*, T*>::type pointer;
+      typedef typename ft::choose_type<Const, const T&, T&>::type reference;
 
-      typedef typename choose_type<Const, const T*, T*> pointer;
-      typedef typename choose_type<Const, const T&, T&> reference;
+      /* constructor */
+      iterator_base() : _root(NULL), _current(NULL), _end(NULL) {}
 
-      // bla bla very intresting stuff very 
+      iterator_base(AVLNode<value_type>* root, AVLNode<value_type>* current, AVLNode<value_type>* end) : _root(root), _current(current), _end(end) {}
+
+
+      //
+      // iterator_base(const iterator_base& other) : _root(other._root), _current(other._current), _end(other._end) {}
+
+      // iterator_base& operator=(const iterator_base& other) {
+      //   _root = other._root;
+      //   _current = other._current;
+      //   _end = other._end;
+      //   return *this;
+      // }
+
+      /* destructor */
+      ~iterator_base() {}
+
+      /* operators */
 
     private:
-      // bla bla other very intersting stuff 
+      AVLNode<value_type>* _root;
+      AVLNode<value_type>* _current;
+      AVLNode<value_type>* _end;
     };
 
-    // typedef iterator_base<false> iterator;
-    // typedef iterator_base<true> const_iterator;
+    typedef iterator_base<false> iterator;
+    typedef iterator_base<true> const_iterator;
 
-    // typedef reverse_iterator<const_iterator> const_reverse_iterator;
-    // typedef reverse_itereror<iterator> reverse_iterator;
-
-
-       /************** Member classes **************/
+    typedef reverse_iterator<iterator> reverse_iterator;
+    typedef reverse_iterator<const_iterator> const_reverse_iterator;
 
 
-       /************** Member functions **************/
-      
+
+    /************** Member functions **************/
+
+    /* constructors */
+
+
+    // (1) empty container constructor (default constructor)
+    explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(NULL), _size(0), _comp(comp), _alloc(alloc) {}
+
+    // (2) range constructor
+    template <class InputIterator>
+    map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _tree(NULL), _size(0), _comp(comp), _alloc(alloc) {
+      // insert(first, last);
+    }
+
+    // (3) copy constructor
+    map(const map& x) : _tree(NULL), _size(0), _comp(x._comp), _alloc(x._alloc) {
+      // insert(x.begin(), x.end());
+    }
+
+    /* destructor */
+    ~map() {
+      clear();
+    }
+
+    /* operator= */
+    map& operator= (const map& x) {
+      clear();
+      insert(x.begin(), x.end());
+      return *this;
+    }
+
+    /* iterators */
+    iterator begin() {
+      return iterator(_tree->root(), _tree->min(), _tree->max());
+    }
+    const_iterator begin() const {
+      return const_iterator(_tree->root(), _tree->min(), _tree->max());
+    }
+
+
+    iterator end() {
+      return iterator(_tree->root(), _tree->max(), _tree->max());
+    }
+
+    const_iterator end() const {
+      return const_iterator(_tree->root(), _tree->max(), _tree->max());
+    }
+
+    reverse_iterator rbegin() {
+      return reverse_iterator(end());
+    }
+
+    const_reverse_iterator rbegin() const {
+      return const_reverse_iterator(end());
+    }
+
+    reverse_iterator rend() {
+      return reverse_iterator(begin());
+    }
+
+    const_reverse_iterator rend() const {
+      return const_reverse_iterator(begin());
+    }
+
+    /* capacity */
+    bool empty() const {
+      return _size == 0;
+    }
+
+    size_type size() const {
+      return _size;
+    }
+
+    size_type max_size() const {
+      return _alloc.max_size();
+    }
+
+    /* element access */
+    mapped_type& operator[] (const key_type& k) {
+      // intresting stuff here
+    }
+
+    // at 
+    mapped_type& at(const key_type& k) {
+      // intresting stuff here
+    }
+
+    const mapped_type& at(const key_type& k) const {
+      // intresting stuff here
+    }
+
+    /* modifiers */
+
+    // insert single element (1)
+    ft::pair<iterator, bool> insert(const value_type& val) {
+      // implementing insert
+
+      if (_tree != NULL) {
+        AVLNode<value_type>* node = _tree->insert(val);
+        if (node->data)
+      }
+
+    }
+    // insert witih hint (2)
+    iterator insert(iterator position, const value_type& val) {
+      // intresting stuff here
+    }
+
+    // insert range (3)
+    template <class InputIterator>
+    void insert(InputIterator first, InputIterator last) {
+      // intresting stuff here
+    }
+
+
+
+
+
   private:
-    key_compare _comp;
     allocator_type _alloc;
-    ft::AVLTree<value_type> _tree;
-    
-    
+    key_compare _comp;
+    size_type _size;
+    AVLTree<value_type, value_compare, allocator_type> _tree;
 
-    // the map will use an AVL tree to store the data
-    
-  
   }; // map class 
-  
-  
+
 #endif
 }; // ft namespace
 

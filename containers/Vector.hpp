@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/14 20:58:40 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/17 20:08:42 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 
  // TODO: a conversion constructor and operator= for converting from iterator to const_iterator
- 
+
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
@@ -82,8 +82,9 @@ namespace ft {
         _ptr = other._ptr;
         return *this;
       };
+
       iterator_base(pointer ptr) : _ptr(ptr) {};
-      
+
       inline ~iterator_base() {};
 
       /* member functions */
@@ -269,7 +270,7 @@ namespace ft {
     // reserve
     void reserve(size_type n) {
 
-       if (n > this->_capacity) {
+      if (n > this->_capacity) {
         pointer tmp = this->_alloc.allocate(n);
         for (size_type i = 0; i < this->_size; i++)
           this->_alloc.construct(tmp + i, this->_vector[i]);
@@ -322,7 +323,7 @@ namespace ft {
     reference operator[](size_type n) { return this->_vector[n]; };
     const_reference operator[](size_type n) const { return this->_vector[n]; };
 
-    value_type* data() { 
+    value_type* data() {
       if (this->_size == 0)
         return NULL;
       return this->_vector;
@@ -461,7 +462,7 @@ namespace ft {
     // emplace
     // emplace back
     /*** allocator member functions ***/
-    allocator_type get_allocator() const { return this->_alloc; }; 
+    allocator_type get_allocator() const { return this->_alloc; };
 
     /* non-member functions */
     friend bool operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
@@ -484,7 +485,7 @@ namespace ft {
           return false;
       return lhs.size() < rhs.size();
     }
-    
+
     friend bool operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
       return rhs < lhs;
     };
@@ -520,7 +521,7 @@ namespace ft {
     }
   };
   // eeeeewf, fuck me.
-  
+
 } // namespace ft
 
 #endif

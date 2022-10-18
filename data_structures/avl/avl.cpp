@@ -1,21 +1,29 @@
 
 
 #include <iostream>
-#include "avl.hpp"
+// #include "avl.hpp"
+#include <map>
 
 
 int main() {
 
-  ft::AVLTree<int> tree;
+  std::map<int, char> map;
+  map[1] = 'a';
+  map[2] = 'b';
+  map[3] = 'c';
 
-  tree.insert(10);
-  tree.insert(20);
-  tree.insert(30);
-  tree.insert(40);
-  tree.print();
-  ft::AVLTree<int> tree2(tree);
-  std::cout << "tree2" << std::endl;
-  tree2.print();
+  std::map<int, char>::iterator it = map.begin();
 
+  // increment iterator
+  it++;
+  
+  std::cout << it->first << std::endl;
+  // std::cout << *it << std::endl;
+  // print it
+  
+  // std::cout << it->second << std::endl;
+  // std::cout << map[1] << std::endl;
   return 0;
+
+
 };
