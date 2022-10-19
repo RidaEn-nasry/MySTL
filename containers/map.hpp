@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/18 14:34:48 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:13:34 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 /// TODO:
  // think about how the copy constructor of the iterator should work
-
 
 
 namespace ft {
@@ -207,11 +206,12 @@ namespace ft {
 
     // insert single element (1)
     ft::pair<iterator, bool> insert(const value_type& val) {
-      // implementing insert
+      // implementing insert 
 
       if (_tree != NULL) {
-        AVLNode<value_type>* node = _tree->insert(val);
-        if (node->data)
+        // initializing the tree
+        
+
       }
 
     }

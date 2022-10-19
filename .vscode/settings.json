@@ -78,6 +78,7 @@
     "random": "cpp",
     "regex": "cpp",
     "thread": "cpp",
-    "__memory": "cpp"
+    "__memory": "cpp",
+    "__availability": "cpp"
   }
 }

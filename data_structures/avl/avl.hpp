@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 17:36:58 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/18 14:37:41 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/18 18:42:16 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@ namespace ft {
   public:
 
     /** member types **/
-    // typedef T mapped_type;
-
-    // typedef 
-    // typedef va
+    typedef T value_type;
     typedef AVLNode<T> node_type;
+
     typedef Compare key_compare;
 
     typedef typename Alloc::template rebind<node_type>::other allocator_type;
@@ -46,88 +44,89 @@ namespace ft {
     AVLTree(const allocator_type& alloc = allocator_type()) {
       _alloc = alloc;
       _comp = Compare();
-      _root = 0;
+      _root = NULL;
       _size = 0;
     };
 
     // initializing constructor
-    explicit AVLTree(const node_type* node) {
-      _alloc = allocator_type();
+    explicit AVLTree(const value_type& val, const allocator_type& alloc = allocator_type()) {
+      _alloc = alloc;
       _comp = Compare();
-      _root = _alloc.allocate(1);
-      _alloc.construct(_root, node);
-      _root->setParent(NULL);
-      _root->setLeft(NULL);
-      _root->setRight(NULL);
+      _root = _new_node(val, NULL);
       _size = 1;
     };
 
     AVLTree(const AVLTree<T>& other) { *this = other; }
 
     AVLTree<T>& operator=(const AVLTree<T>& other) {
-      if (this != &other) {
-        if (_root != NULL)
-          clear();
-        copy(other._root);
-        _size = other._size;
-      }
+      // if (this != &other) {
+      //   if (_root != NULL)
+      //     clear();
+      //   copy(other._root);
+      //   _size = other._size;
+      // }
       return *this;
     }
 
-    ~AVLTree() { clear(); }
+    // ~AVLTree() { clear(); }
 
     /** member functions **/
 
     // searching 
-    const node_type& find(const node_type* node) const {
+    const value_type& find(const value_type& data) const {
       node_type* tmp = _root;
       while (tmp != NULL) {
-        // search for the node using compare
-        if (_comp(node->data(), tmp->data()))
+        // search for the node using compare which takes two T data, in ft::map case it's a "pair<const key, value>"
+        if (_comp(pair, tmp->data()))
           tmp = tmp->left();
-        else if (_comp(tmp->data(), node->data()))
+        else if (_comp(tmp->data(), pair))
           tmp = tmp->right();
         else
           return tmp->data();
-      }
+      };
       return NULL;
     };
 
+
     // inserting 
-    void insert(const node_type* node) {
+    value_type& insert(const value_type& data) {
+      // if tree is empty set new node as root
       if (!_root)
       {
-        _root = _alloc.allocate(1);
-        _alloc.construct(_root, node);
-        _root->setParent(NULL);
-        _root->setLeft(NULL);
-        _root->setRight(NULL);
+        _root = _new_node(data, NULL);
         _size++;
         return;
       }
-
       node_type* node = _root;
       node = _find(data);
-      if (node->data() == data)
-        return;
-      node_type* new_node = _alloc.allocate(1);
-      _alloc.construct(new_node, data);
-      new_node->setParent(node);
-      new_node->setLeft(NULL);
-      new_node->setRight(NULL);
+      // if data doesn't exist in tree, if it's less then insert it to left.
       if (_comp(data, node->data()))
-        node->setLeft(new_node);
+      {
+        node->left() = _new_node(data, node);
+        _balance(node);
+        _size++;
+        return node->left()->data();
+      }
+      // else if data is greater then insert it to right.
+      else if (_comp(node->data(), data)) {
+        node->right() = _new_node(data, node);
+        _balance(node);
+        _size++;
+        return node->right()->data();
+      }
+      // else if found return the data. don't insert.
       else
-        node->setRight(new_node);
-      _size++;
-      _balance();
+        return node->data();
     };
 
     // deleting
-    void remove(mapped_type& data) {
+    value_type& remove(value_type& data) {
       node_type* node = _find(data);
-      if (node->data() != data)
-        return;
+      // returned node is the node following the node that have been deleted
+      // node_type* node_ret = NULL;
+      // check if node exists using compare
+      if (_comp(data, node->data()) || _comp(node->data(), data))
+        return NULL;
       // if node has no children, or only one child
       if (node->left() == NULL || node->right == NULL)
         _splice(node);
@@ -137,39 +136,43 @@ namespace ft {
         while (min->left() != NULL)
           min = min->left();
         // replace the node with the smallest node in the right subtree
-        node->setData(min->data());
+        node->data() = min->data();
+
         _splice(min);
       }
+      // check balance
+      _balance();
+      return node->data();
     }
 
     // clearing
-    void clear() {
-      node_type* current = _root;
-      node_type* parent = NULL;
-      while (current != NULL) {
-        // if the node has a left child, go to it
-        if (current->left() != NULL)
-          current = current->left();
-        else if (current->right() != NULL)
-          current = current->right();
-        else {
-          parent = current->parent();
-          // if the current node is the left child of its parent , set the parent's left child to NULL
-          if (parent != NULL && parent->left() == current) {
-            _alloc.destroy(current);
-            _alloc.deallocate(current, 1);
-            parent->setLeft(NULL);
-          }
-          else if (parent != NULL && parent->right() == current) {
-            _alloc.destroy(current);
-            _alloc.deallocate(current, 1);
-            parent->setRight(NULL);
-          }
-          --_size;
-          current = parent;
-        }
-      }
-    };
+    // void clear() {
+    //   node_type* current = _root;
+    //   node_type* parent = NULL;
+    //   while (current != NULL) {
+    //     // if the node has a left child, go to it
+    //     if (current->left() != NULL)
+    //       current = current->left();
+    //     else if (current->right() != NULL)
+    //       current = current->right();
+    //     else {
+    //       parent = current->parent();
+    //       // if the current node is the left child of its parent , set the parent's left child to NULL
+    //       if (parent != NULL && parent->left() == current) {
+    //         _alloc.destroy(current);
+    //         _alloc.deallocate(current, 1);
+    //         parent->left() = NULL;
+    //       }
+    //       else if (parent != NULL && parent->right() == current) {
+    //         _alloc.destroy(current);
+    //         _alloc.deallocate(current, 1);
+    //         parent->right() = NULL;
+    //       }
+    //       --_size;
+    //       current = parent;
+    //     }
+    //   }
+    // };
 
     // copy
     void copy(node_type* other) {
@@ -209,8 +212,6 @@ namespace ft {
       return node;
     };
 
-
-
   private:
     node_type* _root;
     size_t _size;
@@ -219,7 +220,18 @@ namespace ft {
 
 
     /* private member functions */
-    node_type* _find(const mapped_type& data) {
+
+    // create a new node
+    node_type* _new_node(const value_type& data, node_type* parent) {
+      node_type* node = _alloc.allocate(1);
+      _alloc.construct(node, node_type(data));
+      node->parent() = parent;
+      node->left() = NULL;
+      node->right() = NULL;
+      return node;
+    }
+
+    node_type* _find(const value_type& data) {
       node_type* node = _root;
       node_type* parent = NULL;
       while (node != NULL) {
@@ -270,23 +282,23 @@ namespace ft {
         // if node is left child
         if (parent->left() == node)
           // set the right child as left child
-          parent->setLeft(right);
+          parent->left() = right;
         else // if node is right child
           // set the right child as right child
-          parent->setRight(right);
+          parent->right() = right;
       }
       // set the right child's parent to the node's parent
-      right->setParent(parent);
+      right->parent() = parent;
       // set the node's parent to the right child
-      node->setParent(right);
+      node->parent() = right;
       // set the right child's left child to the node
-      right->setLeft(node);
+      right->left() = node;
       // set the node's right child to the right child's left child
-      node->setRight(right_left);
+      node->right() = right_left;
       // if the right child's left child is not null
       if (right_left)
         // set the right child's left child's parent to the node
-        right_left->setParent(node);
+        right_left->parent() = node;
     };
 
     void _rotateRight(node_type* node) {
@@ -302,28 +314,28 @@ namespace ft {
         // if node is left child
         if (parent->left() == node)
           // set the left child as left child
-          parent->setLeft(left);
+          parent->left() = left;
         else // if node is right child
           // set the left child as right child
-          parent->setRight(left);
+          parent->right() = left;
       }
       // set the left child's parent to the node's parent
-      left->setParent(parent);
+      left->parent() = parent;
       // set the node's parent to the left child
-      node->setParent(left);
+      node->parent() = left;
       // set the left child's right child to the node
-      left->setRight(node);
+      left->right() = node;
       // set the node's left child to the left child's right child
-      node->setLeft(left_right);
+      node->left() = left_right;
       // if the left child's right child is not null
       if (left_right)
         // set the left child's right child's parent to the node
-        left_right->setParent(node);
+        left_right->parent() = node;
     };
 
 
     // splice a leaf or single-child node
-    void _splice(node_type* node) {
+    value_type& _splice(node_type* node) {
       node_type* tmp, parent;
       // if node has left or right child
       if (node->left() != NULL)
@@ -337,17 +349,18 @@ namespace ft {
         parent = node->parent();
         // if node is left child of parent
         if (parent->left() == node)
-          parent->setLeft(tmp);
+          parent->left() = tmp;
         else // if node is right child of parent
-          parent->setRight(tmp);
+          parent->right() = tmp;
       }
       // if node has a child, set the child's parent to the node's parent
       if (tmp)
-        tmp->setParent(node->parent());
+        tmp->parent() = node->parent();
       // deallocate the node
       _alloc.destroy(node);
       _alloc.deallocate(node, 1);
       --_size;
+      return tmp->data();
     };
 
     void _print(node_type* node) const {

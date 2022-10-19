@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/18 14:39:39 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:42:27 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ namespace ft {
     AVLNode(value_type data, self* parent = NULL) : _right(NULL), _left(NULL), _data(data), _parent(parent) {}
 
     // getters 
-    inline const_reference data() const { return _data; }
+    inline reference data() const { return _data; }
 
     inline pointer data_ptr() { return &_data; }
     

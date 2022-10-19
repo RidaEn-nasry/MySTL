@@ -1,29 +1,24 @@
 
 
-#include <iostream>
-// #include "avl.hpp"
-#include <map>
 
+template <class T>
+class Test {
 
-int main() {
-
-  std::map<int, char> map;
-  map[1] = 'a';
-  map[2] = 'b';
-  map[3] = 'c';
-
-  std::map<int, char>::iterator it = map.begin();
-
-  // increment iterator
-  it++;
-  
-  std::cout << it->first << std::endl;
-  // std::cout << *it << std::endl;
-  // print it
-  
-  // std::cout << it->second << std::endl;
-  // std::cout << map[1] << std::endl;
-  return 0;
-
+public:
+  template <class _other>
+  struct rebind {
+    typedef Test<_other> other;
+  };
 
 };
+
+template <class T>
+class Test2 {
+  typedef Test<T> test_type;
+  typedef typename test_type::template rebind<int>::other test_type2;
+};
+
+int main() {
+  Test2<int> test2;
+  return 0;
+}
