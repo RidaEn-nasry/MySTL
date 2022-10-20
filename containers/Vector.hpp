@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/17 20:08:42 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:14:14 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ namespace ft {
       /* constructors & destcructors */
       inline iterator_base() : _ptr(NULL) {};
       inline iterator_base(const iterator_base& other) : _ptr(other._ptr) {};
-      inline iterator_base& operator=(const iterator_base& other) {
+      inline iterator_base<Const>& operator=(const iterator_base& other) {
         _ptr = other._ptr;
         return *this;
       };
@@ -90,24 +90,29 @@ namespace ft {
       /* member functions */
 
       /* equality operators */
-      inline bool operator==(const iterator_base& other) const {
+      inline bool operator==(const iterator_base<Const>& other) const {
         return _ptr == other._ptr;
       };
-      inline bool operator!=(const iterator_base& other) const {
+      inline bool operator!=(const iterator_base<Const>& other) const {
         return _ptr != other._ptr;
       };
 
       /* increment operators */
 
       /* prefix */
-      inline iterator_base& operator++() {
+      // inline iterator_base& operator++() {
+      //   _ptr++;
+      //   return *this;
+      // };
+
+      inline iterator_base<Const>& operator++() {
         _ptr++;
         return *this;
-      };
-
+      }
+      
       /* postfix */
-      inline iterator_base operator++(int) {
-        iterator_base tmp(*this);
+      inline iterator_base<Const> operator++(int) {
+        iterator_base<Const> tmp(*this);
         operator++();
         return tmp;
       };
@@ -118,14 +123,14 @@ namespace ft {
       /* decrement operators */
 
       /* prefix */
-      inline iterator_base& operator--() {
+      inline iterator_base<Const>& operator--() {
         _ptr--;
         return *this;
       };
 
       /* postfix */
-      inline iterator_base operator--(int) {
-        iterator_base tmp(*this);
+      inline iterator_base<Const> operator--(int) {
+        iterator_base<Const> tmp(*this);
         operator--();
         return tmp;
       };
@@ -133,48 +138,48 @@ namespace ft {
       /* arithmetic operators */
 
       /* addition iterator + n */
-      inline iterator_base operator+(difference_type n) const {
-        return iterator_base(_ptr + n);
+      inline iterator_base<Const> operator+(difference_type n) const {
+        return iterator_base<Const>(_ptr + n);
       };
 
       /* addition n + iterator */
-      inline friend iterator_base operator+(difference_type n,
-        const iterator_base& it) {
-        return iterator_base(it._ptr + n);
+      inline friend iterator_base<Const> operator+(difference_type n,
+        const iterator_base<Const>& it) {
+        return iterator_base<Const>(it._ptr + n);
       };
 
       /* subtraction iterator - n */
-      inline iterator_base operator-(difference_type n) const {
-        return iterator_base(_ptr - n);
+      inline iterator_base<Const> operator-(difference_type n) const {
+        return iterator_base<Const>(_ptr - n);
       };
 
       /* subtraction iterator - iterator */
-      inline difference_type operator-(const iterator_base& other) const {
+      inline difference_type operator-(const iterator_base<Const>& other) const {
         return _ptr - other._ptr;
       };
 
       /* equality relational operators */
-      inline bool operator<(const iterator_base& other) const {
+      inline bool operator<(const iterator_base<Const>& other) const {
         return _ptr < other._ptr;
       };
-      inline bool operator>(const iterator_base& other) const {
+      inline bool operator>(const iterator_base<Const>& other) const {
         return _ptr > other._ptr;
       };
-      inline bool operator<=(const iterator_base& other) const {
+      inline bool operator<=(const iterator_base<Const>& other) const {
         return _ptr <= other._ptr;
       };
-      inline bool operator>=(const iterator_base& other) const {
+      inline bool operator>=(const iterator_base<Const>& other) const {
         return _ptr >= other._ptr;
       };
 
       /* compound assignment operators */
 
-      inline iterator_base& operator+=(difference_type n) {
+      inline iterator_base<Const>& operator+=(difference_type n) {
         _ptr += n;
         return *this;
       };
 
-      inline iterator_base& operator-=(difference_type n) {
+      inline iterator_base<Const>& operator-=(difference_type n) {
         _ptr -= n;
         return *this;
       };

@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 17:36:58 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/18 18:42:16 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:13:41 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ namespace ft {
     typedef typename allocator_type::const_reference const_reference;
     typedef typename allocator_type::pointer pointer;
     typedef typename allocator_type::const_pointer const_pointer;
+    typedef AVLTree<T, Compare, Alloc> self_type;
 
     // default constructor
     AVLTree(const allocator_type& alloc = allocator_type()) {
@@ -58,7 +59,7 @@ namespace ft {
 
     AVLTree(const AVLTree<T>& other) { *this = other; }
 
-    AVLTree<T>& operator=(const AVLTree<T>& other) {
+    self_type& operator=(const AVLTree<T>& other) {
       // if (this != &other) {
       //   if (_root != NULL)
       //     clear();
@@ -119,6 +120,11 @@ namespace ft {
         return node->data();
     };
 
+
+    // // inserting with hint
+    // value_type& insert(const value_type& data, const node_type* hint) {
+    //   while (node_type !
+    // };
     // deleting
     value_type& remove(value_type& data) {
       node_type* node = _find(data);
@@ -144,6 +150,9 @@ namespace ft {
       _balance();
       return node->data();
     }
+
+
+
 
     // clearing
     // void clear() {
@@ -194,23 +203,30 @@ namespace ft {
     };
 
     // getters 
+
+    // root getter
     node_type* root() const { return _root; }
-    // end 
+    // end getter 
     node_type* end() const { return NULL; }
-    // min 
+    // minimum 
     node_type* min() const {
       node_type* node = _root;
       while (node->left() != NULL)
         node = node->left();
       return node;
     };
-    // max
+
+    // maximum
     node_type* max() const {
       node_type* node = _root;
       while (node->right() != NULL)
         node = node->right();
       return node;
     };
+
+
+    /**************** non member functions ****************/
+    // friend bool operator==(const self_type& lhs, const self_type& rhs) {}
 
   private:
     node_type* _root;
@@ -332,7 +348,6 @@ namespace ft {
         // set the left child's right child's parent to the node
         left_right->parent() = node;
     };
-
 
     // splice a leaf or single-child node
     value_type& _splice(node_type* node) {

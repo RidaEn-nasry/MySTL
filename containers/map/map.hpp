@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/20 13:22:00 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/20 01:06:04 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft {
   protected:
     /************** my Member types **************/
     // for my convenience so I don't have to type the whole thing, i'm lazy :D
-    typedef AVLNode<pair<const key, T> > node_type;
+    typedef AVLNode<value_type> node_type;
 
   public:
     /************** Member types **************/
@@ -129,7 +129,6 @@ namespace ft {
 
       // prefix ++
       inline iterator_base<Const>& operator++() {
-
         // ++ on end() is undefined
         if (_current == _max) {
           _current = NULL;
@@ -201,7 +200,7 @@ namespace ft {
     }
 
     /* operator= */
-    map& operator= (const map& x) {
+    map& operator=(const map& x) {
       clear();
       insert(x.begin(), x.end());
       return *this;
@@ -286,8 +285,6 @@ namespace ft {
       // insert witih hint (2)
       iterator insert(iterator position, const value_type & val) {
         // later
-
-
       }
 
       // insert range (3)

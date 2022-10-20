@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/19 18:07:30 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:20:52 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ namespace ft {
 #include <stdio.h>
 #include <less.hpp>
 
-  template <class T, class Compare = ft::less<T> >
+  template <class T, class Compare = less<T> >
   class AVLNode {
   public:
     /** Member types **/
@@ -35,7 +35,7 @@ namespace ft {
     AVLNode() : _right(NULL), _left(NULL), _parent(NULL), _data(value_type()), _comp(key_compare()) {};
 
     // (2) constructor with data and optional parent
-    AVLNode(value_type data, self* parent = NULL) : _right(NULL), _left(NULL), _data(data), _parent(parent), _comp(key_compare) {}
+    AVLNode(value_type data, self* parent = NULL) : _right(NULL), _left(NULL), _data(data), _parent(parent), _comp(key_compare()) {}
 
 
     // getters 
@@ -86,14 +86,14 @@ namespace ft {
     /** non-member functions **/
     // equality / inequality operators
     inline friend bool operator==(const self& lhs, const self& rhs) {
-      return (!(_comp(rsh, lhs)) && !(_comp(lsh, rhs)))
+      return (!(_comp(rhs, lhs)) && !(_comp(lhs, rhs)))
     }
 
     inline friend bool operator!=(const self& lhs, const self& rhs) {
       return !(lhs == rhs);
     }
 
-    inline friend bool operator<(const self& lsh, const self& rhs) {
+    inline friend bool operator<(const self& lhs, const self& rhs) {
       return _comp(lhs, rhs);
     }
 
@@ -112,7 +112,7 @@ namespace ft {
     // next
     inline self* next() {
       // if the node has a right child then the next node is the leftmost node of the right subtree 
-      if (right() != NULL) {
+    if (right() != NULL) {
         self* node = right();
         while (node->left() != NULL) {
           node = node->left();
@@ -158,6 +158,8 @@ namespace ft {
     self* _parent;
     key_compare _comp;
   };
+  
+  
 
 
 

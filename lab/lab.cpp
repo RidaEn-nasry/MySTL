@@ -1,36 +1,17 @@
-
-#include <stdio.h>
-#include <stdlib.h>
+#include <map>
 #include <iostream>
 
 
-template < class T>
-class LLRoot {
-
-public:
-  typedef T value_type;
-  typedef LL<value_type> self;
-
-  LLRoot() : data(T()), next(NULL) {}
-
-  LLRoor(value_type& data) {
-    this->data = data;
-    next = NULL;
-  }
+int main() {
 
 
-  self& find(value_type& data) {
-    while (this != NULL) {
-      if (data == this->data) {
-        return *this;
-      }
-      this = next;
-    }
-  }
 
+  std::map<int, char> map;
+  std::map<int, char>::iterator it;
+  std::map<int, char>::iterator ite;
+  map.erase(map.begin(), map.end());
+  
+  return 0;
 
-private:
-  self* next;
-  T data;
+}
 
-};

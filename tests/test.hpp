@@ -25,6 +25,8 @@
 #include <less.hpp>
 #include <is_integral.hpp>
 #include <equal.hpp>
+// #include <avlnode.hpp>
+#include <map.hpp>
 
 #include <unistd.h>
 #include <sys/wait.h>
@@ -154,5 +156,6 @@ void ft_lexico_compare_tests_suite();
 void ft_enable_if_tests_suite();
 void ft_is_integral_tests_suite();
 void ft_equal_tests_suite();
+void ft_map_tests_suite();
 
 #endif
