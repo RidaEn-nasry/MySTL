@@ -79,6 +79,7 @@
     "regex": "cpp",
     "thread": "cpp",
     "__memory": "cpp",
-    "__availability": "cpp"
+    "__availability": "cpp",
+    "__functional_base": "cpp"
   }
 }

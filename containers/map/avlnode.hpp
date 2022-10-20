@@ -6,12 +6,14 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/20 13:20:52 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:39:03 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 namespace ft {
+
+
 #ifndef AVLNODE_HPP
 #define AVLNODE_HPP
 
@@ -68,10 +70,10 @@ namespace ft {
     }
 
     // setters 
-    // void setData(reference data) { _data = data; }
-    // void setRight(self* right) { _right = right; }
-    // void setLeft(self* left) { _left = left; }
-    // void setParent(self* parent) { _parent = parent; }
+    void setData(reference data) { _data = data; }
+    void setRight(self* right) { _right = right; }
+    void setLeft(self* left) { _left = left; }
+    void setParent(self* parent) { _parent = parent; }
 
 
     // calculate the balance of the node
@@ -86,7 +88,7 @@ namespace ft {
     /** non-member functions **/
     // equality / inequality operators
     inline friend bool operator==(const self& lhs, const self& rhs) {
-      return (!(_comp(rhs, lhs)) && !(_comp(lhs, rhs)))
+      return !(lhs._comp(lhs._data, rhs._data)) && !(lhs._comp(rhs._data, lhs._data));
     }
 
     inline friend bool operator!=(const self& lhs, const self& rhs) {
@@ -94,11 +96,11 @@ namespace ft {
     }
 
     inline friend bool operator<(const self& lhs, const self& rhs) {
-      return _comp(lhs, rhs);
+      return lhs._comp(lhs._data, rhs._data);
     }
 
     inline friend bool operator>(const self& lhs, const self& rhs) {
-      return _comp(rhs, lhs);
+      return rhs < lhs;
     };
 
     inline friend bool operator<=(const self& lhs, const self& rhs) {
@@ -159,8 +161,6 @@ namespace ft {
     key_compare _comp;
   };
   
-  
-
 
 
 #endif

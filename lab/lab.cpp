@@ -2,16 +2,23 @@
 #include <iostream>
 
 
-int main() {
+#include "maindummy.hpp"
 
+template <class T>
+class type1 {
+    public:
 
+    class type2 {
 
-  std::map<int, char> map;
-  std::map<int, char>::iterator it;
-  std::map<int, char>::iterator ite;
-  map.erase(map.begin(), map.end());
-  
-  return 0;
+    }
+
+    private:
+
 
 }
 
+int main()
+{
+    ft::mainDummy<int, double, float> type1;
+    return 0;
+}

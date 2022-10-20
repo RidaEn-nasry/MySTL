@@ -5,7 +5,7 @@ CXX=c++
 CXXFLAGS=-std=c++98 -Wall -Wextra -Werror -g
 RM=rm -f
 
-OTHERS=-I./type_traits/ -I./tests/ -I./adapters/ -I./others/ -I./utility/ -I./algorithms/ -I./functional -I./containers/map
+OTHERS=-I./type_traits/ -I./tests/ -I./adapters/ -I./others/ -I./utility/ -I./algorithms/ -I./functional -I./containers/map/
 
 
 CONTAINERS=-I./containers/
