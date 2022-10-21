@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:49:06 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 10:05:06 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:43:44 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ void ft_run_all_tests()
   ft_is_integral_tests_suite();
   ft_equal_tests_suite();
   ft_avlnode_tests_suite();
+  ft_map_tests_suite();
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
   if (argc != 2)
   {
     std::cout << "Usage: ./test [test_name] \t \
     use `./test -list` to list all tests"
-              << std::endl;
+      << std::endl;
     exit(1);
   }
   else if (strcmp(argv[1], "-list") == 0)
@@ -59,12 +60,14 @@ int main(int argc, char **argv)
     ft_equal_tests_suite();
   else if (strcmp(argv[1], "avlnode") == 0)
     ft_avlnode_tests_suite();
+  else if (strcmp(argv[1], "map") == 0)
+    ft_map_tests_suite();
   else
   {
     std::cout << "Test not found" << std::endl;
     std::cout << "Usage: ./test [test_name] \t \
     use `./test -list` to list all tests"
-              << std::endl;
+      << std::endl;
     exit(1);
   }
 }

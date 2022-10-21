@@ -4,21 +4,23 @@
 
 #include "maindummy.hpp"
 
-template <class T>
-class type1 {
-    public:
+// template <class T>
+// class type1 {
+//     public:
 
-    class type2 {
+//     class type2 {
 
-    }
+//     }
 
-    private:
+//     private:
 
 
-}
+// }
 
 int main()
 {
-    ft::mainDummy<int, double, float> type1;
+    int i = int();
+    std::cout << i << std::endl;
+    
     return 0;
 }

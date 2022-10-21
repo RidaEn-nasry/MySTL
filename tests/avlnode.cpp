@@ -6,11 +6,13 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 09:32:49 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 11:39:10 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 13:56:44 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <test.hpp>
+
+
 
 ft::AVLNode<int> *create_dummy_tree()
 {
@@ -63,7 +65,7 @@ void ft_avlnode_tests_suite()
 
     {
         std::string test_name("ft::AVLNode Constructors tests ");
-        ft::AVLNode<ft::pair<int, int> > node;
+        ft::AVLNode<ft::pair<int, int> > node();
         REQUIRE_EQ(node.height(), 1, test_name, "`height` should be 1 when node is default constructed. instead it is " << node.height());
         REQUIRE_EQ(node.parent(), NULL, test_name, "`parent` should be NULL when node is default constructed");
         REQUIRE_EQ(node.left(), NULL, test_name, "`left` should be NULL when node is default constructed");
@@ -102,18 +104,18 @@ void ft_avlnode_tests_suite()
     /* ************************************************************************** */
     {
         std::string test_name("ft::AVLNode Setters tests ");
-        ft::AVLNode<ft::pair<int, int> > *node = new ft::AVLNode<ft::pair<int, int> >();
+        ft::AVLNode<ft::pair<int, int> >* node = new ft::AVLNode<ft::pair<int, int> >();
         ft::pair<int, int> data(42, 42);
         node->setData(data);
         REQUIRE_EQ(typeid(node->data()).name(), typeid(ft::pair<int, int>).name(), test_name, "`data` should return a reference to the data");
-        ft::AVLNode<ft::pair<int, int> > *node2 = new ft::AVLNode<ft::pair<int, int> >;
+        ft::AVLNode<ft::pair<int, int> > *node2 = new ft::AVLNode<ft::pair<int, int> >();
         ft::pair<int, int> data2(42, 42);
         node2->setData(data2);
         node->setLeft(node2);
         node2->setParent(node);
         REQUIRE_EQ(typeid(node->left()).name(), typeid(ft::AVLNode<ft::pair<int, int> > *).name(), test_name, "`left` should return a pointer to the left child");
         REQUIRE_EQ(typeid(node->parent()).name(), typeid(ft::AVLNode<ft::pair<int, int> > *).name(), test_name, "`parent` should return a pointer to the parent");
-        ft::AVLNode<ft::pair<int, int> > *node3 = new ft::AVLNode<ft::pair<int, int> >;
+        ft::AVLNode<ft::pair<int, int> > *node3 = new ft::AVLNode<ft::pair<int, int> >();
         ft::pair<int, int> data3(42, 42);
         node3->setData(data3);
         node->setRight(node3);
@@ -166,4 +168,6 @@ void ft_avlnode_tests_suite()
         REQUIRE_EQ(root->prev(), root->left()->right()->right(), test_name, "`prev` should return the previous node in the tree as of Comparator");
         INFO_OK(test_name);
     }
+    
+    
 }

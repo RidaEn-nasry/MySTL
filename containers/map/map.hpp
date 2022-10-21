@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 11:24:41 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:06:17 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ namespace ft
     // (1) empty container constructor (default constructor)
     explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
     {
-      _comp = comp;
+      _comp = value_compare(comp);
       _alloc = alloc;
       _root = NULL;
       _min = NULL;
@@ -224,7 +224,7 @@ namespace ft
     template <class InputIterator>
     map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
     {
-      _comp = comp;
+      _comp = value_compare(comp);
       _alloc = alloc;
       _root = NULL;
       _min = NULL;
@@ -439,7 +439,7 @@ namespace ft
 
   private:
     allocator_type _alloc;
-    key_compare _comp;
+    value_compare _comp;
     size_type _size;
     node_type *_root;
     node_type *_min;
@@ -591,7 +591,7 @@ namespace ft
     }
     // minimum
     // finding min and max with help old min/max, which reduces TC to O(1)
-    node_type *_minimum() const
+    node_type *_minimum() 
     {
       if (!_root)
         return NULL;
@@ -608,7 +608,7 @@ namespace ft
     };
 
     // maximum
-    node_type *_maximum() const
+    node_type *_maximum() 
     {
       if (!_root)
         return NULL;
@@ -679,7 +679,7 @@ namespace ft
       if (_comp(node->data(), data) || _comp(data, node->data()))
         return;
       // if node has no children
-      if (node->left() == NULL || node->righ() == NULL)
+      if (node->left() == NULL || node->right() == NULL)
         _splice(node);
       else
       {

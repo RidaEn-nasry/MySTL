@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:35:24 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 09:58:08 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:15:20 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ namespace ft {
 
     // (3) initialization constructor 
     inline pair(const first_type& a, const second_type& b) : first(a), second(b) {};
-
+    
     // copy assignement constructor 
     inline pair& operator=(const pair& pr) {
       first = pr.first;
