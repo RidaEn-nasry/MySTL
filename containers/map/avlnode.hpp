@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 16:49:31 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:56:16 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 namespace ft
 {
-  template <class T, class CompareWrap , class Compare = less<T> >
+  template <class T, class Compare >
   class AVLNode
   {
   public:
@@ -28,44 +28,39 @@ namespace ft
     typedef const value_type& const_reference;
     typedef value_type* pointer;
     typedef const value_type* const_pointer;
-    typedef CompareWrap key_compare;
+    typedef Compare key_compare;
     typedef AVLNode<T, key_compare, Compare> self;
     /** Member functions **/
 
     // (1) default constructor
-    AVLNode() : _right(NULL), _left(NULL), _parent(NULL), _data(value_type())
-    {
-      _right = NULL;
-      // _left = NULL;
-      _parent = NULL;
-      _data = value_type();
-      Compare tmp;
-      _comp = key_compare(tmp);
-      // _comp = key_compare(Compare());
-    };
+    AVLNode(key_compare& comp) : _comp(comp), _right(NULL), _left(NULL), _parent(NULL), _data(value_type()) {}
+    // {
+    //   _right = NULL;
+    //   _left = NULL;
+    //   _parent = NULL;
+    //   _data = value_type();
+    //   _comp = key_compare();
+    // };
 
     // (2) constructor with comparison function
-    AVLNode(key_compare comp)
-    {
-      _right = NULL;
-      _left = NULL;
-      _parent = NULL;
-      _data = value_type();
-      _comp = comp;
-    };
+    AVLNode(key_compare& comp) : _comp(comp), _right(NULL), _left(NULL), _parent(NULL), _data(value_type()) {}
+    // {
+    //   _right = NULL;
+    //   _left = NULL;
+    //   _parent = NULL;
+    //   _data = value_type();
+    //   _comp = comp;
+    // };
 
     // (3) constructor with data and compare and optional parent
-    AVLNode(value_type data, self* parent = NULL)
-    {
-      _right = NULL;
-      _left = NULL;
-      _parent = parent;
-      // _data = data;
-      Compare tmp;
-      _comp = key_compare(tmp);
-      // _comp = comp;
-    };
-    
+    AVLNode(value_type data, key_compare& comp, self* parent = NULL) : _data(data), _comp(comp), _parent(parent), _right(NULL), _left(NULL) {}
+    // {
+    //   _right = NULL;
+    //   _left = NULL;
+    //   _parent = parent;
+    //   _data = data;
+    //   _comp = key_compare();
+    // };
 
     // getters
     inline reference data() { return _data; }
