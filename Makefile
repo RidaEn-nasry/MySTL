@@ -19,7 +19,8 @@ TESTS=./tests/vector.cpp\
 			./tests/lexico_compare.cpp\
 			./tests/is_integral.cpp\
 			./tests/equal.cpp\
-			./tests/map.cpp
+			./tests/avlnode.cpp
+# ./tests/map.cpp
 
 DEP=./others/choose_type.hpp\
 	./containers/vector.hpp\
@@ -35,8 +36,8 @@ DEP=./others/choose_type.hpp\
 	./utility/pair.hpp\
 	./functional/less.hpp\
 	./containers/map/avlnode.hpp\
-	./containers/map/map.hpp\
 	./tests/test.hpp
+#./containers/map/map.hpp\
 
 TEST_OBJS=$(TESTS:.cpp=.o)
 

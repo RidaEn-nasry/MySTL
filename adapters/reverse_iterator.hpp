@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 20:12:30 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 22:28:54 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:55:21 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@
     /* iterator as underlying iterator.                                           */
     /* &*it = &*(it.base() - 1)                                                   */
     /* ************************************************************************** */
-
-namespace ft {
-
 #ifndef REVERSE_ITERATOR_HPP
 #define REVERSE_ITERATOR_HPP
-
 #include <iterator_traits.hpp>
 
-
+namespace ft {
   template <class Iter>
   class reverse_iterator {
     /*********************** Member types ***********************/
@@ -158,7 +154,7 @@ namespace ft {
     return lhs.base() >= rhs.base();
   }
 
-#endif
 
 
 } // namespace ft
+#endif

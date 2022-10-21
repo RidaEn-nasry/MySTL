@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:45:19 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/07 21:13:43 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:56:35 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 /*         true.                                                             */
 /*****************************************************************************/
 
+#ifndef ENABLE_IF_HPP
+#define ENABLE_IF_HPP
 
 namespace ft {
 
-#ifndef ENABLE_IF_HPP
-#define ENABLE_IF_HPP
 
   template <bool Cond, class T = void>
   struct enable_if {};
@@ -39,5 +39,5 @@ namespace ft {
   };
 
   
-#endif
 } // namespace ft
+#endif

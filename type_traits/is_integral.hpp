@@ -6,18 +6,18 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:42:45 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 11:56:09 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:56:49 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-
-namespace ft {
 #ifndef IS_INTEGRAL_HPP
 #define IS_INTEGRAL_HPP
 
 #include <type_traits>
+
+namespace ft {
 
   template <class T>
   struct is_integral {
@@ -118,5 +118,5 @@ namespace ft {
   };
 
 
-#endif
 } // namespace ft
+#endif

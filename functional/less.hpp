@@ -6,13 +6,14 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 15:13:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 15:27:23 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:56:17 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-namespace ft {
 #ifndef LESS_HPP
 #define LESS_HPP
+
+namespace ft {
 
   template < class T>
   struct less {
@@ -25,5 +26,5 @@ namespace ft {
     bool operator()(const T& x, const T& y) const { return x < y; }
 
   }; // less struct
-#endif
 } // namespace ft
+#endif

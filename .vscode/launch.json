@@ -19,9 +19,9 @@
       "name": "(lldb) Launch",
       "type": "lldb",
       "request": "launch",
-      "program": "/Users/wa5ina/42/Reimplementing-STL-Containers./data_structures/avl/a.out",
+      "program": "/Users/ren-nasr/Reimplementing-STL-Containers./test",
       "args": [
-        "all"
+        "avlnode"
       ],
       "cwd": "${cwd}",
 

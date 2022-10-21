@@ -17,10 +17,10 @@
 /* iterator types including non-standard iterators, like pointers.            */
 /* ************************************************************************** */
 
-namespace ft {
-
 #ifndef ITERATOR_TRAITS_HPP
 # define ITERATOR_TRAITS_HPP
+namespace ft {
+
 
 	template  <class Iter >
 	struct iterator_traits {
@@ -48,8 +48,8 @@ namespace ft {
 		typedef  std::random_access_iterator_tag iterator_category;
 	};
 
-#endif
 }
+#endif
 
 
 

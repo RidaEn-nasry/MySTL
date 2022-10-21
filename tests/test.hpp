@@ -157,5 +157,6 @@ void ft_enable_if_tests_suite();
 void ft_is_integral_tests_suite();
 void ft_equal_tests_suite();
 void ft_map_tests_suite();
+void ft_avlnode_tests_suite();
 
 #endif

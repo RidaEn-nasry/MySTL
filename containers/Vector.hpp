@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/19 16:14:14 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:53:55 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
+
 #include <memory>
 #include <reverse_iterator.hpp>
 #include <choose_type.hpp>

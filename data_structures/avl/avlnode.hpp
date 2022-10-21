@@ -6,17 +6,17 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/19 18:07:30 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:55:50 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-namespace ft {
 #ifndef AVLNODE_HPP
 #define AVLNODE_HPP
 
 #include <stdio.h>
 #include <less.hpp>
+
+namespace ft {
 
   template <class T, class Compare = ft::less<T> >
   class AVLNode {
@@ -159,7 +159,5 @@ namespace ft {
     key_compare _comp;
   };
 
-
-
-#endif
 };
+#endif

@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:47:18 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 20:14:29 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:55:35 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
  /* changing their behaviour.                                                               */
  /*******************************************************************************************/
 
-
-namespace ft {
 #ifndef STACK_HPP
 #define STACK_HPP
+
+namespace ft {
 
 
   template <class T, class Container = vector<T> >
@@ -80,6 +80,6 @@ namespace ft {
     container_type _cntr;
   };
 
+} // namespace ft
 
 #endif
-} // namespace ft

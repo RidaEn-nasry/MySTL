@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexicographical_compare.hpp                        :+:      :+:    :+:   */
+/*   lexico_compare.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 11:58:26 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 12:08:49 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:55:01 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-namespace ft {
-
 #ifndef LEXICOGRAPHICAL_COMPARE_HPP
 #define LEXICOGRAPHICAL_COMPARE_HPP
+namespace ft {
+
 
   /** default (1) */
   template <class InputIterator1, class InputIterator2>
@@ -53,5 +53,5 @@ namespace ft {
     return (first1 == last1 && first2 != last2);
   };
 
-#endif
 } // namespace ft
+#endif

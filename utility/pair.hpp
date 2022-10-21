@@ -6,14 +6,14 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:35:24 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/18 18:40:00 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:58:08 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-namespace ft {
-
 #ifndef PAIR_HPP
 #define  PAIR_HPP
+namespace ft {
+
 
   template <class T1, class T2>
   struct pair {
@@ -68,10 +68,8 @@ namespace ft {
       return !(lhs < rhs);
     };
 
-    
-
   };
 
-#endif
-
 };
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/20 16:23:30 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 09:54:27 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 /// TODO:
 // think about how the copy constructor of the iterator should work
 // why you to put ft::AVLNode<...> and not AVLNode<...>
-namespace ft
-{
 #ifndef MAP_HPP
 #define MAP_HPP
 
@@ -32,7 +30,11 @@ namespace ft
 #include <reverse_iterator.hpp>
 #include <avlnode.hpp>
 
-  template <class key, class T, class Compare = less<key>, class Alloc = std::allocator<pair<const key, T>>>
+namespace ft
+{
+
+
+  template <class key, class T, class Compare = less<key>, class Alloc = std::allocator<pair<const key, T> > >
   class map
   {
 
@@ -90,13 +92,24 @@ namespace ft
 
       /* constructor */
       // (1) default constructor
-      iterator_base() : _current(NULL), _min(NULL), _max(NULL) {}
-
+      iterator_base(){
+        _current = NULL;
+        _min = NULL;
+        _max = NULL;
+      }
       // (2) initialization constructor
-      iterator_base(node_type *current, node_type *min, node_type *max) : _current(current), _min(min), _max(max) {}
-
+      iterator_base(node_type *current, node_type *min, node_type *max)
+      {
+        _current = current;
+        _min = min;
+        _max = max;
+      } 
       // (3) copy constructor
-      iterator_base(const iterator_base<Const> &other) : _current(other._current), _min(other._min), _max(other._max) {}
+      iterator_base(const iterator_base<Const> &other) {
+        _current = other._current;
+        _min = other._min;
+        _max = other._max;
+      }
 
       // copy assignment operator
       iterator_base<Const> &operator=(const iterator_base<Const> &other)
@@ -151,7 +164,7 @@ namespace ft
       }
 
       // postfix ++
-      inline iterator_base<Const> &operator++(int)
+      inline iterator_base<Const> operator++(int)
       {
         iterator_base<Const> tmp(*this);
         ++(*this);
@@ -172,7 +185,7 @@ namespace ft
       }
 
       // postfix --
-      inline iterator_base<Const> &operator--(int)
+      inline iterator_base<Const> operator--(int)
       {
         iterator_base<Const> tmp(*this);
         --(*this);
@@ -197,8 +210,9 @@ namespace ft
     /* constructors */
 
     // (1) empty container constructor (default constructor)
-    explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) : _comp(comp)
+    explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
     {
+      _comp = comp;
       _alloc = alloc;
       _root = NULL;
       _min = NULL;
@@ -208,8 +222,9 @@ namespace ft
 
     // (2) range constructor
     template <class InputIterator>
-    map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) : _comp(comp)
+    map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
     {
+      _comp = comp;
       _alloc = alloc;
       _root = NULL;
       _min = NULL;
@@ -424,7 +439,7 @@ namespace ft
 
   private:
     allocator_type _alloc;
-    value_compare _comp;
+    key_compare _comp;
     size_type _size;
     node_type *_root;
     node_type *_min;
@@ -685,5 +700,6 @@ namespace ft
     };
   }; // map class
 
-#endif
 }; // ft namespace
+
+#endif
