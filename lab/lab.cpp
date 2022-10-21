@@ -3,24 +3,20 @@
 
 
 #include "maindummy.hpp"
+template <class MyType>
+struct MyClass
+{
+    MyType i;
+    MyClass(MyType i) : i(i) {}
+};
 
-// template <class T>
-// class type1 {
-//     public:
-
-//     class type2 {
-
-//     }
-
-//     private:
-
-
-// }
+template <class MyType>
+MyClass<MyType> make_my_class(MyType i)
+{
+    return MyClass<MyType>(i);
+}
 
 int main()
 {
-    int i = int();
-    std::cout << i << std::endl;
-    
-    return 0;
+    MyClass my_class(1);
 }

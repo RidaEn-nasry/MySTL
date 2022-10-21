@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 12:06:17 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:06:54 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 #include <choose_type.hpp>
 #include <reverse_iterator.hpp>
 #include <avlnode.hpp>
+#include <make_pair.hpp>
 
 namespace ft
 {
-
 
   template <class key, class T, class Compare = less<key>, class Alloc = std::allocator<pair<const key, T> > >
   class map
@@ -64,7 +64,7 @@ namespace ft
       bool operator()(const value_type &x, const value_type &y) const
       {
         return comp(x.first, y.first);
-      }
+      };
 
     private:
       key_compare comp;
@@ -73,7 +73,7 @@ namespace ft
   protected:
     /************** my Member types **************/
     // for my convenience so I don't have to type the whole thing, i'm lazy :D
-    typedef ft::AVLNode<pair<const key, T>, value_compare> node_type;
+    typedef ft::AVLNode<pair<const key, T>, value_compare, Compare> node_type;
 
   public:
     /************** Iterators **************/
@@ -92,24 +92,26 @@ namespace ft
 
       /* constructor */
       // (1) default constructor
-      iterator_base(){
+      iterator_base()
+      {
         _current = NULL;
         _min = NULL;
         _max = NULL;
-      }
+      };
       // (2) initialization constructor
       iterator_base(node_type *current, node_type *min, node_type *max)
       {
         _current = current;
         _min = min;
         _max = max;
-      } 
+      };
       // (3) copy constructor
-      iterator_base(const iterator_base<Const> &other) {
+      iterator_base(const iterator_base<Const> &other)
+      {
         _current = other._current;
         _min = other._min;
         _max = other._max;
-      }
+      };
 
       // copy assignment operator
       iterator_base<Const> &operator=(const iterator_base<Const> &other)
@@ -118,7 +120,7 @@ namespace ft
         _min = other._min;
         _max = other._max;
         return *this;
-      }
+      };
 
       /* destructor */
       ~iterator_base() {}
@@ -130,12 +132,12 @@ namespace ft
       inline bool operator==(const iterator_base<Const> &other) const
       {
         return _current == other._current;
-      }
+      };
 
       inline bool operator!=(const iterator_base<Const> &other) const
       {
         return _current != other._current;
-      }
+      };
 
       // dereference
       inline reference operator*() const
@@ -161,7 +163,7 @@ namespace ft
         }
         _current = _current->next();
         return *this;
-      }
+      };
 
       // postfix ++
       inline iterator_base<Const> operator++(int)
@@ -169,7 +171,7 @@ namespace ft
         iterator_base<Const> tmp(*this);
         ++(*this);
         return tmp;
-      }
+      };
 
       // prefix --
       inline iterator_base<Const> &operator--()
@@ -182,7 +184,7 @@ namespace ft
         }
         _current = _current->prev();
         return *this;
-      }
+      };
 
       // postfix --
       inline iterator_base<Const> operator--(int)
@@ -190,7 +192,7 @@ namespace ft
         iterator_base<Const> tmp(*this);
         --(*this);
         return tmp;
-      }
+      };
 
     private:
       // node_type* _root;
@@ -231,7 +233,7 @@ namespace ft
       _max = NULL;
       _size = 0;
       insert(first, last);
-    }
+    };
 
     // (3) copy constructor
     map(const map &x)
@@ -243,13 +245,13 @@ namespace ft
       _max = NULL;
       _size = 0;
       insert(x.begin(), x.end());
-    }
+    };
 
     /* destructor */
     ~map()
     {
       clear();
-    }
+    };
 
     /* operator= */
     map &operator=(const map &x)
@@ -257,62 +259,62 @@ namespace ft
       clear();
       insert(x.begin(), x.end());
       return *this;
-    }
+    };
 
     /* iterators */
     iterator begin()
     {
       return iterator(_min, _min, _max);
-    }
+    };
     const_iterator begin() const
     {
       return const_iterator(_min, _min, _max);
-    }
+    };
     iterator end()
     {
       return iterator(_max, _min, _max);
-    }
+    };
 
     const_iterator end() const
     {
       return const_iterator(_max, _min, _max);
-    }
+    };
 
     reverse_iterator rbegin()
     {
       return reverse_iterator(end());
-    }
+    };
 
     const_reverse_iterator rbegin() const
     {
       return const_reverse_iterator(end());
-    }
+    };
 
     reverse_iterator rend()
     {
       return reverse_iterator(begin());
-    }
+    };
 
     const_reverse_iterator rend() const
     {
       return const_reverse_iterator(begin());
-    }
+    };
 
     /* capacity */
     bool empty() const
     {
       return _size == 0;
-    }
+    };
 
     size_type size() const
     {
       return _size;
-    }
+    };
 
     size_type max_size() const
     {
       return _alloc.max_size();
-    }
+    };
 
     /* element access */
     // mapped_type &operator[](const key_type &k)
@@ -343,6 +345,7 @@ namespace ft
         _root = _node_alloc.allocate(1);
         _size++;
         return make_pair(iterator(_root, _root, _root), true);
+        return pair<iterator, bool>(iterator(_root, _root, _root), true);
       };
       // else insert a new element
       pair<iterator, bool> ret = _insert(val);
@@ -351,7 +354,7 @@ namespace ft
         _size++;
       }
       return ret;
-    }
+    };
     // insert witih hint (2)
     // iterator insert(iterator position, const value_type &val)
     // {
@@ -387,7 +390,7 @@ namespace ft
           _size++;
         }
       }
-    }
+    };
 
     // erase single element (1)
     void erase(iterator position)
@@ -397,7 +400,7 @@ namespace ft
       value_type val = *position;
       _remove(val);
       _size--;
-    }
+    };
 
     // erase by key (2)
     size_type erase(const key_type &erase_key)
@@ -415,19 +418,18 @@ namespace ft
       _remove(node->data());
       _size--;
       return 1;
-    }
+    };
 
     // erase range (3)
     void erase(iterator first, iterator last)
     {
-
       if (first == last)
         return;
       if (!_root)
         return;
       for (; first != last; first++)
         erase(first);
-    }
+    };
 
     // clear
     void clear()
@@ -435,7 +437,7 @@ namespace ft
       if (_root == NULL)
         return;
       erase(begin(), end());
-    }
+    };
 
   private:
     allocator_type _alloc;
@@ -449,14 +451,14 @@ namespace ft
 
     /********* private member functions *********/
 
-    node_type *_new_node(const value_type &val, node_type *parent)
+    node_type *_new_node(const value_type &val, node_type *parent, node_type *left = NULL, node_type *right = NULL)
     {
       node_type *new_node = _node_alloc.allocate(1);
       _node_alloc.construct(new_node, node_type(val, parent));
-      new_node->setLeft(NULL);
-      new_node->setRight(NULL);
+      new_node->setLeft(left);
+      new_node->setRight(right);
       return new_node;
-    }
+    };
 
     // _balancing the tree
     void _balance(node_type *node)
@@ -558,12 +560,12 @@ namespace ft
       if (left_right)
         // set the left child's right child's parent to the node
         left_right->setParent(node);
-    }
+    };
 
     // _splicing
     void _splice(node_type *node)
     {
-      node_type *tmp, parent;
+      node_type *tmp, *parent;
       // if node has a left/right child
       if (node->left())
         tmp = node->left();
@@ -588,10 +590,10 @@ namespace ft
         tmp->setParent(node->parent());
       _node_alloc.destroy(node);
       _node_alloc.deallocate(node, 1);
-    }
+    };
     // minimum
     // finding min and max with help old min/max, which reduces TC to O(1)
-    node_type *_minimum() 
+    node_type *_minimum()
     {
       if (!_root)
         return NULL;
@@ -608,7 +610,7 @@ namespace ft
     };
 
     // maximum
-    node_type *_maximum() 
+    node_type *_maximum()
     {
       if (!_root)
         return NULL;
@@ -678,7 +680,7 @@ namespace ft
       // if node->data is not equal to data return NULL
       if (_comp(node->data(), data) || _comp(data, node->data()))
         return;
-      // if node has no children
+      // if node has no children or only one child
       if (node->left() == NULL || node->right() == NULL)
         _splice(node);
       else
@@ -687,8 +689,22 @@ namespace ft
         node_type *min = node->right();
         while (min->left() != NULL)
           min = min->left();
-        // swap the data
-        node->data() = min->data();
+        // exchange node's stuff 
+        // we should create a new node as we can't really change the key as it is const
+        node_type *tmp_node = _new_node(min->data(), node->parent(), node->left(), node->right());
+        // then we need to change min stuff's too
+        // if it's has a right child, set it as left to it's parent
+        if (min->right())
+        {
+          min->parent()->setLeft(min->right());
+          min->right()->setParent(min->parent());
+        }
+        // delete the old node
+        _node_alloc.destroy(node);
+        _node_alloc.deallocate(node, 1);
+        // set the new node
+        node = tmp_node;
+        // node->setData(min->data());
         // remove the smallest node
         _splice(min);
       }

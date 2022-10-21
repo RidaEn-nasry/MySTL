@@ -74,3 +74,5 @@ https://stackoverflow.com/questions/60006759/do-primitive-types-in-c-have-destru
 <br>tree data structure!!!
 <br>https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson4_1.htm#:~:text=A%20tree%20is%20a%20nonlinear,or%20one%20or%20more%20subtrees.
 <br>https://www.youtube.com/watch?v=qH6yxkw0u78&t=544s
+<br> why ft::make_pair if can simply construct template ft::pair ? 
+<br>https://stackoverflow.com/questions/9270563/what-is-the-purpose-of-stdmake-pair-vs-the-constructor-of-stdpair
