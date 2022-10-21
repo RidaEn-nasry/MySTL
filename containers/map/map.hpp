@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 17:54:06 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:27:36 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ namespace ft
       typedef bool result_type;
       typedef value_type first_argument_type;
       typedef value_type second_argument_type;
-      value_compare(key_compare& c) : comp(c) {}
-      bool operator()(const value_type& x, const value_type& y) const
+      value_compare(key_compare &c) : comp(c) {}
+      bool operator()(const value_type &x, const value_type &y) const
       {
         return comp(x.first, y.first);
       };
@@ -73,7 +73,7 @@ namespace ft
   protected:
     /************** my Member types **************/
     // for my convenience so I don't have to type the whole thing, i'm lazy :D
-    typedef ft::AVLNode<pair<const key, T>, value_compare, Compare> node_type;
+    typedef ft::AVLNode<pair<const key, T>, value_compare> node_type;
 
   public:
     /************** Iterators **************/
@@ -87,8 +87,8 @@ namespace ft
       typedef std::bidirectional_iterator_tag iterator_category;
       typedef T value_type;
       typedef std::ptrdiff_t difference_type;
-      typedef typename choose_type<Const, const T*, T*>::type pointer;
-      typedef typename choose_type<Const, const T&, T&>::type reference;
+      typedef typename choose_type<Const, const T *, T *>::type pointer;
+      typedef typename choose_type<Const, const T &, T &>::type reference;
 
       /* constructor */
       // (1) default constructor
@@ -99,14 +99,14 @@ namespace ft
         _max = NULL;
       };
       // (2) initialization constructor
-      iterator_base(node_type* current, node_type* min, node_type* max)
+      iterator_base(node_type *current, node_type *min, node_type *max)
       {
         _current = current;
         _min = min;
         _max = max;
       };
       // (3) copy constructor
-      iterator_base(const iterator_base<Const>& other)
+      iterator_base(const iterator_base<Const> &other)
       {
         _current = other._current;
         _min = other._min;
@@ -114,7 +114,7 @@ namespace ft
       };
 
       // copy assignment operator
-      iterator_base<Const>& operator=(const iterator_base<Const>& other)
+      iterator_base<Const> &operator=(const iterator_base<Const> &other)
       {
         _current = other._current;
         _min = other._min;
@@ -129,12 +129,12 @@ namespace ft
 
       // equality/inequality
 
-      inline bool operator==(const iterator_base<Const>& other) const
+      inline bool operator==(const iterator_base<Const> &other) const
       {
         return _current == other._current;
       };
 
-      inline bool operator!=(const iterator_base<Const>& other) const
+      inline bool operator!=(const iterator_base<Const> &other) const
       {
         return _current != other._current;
       };
@@ -153,7 +153,7 @@ namespace ft
       // increment/decrement
 
       // prefix ++
-      inline iterator_base<Const>& operator++()
+      inline iterator_base<Const> &operator++()
       {
         // ++ on end() is undefined
         if (_current == _max)
@@ -174,7 +174,7 @@ namespace ft
       };
 
       // prefix --
-      inline iterator_base<Const>& operator--()
+      inline iterator_base<Const> &operator--()
       {
         // -- on begin() is undefined
         if (_current == _min)
@@ -196,9 +196,9 @@ namespace ft
 
     private:
       // node_type* _root;
-      node_type* _current;
-      node_type* _max;
-      node_type* _min;
+      node_type *_current;
+      node_type *_max;
+      node_type *_min;
     };
 
     typedef iterator_base<false> iterator;
@@ -212,7 +212,7 @@ namespace ft
     /* constructors */
 
     // (1) empty container constructor (default constructor)
-    explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+    explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
     {
       _comp = value_compare(comp);
       _alloc = alloc;
@@ -224,7 +224,7 @@ namespace ft
 
     // (2) range constructor
     template <class InputIterator>
-    map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+    map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
     {
       _comp = value_compare(comp);
       _alloc = alloc;
@@ -236,7 +236,7 @@ namespace ft
     };
 
     // (3) copy constructor
-    map(const map& x)
+    map(const map &x)
     {
       _comp = x._comp;
       _alloc = x._alloc;
@@ -254,7 +254,7 @@ namespace ft
     };
 
     /* operator= */
-    map& operator=(const map& x)
+    map &operator=(const map &x)
     {
       clear();
       insert(x.begin(), x.end());
@@ -336,7 +336,7 @@ namespace ft
     /* modifiers */
 
     // insert single element (1)
-    pair<iterator, bool> insert(const value_type& val)
+    pair<iterator, bool> insert(const value_type &val)
     {
       // if tree is empty, initialize it
       if (_root != NULL)
@@ -397,20 +397,20 @@ namespace ft
     {
       if (position == end())
         return;
-      value_type val = *position;
-      _remove(val);
+      // value_type val 
+      _remove(*position);
       _size--;
     };
 
     // erase by key (2)
-    size_type erase(const key_type& erase_key)
+    size_type erase(const key_type &erase_key)
     {
       // if tree is empty, do nothing
       if (_root == NULL)
         return 0;
 
       // if key is not in the tree, do nothing
-      node_type* node = _find(erase_key);
+      node_type *node = _find(erase_key);
       if (node->data()->first != erase_key)
         return 0;
 
@@ -443,17 +443,17 @@ namespace ft
     allocator_type _alloc;
     value_compare _comp;
     size_type _size;
-    node_type* _root;
-    node_type* _min;
-    node_type* _max;
+    node_type *_root;
+    node_type *_min;
+    node_type *_max;
     std::allocator<node_type> _node_alloc;
     // int _balance;
 
     /********* private member functions *********/
 
-    node_type* _new_node(const value_type& val, node_type* parent, node_type* left = NULL, node_type* right = NULL)
+    node_type *_new_node(const value_type &val, node_type *parent, node_type *left = NULL, node_type *right = NULL)
     {
-      node_type* new_node = _node_alloc.allocate(1);
+      node_type *new_node = _node_alloc.allocate(1);
       _node_alloc.construct(new_node, node_type(val, _comp, parent));
       new_node->setLeft(left);
       new_node->setRight(right);
@@ -461,11 +461,11 @@ namespace ft
     };
 
     // _balancing the tree
-    void _balance(node_type* node)
+    void _balance(node_type *node)
     {
 
       // checking balance starting from node and going up to the root
-      node_type* tmp = node(_comp);
+      node_type *tmp = node;
       while (tmp != _root)
       {
         int balance = tmp->balance();
@@ -495,11 +495,11 @@ namespace ft
       }
     };
 
-    void _rotate_left(node_type* node)
+    void _rotate_left(node_type *node)
     {
-      node_type* right = node->right();
-      node_type* parent = node->parent();
-      node_type* right_left = right->left();
+      node_type *right = node->right();
+      node_type *parent = node->parent();
+      node_type *right_left = right->left();
       // if node if root
       if (!parent)
         // set the right child as root
@@ -528,11 +528,11 @@ namespace ft
         right_left->setParent(node);
     };
 
-    void _rotate_right(node_type* node)
+    void _rotate_right(node_type *node)
     {
-      node_type* left = node->left();
-      node_type* parent = node->parent();
-      node_type* left_right = left->right();
+      node_type *left = node->left();
+      node_type *parent = node->parent();
+      node_type *left_right = left->right();
 
       // if node is root
       if (!parent)
@@ -563,9 +563,9 @@ namespace ft
     };
 
     // _splicing
-    void _splice(node_type* node)
+    void _splice(node_type *node)
     {
-      node_type* tmp, * parent;
+      node_type *tmp;
       // if node has a left/right child
       if (node->left())
         tmp = node->left();
@@ -593,11 +593,11 @@ namespace ft
     };
     // minimum
     // finding min and max with help old min/max, which reduces TC to O(1)
-    node_type* _minimum()
+    node_type *_minimum()
     {
       if (!_root)
         return NULL;
-      node_type* old_min = _min;
+      node_type *old_min = _min;
       if (!old_min)
         // in case it's been removed let's start from the root
         old_min = _root;
@@ -610,11 +610,11 @@ namespace ft
     };
 
     // maximum
-    node_type* _maximum()
+    node_type *_maximum()
     {
       if (!_root)
         return NULL;
-      node_type* old_max = _max;
+      node_type *old_max = _max;
       if (!old_max)
         // it might be removed, so we need to find it again
         old_max = _root;
@@ -627,10 +627,10 @@ namespace ft
     };
 
     // _finding
-    node_type* _find(const value_type& val)
+    node_type *_find(const value_type &val)
     {
-      node_type* node = _root;
-      node_type* parent = NULL;
+      node_type *node = _root;
+      node_type *parent = NULL;
       // returning node or the closest node a.k.a parent
       while (node != NULL)
       {
@@ -645,10 +645,10 @@ namespace ft
       return parent;
     }
     // _inserting
-    pair<iterator, bool> _insert(const value_type& val)
+    pair<iterator, bool> _insert(const value_type &val)
     {
       // neat insert
-      node_type* node = _root;
+      node_type *node = _root;
       // return node or the closest node a.k.a parent
       node = _find(val);
       // if node exist return an iterator to it.
@@ -656,7 +656,7 @@ namespace ft
       {
         return make_pair(iterator(node, _min, _max), false);
       }
-      node_type* new_node = _new_node(val, node);
+      node_type *new_node = _new_node(val, node);
       if (_comp(val, node->data()))
         // if smaller than it's parent, insert it to the left
         node->setLeft(new_node);
@@ -673,9 +673,9 @@ namespace ft
     };
 
     // _removing
-    void _remove(value_type& data)
+    void _remove(value_type &data)
     {
-      node_type* node = _find(data);
+      node_type *node = _find(data);
       // if node doesn't exist return NULL
       // if node->data is not equal to data return NULL
       if (_comp(node->data(), data) || _comp(data, node->data()))
@@ -686,12 +686,12 @@ namespace ft
       else
       {
         // find the smallest node in the right subtree
-        node_type* min = node->right();
+        node_type *min = node->right();
         while (min->left() != NULL)
           min = min->left();
-        // exchange node's stuff 
+        // exchange node's stuff
         // we should create a new node as we can't really change the key as it is const
-        node_type* tmp_node = _new_node(min->data(), node->parent(), node->left(), node->right());
+        node_type *tmp_node = _new_node(min->data(), node->parent(), node->left(), node->right());
         // then we need to change min stuff's too
         // if it's has a right child, set it as left to it's parent
         if (min->right())
