@@ -6,14 +6,37 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 09:32:49 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 11:20:30 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:39:10 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <test.hpp>
 
-ft::AVLNode<int> *create_dummy_tree(ft::AVLNode<int> *root)
+ft::AVLNode<int> *create_dummy_tree()
 {
+    ft::AVLNode<int>* root = new ft::AVLNode<int>(15);
+    ft::AVLNode<int>* node1 = new ft::AVLNode<int>(11);
+    root->setLeft(node1);
+    node1->setParent(root);
+    ft::AVLNode<int>* node2 = new ft::AVLNode<int>(21);
+    root->setRight(node2);
+    node2->setParent(root);
+    ft::AVLNode<int>* node3 = new ft::AVLNode<int>(10);
+    node1->setLeft(node3);
+    node3->setParent(node1);
+    ft::AVLNode<int>* node4 = new ft::AVLNode<int>(12);
+    node1->setRight(node4);
+    node4->setParent(node1);
+    ft::AVLNode<int>* node7 = new ft::AVLNode<int>(13);
+    node4->setRight(node7);
+    node7->setParent(node4);
+    ft::AVLNode<int>* node5 = new ft::AVLNode<int>(20);
+    node2->setLeft(node5);
+    node5->setParent(node2);
+    ft::AVLNode<int>* node6 = new ft::AVLNode<int>(22);
+    node2->setRight(node6);
+    node6->setParent(node2);
+    return root;
 }
 
 void ft_avlnode_tests_suite()
@@ -136,8 +159,11 @@ void ft_avlnode_tests_suite()
     /* ************************************************************************** */
 
     {
-        ft::AVLNode<int> *root = new ft::AVLNode<int>();
-        root->setData(42);
-        root = creat_dummy_tree(root);
+        std::string test_name("ft::AVLNode next/prev operations tests ");
+        ft::AVLNode<int> *root = create_dummy_tree();
+        ft::AVLNode<int>* min = root->left()->left();
+        REQUIRE_EQ(min->next(), root->left(), test_name, "`next` should return the next node in the tree");
+        REQUIRE_EQ(root->prev(), root->left()->right()->right(), test_name, "`prev` should return the previous node in the tree as of Comparator");
+        INFO_OK(test_name);
     }
 }
