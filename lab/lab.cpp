@@ -3,20 +3,16 @@
 
 
 #include "maindummy.hpp"
-template <class MyType>
-struct MyClass
-{
-    MyType i;
-    MyClass(MyType i) : i(i) {}
+
+// reproducing the error "non-const l" 
+
+
+class A {
+public:
+    // 
+private:
+    int _a;
 };
-
-template <class MyType>
-MyClass<MyType> make_my_class(MyType i)
-{
-    return MyClass<MyType>(i);
-}
-
-int main()
-{
-    MyClass my_class(1);
+int main() {
+    A a()
 }
