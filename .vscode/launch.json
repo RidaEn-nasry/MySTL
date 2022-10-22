@@ -21,11 +21,10 @@
       "request": "launch",
       "program": "/Users/ren-nasr/Reimplementing-STL-Containers./test",
       "args": [
-        "avlnode"
+        "map"
       ],
       "cwd": "${cwd}",
 
-      // "preLaunchTask": "build"
     }
 
   ]

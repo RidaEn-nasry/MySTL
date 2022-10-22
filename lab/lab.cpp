@@ -1,18 +1,31 @@
 #include <map>
 #include <iostream>
 
+// template <typename key, typename val, typename comp = std::less<key> >
+// class map
+// {
+// public:
+//     typedef comp key_compare;
+//     class custom_comp
+//     {
+//     public:
+//         custom_comp(int c) : c_(c) {}
+//         bool operator()(const key &lhs, const key &rhs) const
+//         {
+//             return comp()(lhs, rhs);
+//         }
 
-#include "maindummy.hpp"
+//     private:
+//         key_compare c_;
+//     };
+//     map(comp c = comp()) : _comp(c) {}
 
-// reproducing the error "non-const l" 
+// private:
+//     custom_comp _comp;
+// };
 
-
-class A {
-public:
-    // 
-private:
-    int _a;
-};
-int main() {
-    A a()
+int main () {
+    std::map<int, int> m;
+    std::map<int, int>::iterator itend = m.end();
+    return 0;
 }
