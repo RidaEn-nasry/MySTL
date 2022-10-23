@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/23 17:55:24 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:11:09 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ namespace ft
     // calculate the balance of the node
     int balance() const
     {
+      
       // the balance is the height of the left subtree - the height of the right subtree
       int left_height = _left == NULL ? 0 : _left->height();
       int right_height = _right == NULL ? 0 : _right->height();

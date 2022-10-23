@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/23 17:57:40 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:35:37 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -620,6 +620,7 @@ namespace ft
         tmp->setParent(node->parent());
       _node_alloc.destroy(node);
       _node_alloc.deallocate(node, 1);
+      // return tmp;
     };
     // minimum
     // finding min and max with help old min/max, which reduces TC to O(1)
@@ -628,7 +629,7 @@ namespace ft
       if (!_root)
         return NULL;
       node_type* old_min = _min;
-      if (!old_min)
+      if (old_min == NULL)
         // in case it's been removed let's start from the root
         old_min = _root;
       while (old_min->left())

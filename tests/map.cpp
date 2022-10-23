@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:15:17 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/23 17:56:38 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/23 18:27:29 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void ft_map_tests_suite()
     map.insert(ft::make_pair(1, 1));
     map.insert(ft::make_pair(2, 2));
     map.insert(ft::make_pair(3, 3));
+    map.insert(ft::make_pair(4, 4));
     std::cout << "map size: " << map.size() << std::endl;
     ft::map<int, int>::iterator it = map.begin();
     ft::map<int, int>::iterator ite = map.end();
