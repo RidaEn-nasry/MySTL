@@ -24,8 +24,11 @@
 //     custom_comp _comp;
 // };
 
-int main () {
+int main()
+{
     std::map<int, int> m;
-    std::map<int, int>::iterator itend = m.end();
+    std::map<int, int>::reverse_iterator it = m.rbegin();
+
+    std::cout << it->first << std::endl;
     return 0;
 }

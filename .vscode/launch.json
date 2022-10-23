@@ -19,7 +19,7 @@
       "name": "(lldb) Launch",
       "type": "lldb",
       "request": "launch",
-      "program": "/Users/wa5ina/42/Reimplementing-STL-Containers./test",
+      "program": "/Users/ren-nasr/Reimplementing-STL-Containers./test",
       "args": [
         "map"
       ],

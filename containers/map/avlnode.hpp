@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/23 18:11:09 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/23 20:56:48 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ namespace ft
     {
       
       // the balance is the height of the left subtree - the height of the right subtree
+      // a tree is unbalanced if the balance is greater tha
       int left_height = _left == NULL ? 0 : _left->height();
       int right_height = _right == NULL ? 0 : _right->height();
       return left_height - right_height;
