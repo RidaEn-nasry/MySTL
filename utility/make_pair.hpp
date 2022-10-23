@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 14:42:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 18:20:48 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/22 19:06:34 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 namespace ft {
 
-template <class T1, class T2>
-ft::pair<T1, T2> make_pair(T1 x, T2 y) {
-  return (ft::pair<T1, T2>(x, y));
-}
+  template <class T1, class T2>
+  ft::pair<T1, T2> make_pair(T1 x, T2 y) {
+    return (ft::pair<T1, T2>(x, y));
+  }
 
 } // namespace ft
 #endif

@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 18:06:06 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/23 17:55:24 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,17 @@ namespace ft
   public:
     /** Member types **/
     typedef T value_type;
-    typedef value_type &reference;
-    typedef const value_type &const_reference;
-    typedef value_type *pointer;
-    typedef const value_type *const_pointer;
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
     typedef Compare key_compare;
     typedef AVLNode<T, Compare> self;
     /** Member functions **/
 
     // (1) default constructor
-    AVLNode(key_compare &comp) : _comp(comp), _right(NULL), _left(NULL), _parent(NULL), _data(value_type()) {}
-    // {
-    //   _right = NULL;
-    //   _left = NULL;
-    //   _parent = NULL;
-    //   _data = value_type();
-    //   _comp = key_compare();
-    // };
+    AVLNode(key_compare& comp) : _comp(comp), _right(NULL), _left(NULL), _parent(NULL), _data(value_type()) {}
+
 
     // (2) constructor with comparison function
     // AVLNode(key_compare &comp) : _comp(comp), _right(NULL), _left(NULL), _parent(NULL), _data(value_type()) {}
@@ -53,7 +47,7 @@ namespace ft
     // };
 
     // (3) constructor with data and compare and optional parent
-    AVLNode(value_type data, key_compare &comp, self *parent = NULL) : _data(data), _right(NULL), _left(NULL), _parent(parent), _comp(comp){}
+    AVLNode(value_type data, key_compare& comp, self* parent = NULL) : _data(data), _right(NULL), _left(NULL), _parent(parent), _comp(comp) {}
     // {
     //   _right = NULL;
     //   _left = NULL;
@@ -67,11 +61,11 @@ namespace ft
 
     inline pointer data_ptr() { return &_data; }
 
-    inline self *right() const { return _right; }
+    inline self* right() const { return _right; }
 
-    inline self *left() { return _left; }
+    inline self* left() { return _left; }
 
-    inline self *parent() { return _parent; }
+    inline self* parent() { return _parent; }
 
     inline int height() const
     {
@@ -94,9 +88,9 @@ namespace ft
 
     // setters
     void setData(reference data) { _data = data; }
-    void setRight(self *right) { _right = right; }
-    void setLeft(self *left) { _left = left; }
-    void setParent(self *parent) { _parent = parent; }
+    void setRight(self* right) { _right = right; }
+    void setLeft(self* left) { _left = left; }
+    void setParent(self* parent) { _parent = parent; }
 
     // calculate the balance of the node
     int balance() const
@@ -109,50 +103,54 @@ namespace ft
 
     /** non-member functions **/
     // equality / inequality operators
-    inline friend bool operator==(const self &lhs, const self &rhs)
+    inline friend bool operator==(const self& lhs, const self& rhs)
     {
+      // if (!lhs && !rhs)
+      //   return false;
       return !(lhs._comp(lhs._data, rhs._data)) && !(lhs._comp(rhs._data, lhs._data));
     }
 
-    inline friend bool operator!=(const self &lhs, const self &rhs)
+    inline friend bool operator!=(const self& lhs, const self& rhs)
     {
       return !(lhs == rhs);
     }
 
-    inline friend bool operator<(const self &lhs, const self &rhs)
+    inline friend bool operator<(const self& lhs, const self& rhs)
     {
+      // if (!lhs && !rhs)
+      //   return false;
       return lhs._comp(lhs._data, rhs._data);
     }
 
-    inline friend bool operator>(const self &lhs, const self &rhs)
+    inline friend bool operator>(const self& lhs, const self& rhs)
     {
       return rhs < lhs;
     };
 
-    inline friend bool operator<=(const self &lhs, const self &rhs)
+    inline friend bool operator<=(const self& lhs, const self& rhs)
     {
       return !(lhs > rhs);
     }
 
-    inline friend bool operator>=(const self &lhs, const self &rhs)
+    inline friend bool operator>=(const self& lhs, const self& rhs)
     {
       return !(lhs < rhs);
     }
 
     // next
-    inline self *next()
+    inline self* next()
     {
       // if the node has a right child then the next node is the leftmost node of the right subtree
       if (right() != NULL)
       {
-        self *node = right();
+        self* node = right();
         while (node->left() != NULL)
         {
           node = node->left();
         }
         return node;
       }
-      self *node = this;
+      self* node = this;
       // else if node if left child of it's parent next node is node's parent
       if (node->parent()->left() == node)
         return node->parent();
@@ -165,19 +163,19 @@ namespace ft
     };
 
     // prev
-    inline self *prev()
+    inline self* prev()
     {
       // if the node has a left child then the prev node is the rightmost node of the left subtree
       if (left() != NULL)
       {
-        self *node = left();
+        self* node = left();
         while (node->right() != NULL)
         {
           node = node->right();
         }
         return node;
       }
-      self *node = this;
+      self* node = this;
       // else if node if right child of it's parent prev node is node's parent
       if (node->parent()->right() == node)
         return node->parent();
@@ -191,9 +189,9 @@ namespace ft
 
   private:
     value_type _data;
-    self *_right;
-    self *_left;
-    self *_parent;
+    self* _right;
+    self* _left;
+    self* _parent;
     key_compare _comp;
   };
 
