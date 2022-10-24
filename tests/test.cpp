@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:49:06 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 15:25:26 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:10:58 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,15 @@ int main(int argc, char** argv)
   else if (strcmp(argv[1], "map") == 0)
     ft_map_tests_suite();
   else if (strcmp(argv[1], "benchmark") == 0)
-      ft_benchmarking_tests_suite();
+    ft_benchmarking_tests_suite();
+  else if (strcmp(argv[1], "main") == 0)
+  {
+    // convert an srand to char* 
+    char* seed = new char[10];
+    snprintf(seed, 10, "%ld", (time(NULL) % 100));
+    std::cout << "seed: " << seed << std::endl;
+    main_test(seed);
+  }
   else
   {
     std::cout << "Test not found" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:03:35 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/23 20:56:48 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 17:45:37 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,9 @@ namespace ft
     AVLNode(key_compare& comp) : _comp(comp), _right(NULL), _left(NULL), _parent(NULL), _data(value_type()) {}
 
 
-    // (2) constructor with comparison function
-    // AVLNode(key_compare &comp) : _comp(comp), _right(NULL), _left(NULL), _parent(NULL), _data(value_type()) {}
-    // {
-    //   _right = NULL;
-    //   _left = NULL;
-    //   _parent = NULL;
-    //   _data = value_type();
-    //   _comp = comp;
-    // };
 
     // (3) constructor with data and compare and optional parent
     AVLNode(value_type data, key_compare& comp, self* parent = NULL) : _data(data), _right(NULL), _left(NULL), _parent(parent), _comp(comp) {}
-    // {
-    //   _right = NULL;
-    //   _left = NULL;
-    //   _parent = parent;
-    //   _data = data;
-    //   _comp = key_compare();
-    // };
 
     // getters
     inline reference data() { return _data; }
@@ -95,7 +79,7 @@ namespace ft
     // calculate the balance of the node
     int balance() const
     {
-      
+
       // the balance is the height of the left subtree - the height of the right subtree
       // a tree is unbalanced if the balance is greater tha
       int left_height = _left == NULL ? 0 : _left->height();

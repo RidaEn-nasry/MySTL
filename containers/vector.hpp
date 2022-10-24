@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/23 22:06:27 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:15:40 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 #include <memory>
 #include <reverse_iterator.hpp>
 #include <choose_type.hpp>
-
+#include <equal.hpp>
+#include <lexico_compare.hpp>
 namespace ft
 {
   template <typename T, typename Alloc = std::allocator<T> >

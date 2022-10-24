@@ -21,7 +21,7 @@
       "request": "launch",
       "program": "/Users/wa5ina/42/Reimplementing-STL-Containers./test",
       "args": [
-        "benchmark"
+        "main"
       ],
       "cwd": "${cwd}",
 

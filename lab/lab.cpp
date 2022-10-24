@@ -1,15 +1,17 @@
 #include <iostream>
 #include <map>
-// #include <bits/stdc++.h>
+#include <set>
 
 using namespace std;
 
 int main()
 {
-    map<int, char> m;
-    for (int i = 0; i < 10; i++)
-        m[i] = 'a' + i;
-
-    std::cout << m[1000] << std::endl;
+    set<int> s;
+    s.insert(1);
+    s.insert(2);
+    s.insert(3);
+    s.insert(2);
+    for (set<int>::iterator it = s.begin(); it != s.end(); it++)
+        cout << *it << endl;
     return 0;
 }

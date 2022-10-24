@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:47:18 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/21 09:55:35 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:29:33 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 
 #ifndef STACK_HPP
 #define STACK_HPP
+#include <equal.hpp>
+#include <lexico_compare.hpp>
+#include <stack.hpp>
+#include <vector.hpp>
 
 namespace ft {
 
@@ -32,25 +36,25 @@ namespace ft {
     typedef size_t size_type;
 
     /************************** Member functions **************************/
-    explicit  stack(const container_type& cntr = container_type()) : _cntr(cntr) {}
+    explicit  stack(const container_type& cntr = container_type()) : c(cntr) {}
 
-    bool empty() const { return _cntr.empty(); }
-    size_type size() const { return _cntr.size(); }
+    bool empty() const { return c.empty(); }
+    size_type size() const { return c.size(); }
 
-    value_type& top() { return _cntr.back(); }
-    const value_type& top() const { return _cntr.back(); }
+    value_type& top() { return c.back(); }
+    const value_type& top() const { return c.back(); }
 
     void push(const value_type& val) {
-      _cntr.push_back(val);
+      c.push_back(val);
     }
 
-    void pop() { _cntr.pop_back(); }
+    void pop() { c.pop_back(); }
 
-    void swap(stack& x) { _cntr.swap(x._cntr); }
+    void swap(stack& x) { c.swap(x.c); }
     /************************* non-member functions *************************/
 
     friend bool operator== (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-      return lhs._cntr == rhs._cntr;
+      return lhs.c == rhs.c;
     }
 
     friend bool operator!= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
@@ -58,7 +62,7 @@ namespace ft {
     }
 
     friend bool operator<  (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-      return lhs._cntr < rhs._cntr;
+      return lhs.c < rhs.c;
     }
 
     friend bool operator<= (const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
@@ -76,8 +80,10 @@ namespace ft {
       x.swap(y);
     };
 
-  private:
-    container_type _cntr;
+    
+    // member objects
+  protected:
+    container_type c;
   };
 
 } // namespace ft

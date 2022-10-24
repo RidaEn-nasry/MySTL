@@ -21,7 +21,8 @@ TESTS=./tests/vector.cpp\
 			./tests/equal.cpp\
 			./tests/avlnode.cpp\
 			./tests/map.cpp\
-			./tests/benchmarking.cpp
+			./tests/benchmarking.cpp\
+			./tests/main_test.cpp
 
 DEP=./others/choose_type.hpp\
 	./containers/vector.hpp\

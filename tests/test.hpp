@@ -167,5 +167,5 @@ void ft_equal_tests_suite();
 void ft_map_tests_suite();
 void ft_avlnode_tests_suite();
 void ft_benchmarking_tests_suite();
-
+int main_test(char* argv);
 #endif

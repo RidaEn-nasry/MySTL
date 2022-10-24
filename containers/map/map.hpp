@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 15:19:49 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:21:16 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 #include <reverse_iterator.hpp>
 #include <avlnode.hpp>
 #include <make_pair.hpp>
+#include <lexico_compare.hpp>
+#include <equal.hpp>
+
 
 namespace ft
 {
@@ -603,6 +606,47 @@ namespace ft
       return _comp;
     };
 
+
+    /************** non-member functions **************/
+
+    // relational operators
+    friend bool operator==(const map& lhs, const map& rhs)
+    {
+      return lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin());
+    };
+
+    friend bool operator!=(const map& lhs, const map& rhs)
+    {
+      return !(lhs == rhs);
+    };
+    
+    friend bool operator<(const map& lhs, const map& rhs)
+    {
+      return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    };
+
+    friend bool operator<=(const map& lhs, const map& rhs)
+    {
+      return !(rhs < lhs);
+    };
+
+    friend bool operator>(const map& lhs, const map& rhs)
+    {
+      return rhs < lhs;
+    };
+
+    friend bool operator>=(const map& lhs, const map& rhs)
+    {
+      return !(lhs < rhs);
+    };
+    
+    // swap
+    friend void swap(map& lhs, map& rhs)
+    {
+      lhs.swap(rhs);
+    };
+  
+
   private:
     allocator_type _alloc;
     value_compare _comp;
@@ -881,50 +925,6 @@ namespace ft
 
 
   }; // map class
-
-  // non-member function overloads
-  template <class Key, class T, class Compare, class Alloc>
-  bool operator==(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-  {
-    return lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin());
-  }
-
-  template <class Key, class T, class Compare, class Alloc>
-  bool operator!=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-  {
-    return !(lhs == rhs);
-  }
-  
-  template <class Key, class T, class Compare, class Alloc>
-  bool operator<(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-  {
-    return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-  }
-
-  template <class Key, class T, class Compare, class Alloc>
-  bool operator<=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-  {
-    return !(rhs < lhs);
-  }
-  
-  template <class Key, class T, class Compare, class Alloc>
-  bool operator>(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-  {
-    return rhs < lhs;
-  }
-
-  template <class Key, class T, class Compare, class Alloc>
-  bool operator>=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
-  {
-    return !(lhs < rhs);
-  }
-  
-  template <class Key, class T, class Compare, class Alloc>
-  void swap(map<Key, T, Compare, Alloc>& x, map<Key, T, Compare, Alloc>& y)
-  {
-    x.swap(y);
-  }
-
 
 }; // ft namespace
 

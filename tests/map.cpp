@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:15:17 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 15:19:07 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:22:01 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,7 +470,7 @@ void ft_map_tests_suite()
       m3[i] = i;
       m4[i] = i + 1;
     }
-    ft::swap(m3, m4);
+    swap(m3, m4);
     for (int i = 0; i < 100; ++i)
     {
       REQUIRE_EQ(m3[i], i + 1, test_name, "`swap` non-member function should swap the contents of the two maps");
