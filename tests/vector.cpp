@@ -54,6 +54,7 @@ void ft_vector_tests_suite() {
     T ft::vector<int> v1;
     REQUIRE(typeid(v1).name(), test_name, "either you kidding me... or you're vector is not in the `ft` namespace"); C;
     INFO_OK(test_name);
+    //sleep(1);
   }
   /*********************************************************************************/
   /*                               Member Types                                   */
@@ -70,6 +71,7 @@ void ft_vector_tests_suite() {
     REQUIRE_EQ(typeid(ft::vector<int>::difference_type).name(), typeid(std::ptrdiff_t).name(), test_name, "`difference_type` member type is missing or invalid");
     REQUIRE_EQ(typeid(ft::vector<int>::size_type).name(), typeid(std::size_t).name(), test_name, "`size_type` member type is missing or invalid");
     INFO_OK(test_name);
+    //sleep(1);
 
   }
 
@@ -92,6 +94,7 @@ void ft_vector_tests_suite() {
     REQUIRE_EQ(v1.empty(), v2.empty(), test_name, "`empty()` should return `true` when vector is default constructed");
     REQUIRE_NULL(v1.data(), test_name, "`data()` should return `NULL` when vector is default constructed");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /**********************************/
@@ -119,6 +122,7 @@ void ft_vector_tests_suite() {
       REQUIRE_EQ(v3[i], v4[i], test_name, "`each vector[n]` should be `value_type val or value_type()` when vector is fill constructed");
 
     INFO_OK(test_name);
+    //sleep(1);
 
   }
 
@@ -135,7 +139,7 @@ void ft_vector_tests_suite() {
     for (size_t i = 0; i < v2.size(); i++)
       REQUIRE_EQ(v1[i], v2[i], test_name, "each `vector[n]` should be the same as `vector2[n]` when vector is range constructed");
     INFO_OK(test_name);
-
+    //sleep(1);
   }
 
 
@@ -160,6 +164,7 @@ void ft_vector_tests_suite() {
     REQUIRE_STREQ(typeid(ft::vector<int>::const_iterator::reference).name(), typeid(const int&).name(), test_name, "`ft:vector<T>::const_iterator::reference` member type should be `const T&`");
     INFO_OK(test_name);
     // free(test_name);
+    //sleep(1);
   }
 
   /****************************************************/
@@ -219,7 +224,7 @@ void ft_vector_tests_suite() {
     REQUIRE_EQ(ft_it1[2], std_it[2], test_name, "`iterator[n]` should return the value of the element pointed by `iterator` after incrementing it by `n`");
     // char *test_name2 = strdup("Iterator requirements tests ");
     INFO_OK(test_name);
-
+    //sleep(1);
   }
 
 
@@ -283,6 +288,7 @@ void ft_vector_tests_suite() {
     (void)ft_it4;
     (void)std_it4;
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /********************************************************************************/
@@ -307,6 +313,7 @@ void ft_vector_tests_suite() {
     std_it = std_v1.end() - 1;
     REQUIRE_EQ(*ft_it, *std_it, test_name, "`end` should return an iterator to the last element of the vector");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // cbegin / cend 
@@ -327,8 +334,8 @@ void ft_vector_tests_suite() {
     std_it = std_v1.cend() - 1;
     REQUIRE_EQ(*ft_it, *std_it, test_name, "`cend` should return a const_iterator to the last element of the vector");
     INFO_OK(test_name);
+    //sleep(1);
   }
-
 
   // reserve member method
   {
@@ -378,6 +385,7 @@ void ft_vector_tests_suite() {
     };
     INFO_OK(test_name);
 
+    //sleep(1);
   }
 
   // erase 
@@ -429,6 +437,7 @@ void ft_vector_tests_suite() {
     REQUIRE_EQ(*ft_ret, *std_ret, test_name, "`erase` should return an iterator pointing to the element that followed the last element erased by the function call");
     REQUIRE_EQ(ft_v1.empty(), std_v1.empty(), test_name, "`empty` should return `true` after erasing [ft_v1.begin(), ft_v1.end()) range of elements");
     INFO_OK(test_name);
+    //sleep(1);
   }
   // insert 
   {
@@ -498,8 +507,8 @@ void ft_vector_tests_suite() {
       REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`insert` should insert the element at the specified position");
     }
     INFO_OK(test_name);
+    //sleep(1);
   }
-
 
   // assign
 
@@ -541,6 +550,7 @@ void ft_vector_tests_suite() {
     for (size_t i = 0; i < ft_v1.size(); i++)
       REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`assign` should assign n elements to the vector");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // resize 
@@ -563,8 +573,8 @@ void ft_vector_tests_suite() {
     std_v1.resize(20);
     REQUIRE_EQ(ft_v1.size(), std_v1.size(), test_name, "`size` should be assigned to n after resizing n elements");
     INFO_OK(test_name);
+    //sleep(1);
   }
-
 
   // size / capacity / empty / max_size 
   {
@@ -587,6 +597,7 @@ void ft_vector_tests_suite() {
     REQUIRE_EQ(ft_v1.empty(), std_v1.empty(), test_name, "`empty` should be false after creating a vector with 10 elements");
     REQUIRE_EQ(ft_v1.max_size(), std_v1.max_size(), test_name, "`max_size` should be the same after creating a vector with 10 elements");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // const/non-const front / back member functions
@@ -609,6 +620,7 @@ void ft_vector_tests_suite() {
     REQUIRE_EQ(typeid(ft_v2.front()), typeid(std_v2.front()), test_name, "`front` should return the first element of type const T");
     REQUIRE_EQ(typeid(ft_v2.back()), typeid(std_v2.back()), test_name, "`back` should return the last element of type const T");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // const / non-const subscript operator 
@@ -628,6 +640,7 @@ void ft_vector_tests_suite() {
     // check the type of the return value
     REQUIRE_EQ(typeid(ft_v2[5]), typeid(std_v2[5]), test_name, "`operator[]` should return the element at index n of type const T");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // const / non-const data() member functions
@@ -643,6 +656,7 @@ void ft_vector_tests_suite() {
     std_v1.insert(std_v1.begin(), 10);
     REQUIRE_EQ(*ft_v1.data(), *std_v1.data(), test_name, "`data` should return the raw pointer used internally by the vector to store its owned elements");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // at 
@@ -684,6 +698,7 @@ void ft_vector_tests_suite() {
 
     REQUIRE_EQ(ft_threw, true, test_name, "const `at` should throw an exception if the index is out of range");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // clear 
@@ -704,6 +719,7 @@ void ft_vector_tests_suite() {
       REQUIRE_NEQ(ft_v1[i], (int)i, test_name, "`clear` should destroy all elements");
     }
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // get_allocator 
@@ -718,6 +734,7 @@ void ft_vector_tests_suite() {
     }
     REQUIRE_EQ(ft_v1.get_allocator(), std_v1.get_allocator(), test_name, "`get_allocator` should return the allocator object used by the vector");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // shrink_to_fit
@@ -752,6 +769,7 @@ void ft_vector_tests_suite() {
       REQUIRE_EQ(ft_v2[i], 10, test_name, "`swap` should swap the contents of the vector");
     }
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // push_back 
@@ -775,6 +793,7 @@ void ft_vector_tests_suite() {
       // REQUIRE_EQ(ft_v1[i], std_v1[i], test_name, "`push_back` should add the element at the end of the vector");
     }
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // reverse iterator 
@@ -799,6 +818,7 @@ void ft_vector_tests_suite() {
     // base 
     REQUIRE_EQ(ft_it.base(), ft_v1.begin(), test_name, "`base` should return the base iterator");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // pop back
@@ -816,5 +836,6 @@ void ft_vector_tests_suite() {
     }
 
     INFO_OK(test_name);
+    //sleep(1);
   }
 }

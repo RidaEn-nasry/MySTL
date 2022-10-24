@@ -35,6 +35,7 @@ void ft_stack_tests_suite() {
     REQUIRE_STREQ(typeid(ft_size).name(), typeid(size_t).name(), test_name, "`ft::stack` should use `size_t` as default size type");
     REQUIRE_STREQ(typeid(ft_value).name(), typeid(int).name(), test_name, "`ft::stack` should use `T` as default value type");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /*****************************************************************************/
@@ -86,6 +87,7 @@ void ft_stack_tests_suite() {
     REQUIRE(ft_stack.empty(), test_name, "pop() should remove the top element of the stack");
 
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   // /***************************************************************************/
@@ -100,6 +102,7 @@ void ft_stack_tests_suite() {
     REQUIRE_EQ(ft_stack.size(), (size_t)1, test_name, "ft::stack should be compatabile with std::vector");
     REQUIRE_EQ(ft_stack.top(), v, test_name, "ft::stack should be compatabile with std::vector");
 
-    INFO_OK(test_name);    
+    INFO_OK(test_name);
+    //sleep(1);
   }
 };

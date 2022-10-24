@@ -12,7 +12,6 @@ CONTAINERS=-I./containers/
 TESTS=./tests/vector.cpp\
 			./tests/test.cpp\
 			./tests/iterator_traits.cpp\
-			./tests/reverse_iterator.cpp\
 			./tests/stack.cpp\
 			./tests/enable_if.cpp\
 			./tests/pair.cpp\

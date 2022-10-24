@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:49:06 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 18:10:58 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:42:48 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_run_all_tests()
   ft_enable_if_tests_suite();
   ft_is_integral_tests_suite();
   ft_equal_tests_suite();
-  ft_avlnode_tests_suite();
+
   ft_map_tests_suite();
   ft_benchmarking_tests_suite();
 }
@@ -45,8 +45,6 @@ int main(int argc, char** argv)
     ft_run_all_tests();
   else if (strcmp(argv[1], "vector") == 0)
     ft_vector_tests_suite();
-  else if (strcmp(argv[1], "reverse_iterator") == 0)
-    ft_reverse_iterator_tests_suite();
   else if (strcmp(argv[1], "enable_if") == 0)
     ft_enable_if_tests_suite();
   else if (strcmp(argv[1], "pair") == 0)
@@ -59,8 +57,7 @@ int main(int argc, char** argv)
     ft_is_integral_tests_suite();
   else if (strcmp(argv[1], "equal") == 0)
     ft_equal_tests_suite();
-  else if (strcmp(argv[1], "avlnode") == 0)
-    ft_avlnode_tests_suite();
+ 
   else if (strcmp(argv[1], "map") == 0)
     ft_map_tests_suite();
   else if (strcmp(argv[1], "benchmark") == 0)

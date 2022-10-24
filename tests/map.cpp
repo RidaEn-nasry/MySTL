@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:15:17 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 18:22:01 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:47:23 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void ft_map_tests_suite()
     REQUIRE_EQ(typeid(ft::map<std::vector<char>, std::string>::difference_type), typeid(std::ptrdiff_t), test_name, "`difference_type` member types is missing or invalid");
     REQUIRE_EQ(typeid(ft::map<std::vector<char>, std::string>::size_type), typeid(std::size_t), test_name, "`size_type` member types is missing or invalid");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /******************************************************************************/
@@ -109,6 +110,7 @@ void ft_map_tests_suite()
     REQUIRE_EQ(a, m5.get_allocator(), test_name, "`get_allocator()` member function should return the same value as it's copy ctor");
 
     INFO_OK(test_name);
+    //sleep(1);
   }
 
 
@@ -138,6 +140,7 @@ void ft_map_tests_suite()
       ++it;
     }
     INFO_OK(test_name);
+    //sleep(1);
   }
 
 
@@ -161,6 +164,7 @@ void ft_map_tests_suite()
     ft::map<int, int>::size_type max_size = m1.get_allocator().max_size();
     REQUIRE_EQ(max_size, m1.max_size(), test_name, "`max_size()` member function should return the same value as std::map");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /******************************************************************************/
@@ -294,6 +298,7 @@ void ft_map_tests_suite()
     REQUIRE_EQ(m4.empty(), m5.empty(), test_name, "`swap()` member function should swap the map");
 
     INFO_OK(test_name);
+  //sleep(1);
   }
 
   /* ************************************************************************** */
@@ -336,6 +341,7 @@ void ft_map_tests_suite()
     REQUIRE_EQ(p2.second->first, 2, test_name, "`equal_range()` member function should return the iterator to the element if found");
 
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /* ************************************************************************** */
@@ -380,6 +386,7 @@ void ft_map_tests_suite()
     }
 
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /* ************************************************************************** */
@@ -405,6 +412,7 @@ void ft_map_tests_suite()
     REQUIRE_EQ(vc(p2, p2), false, test_name, "`value_comp()` member function should return the value comparison object");
 
     INFO_OK(test_name);
+    //sleep(1);
   }
   /* ************************************************************************** */
   /*                             non-member functions                           */
@@ -477,5 +485,6 @@ void ft_map_tests_suite()
       REQUIRE_EQ(m4[i], i, test_name, "`swap` non-member function should swap the contents of the two maps");
     }
     INFO_OK(test_name);
+    //sleep(1);
   }
 }

@@ -35,6 +35,7 @@ void ft_iterator_traits_tests_suite() {
     REQUIRE_STREQ(typeid(ft::iterator_traits<const int*>::reference).name(), typeid(const int&).name(), test_name, "iterator_traits<const pointer>::reference should be of type const int&");
     
     INFO_OK(test_name);
+    //sleep(1);
   }
 }
 

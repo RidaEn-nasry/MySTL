@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:31:19 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 18:23:05 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:47:12 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void ft_pair_tests_suite() {
     REQUIRE_STREQ(typeid(a).name(), typeid(int).name(), test_name, "first_type should be of type int");
     REQUIRE_STREQ(typeid(b).name(), typeid(char).name(), test_name, "second_type should be of type char");
     INFO_OK(test_name);
+    //sleep(1);
   }
 
   /* ************************************************************************** */
@@ -58,6 +59,7 @@ void ft_pair_tests_suite() {
       REQUIRE_EQ(c.first, 1, test_name, "operator= should initialize first to other.first, `first = other.first`");
       REQUIRE_EQ(c.second, 'a', test_name, "operator= should initialize second to other.second, `second = other.second`");
       INFO_OK(test_name);
+      //sleep(1);
     }
     // free(test_name);
   // relational operators
@@ -75,6 +77,7 @@ void ft_pair_tests_suite() {
       REQUIRE_GE(a, b, test_name, "operator>= should return true if `first` is greater than `first` of other");
       REQUIRE_LE(a, b, test_name, "operator<= should return true if `first` is less than `first` of other");
       INFO_OK(test_name);
+      //sleep(1);
     }
 
 

@@ -36,6 +36,10 @@
 #include <sys/wait.h>
 #include <typeinfo>
 
+#define VEC_TEST_SIZE 3
+#define MAP_TEST_SIZE 3
+#define STACK_TEST_SIZE 3
+
 #define INFO_ERR() std::cout << "\033[31m[ERROR]\033[0m " << __FILE__ << ":" << __LINE__ << " " << __FUNCTION__ << "(): " << std::endl;
 #define INFO_OK(test_name) std::cout << "\033[1;34m" << test_name << "\033[0m" \
                                      << "\033[1;32m"                           \
@@ -157,7 +161,7 @@
 void ft_vector_tests_suite();
 void ft_stack_tests_suite();
 void ft_iterator_traits_tests_suite();
-void ft_reverse_iterator_tests_suite();
+
 void ft_enable_if_tests_suite();
 void ft_pair_tests_suite();
 void ft_lexico_compare_tests_suite();

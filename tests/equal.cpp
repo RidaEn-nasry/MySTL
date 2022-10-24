@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 22:21:47 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/08 22:25:10 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:48:07 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void ft_equal_tests_suite() {
         a[5] = 4;
         REQUIRE_EQ(ft::equal(a.begin(), a.end(), b.begin()), false, test_name, "equal should return false if the two sequences are not equal");
         INFO_OK(test_name);
+        //sleep(1);
     }
 
     /*** predicate ***/
@@ -52,8 +53,7 @@ void ft_equal_tests_suite() {
         a[5] = 4;
         REQUIRE_EQ(ft::equal(a.begin(), a.end(), b.begin(), std::equal_to<int>()), false, test_name, "equal should return false if the two sequences are not equal");
         INFO_OK(test_name);
-
-        
+        //sleep(1);
     }
     
 };
