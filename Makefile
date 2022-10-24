@@ -20,7 +20,8 @@ TESTS=./tests/vector.cpp\
 			./tests/is_integral.cpp\
 			./tests/equal.cpp\
 			./tests/avlnode.cpp\
-			./tests/map.cpp
+			./tests/map.cpp\
+			./tests/benchmarking.cpp
 
 DEP=./others/choose_type.hpp\
 	./containers/vector.hpp\

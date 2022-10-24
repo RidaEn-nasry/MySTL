@@ -13,6 +13,10 @@
 #include <iterator>
 #include <cstring>
 #include <map>
+#include <chrono>
+#include <ctime>
+#include <cstdlib>
+
 // my shit
 
 #include <enable_if.hpp>
@@ -132,6 +136,10 @@
     REASON(msg);                            \
   }
 
+
+
+
+
 // memory leaks
 // #define REQUIRE_NO_LEAKS(test_name) {  \
 //     std::string cmd = "leaks -quiet ./test"; \
@@ -158,5 +166,6 @@ void ft_is_integral_tests_suite();
 void ft_equal_tests_suite();
 void ft_map_tests_suite();
 void ft_avlnode_tests_suite();
+void ft_benchmarking_tests_suite();
 
 #endif
