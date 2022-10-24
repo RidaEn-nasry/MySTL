@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 19:15:17 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 01:09:24 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:19:07 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ void ft_map_tests_suite()
     }
 
     // insert with hint
-    // work for later
+    // work for later  
 
     // erase with single element
     m4.erase(1);
@@ -286,9 +286,196 @@ void ft_map_tests_suite()
     REQUIRE_EQ(m6.empty(), m7.empty(), test_name, "`clear()` member function should clear the map");
 
     // swap
-    // work for later 
-    
+    m6.swap(m4);
+    m7.swap(m5);
+    REQUIRE_EQ(m6.size(), m7.size(), test_name, "`swap()` member function should swap the map");
+    REQUIRE_EQ(m6.empty(), m7.empty(), test_name, "`swap()` member function should swap the map");
+    REQUIRE_EQ(m4.size(), m5.size(), test_name, "`swap()` member function should swap the map");
+    REQUIRE_EQ(m4.empty(), m5.empty(), test_name, "`swap()` member function should swap the map");
+
     INFO_OK(test_name);
   }
 
+  /* ************************************************************************** */
+  /*                                    Lookup                                  */
+  /* ************************************************************************** */
+
+  {
+    std::string test_name("ft::map lookup member functions test ");
+    ft::map<int, int> m1;
+    for (int i = 0; i < 100; ++i)
+    {
+      m1.insert(ft::make_pair(i, rand()));
+    }
+    ft::map<int, int>::iterator it = m1.begin();
+    ft::map<int, int>::iterator ite = m1.end();
+    // count 
+    REQUIRE_EQ(m1.count(1), 1, test_name, "`count()` member function should return 1 if the element is found");
+    REQUIRE_EQ(m1.count(100), 0, test_name, "`count()` member function should return 0 if the element is not found");
+
+
+    // find 
+    REQUIRE_EQ(m1.find(5)->first, 5, test_name, "`find()` member function should return the iterator to the element if found");
+    REQUIRE_EQ(m1.find(100), ite, test_name, "`find()` member function should return the iterator to the end if not found");
+
+    // lower_bound 
+    REQUIRE_EQ(m1.lower_bound(31)->first, 31, test_name, "`lower_bound()` member function should return the iterator to the element if found");
+    REQUIRE_EQ(m1.lower_bound(100), ite, test_name, "`lower_bound()` member function should return the iterator to the end if not found");
+
+
+    // upper_bound
+    REQUIRE_EQ(m1.upper_bound(31)->first, 32, test_name, "`upper_bound()` member function should return the iterator to the element if found");
+    REQUIRE_EQ(m1.upper_bound(100), ite, test_name, "`upper_bound()` member function should return the iterator to the end if not found");
+
+    // equal_range
+    ft::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> p1 = m1.equal_range(31);
+    ft::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> p2 = m1.equal_range(1);
+    REQUIRE_EQ(p1.first->first, 31, test_name, "`equal_range()` member function should return the iterator to the element if found");
+    REQUIRE_EQ(p1.second->first, 32, test_name, "`equal_range()` member function should return the iterator to the element if found");
+    REQUIRE_EQ(p2.first->first, 1, test_name, "`equal_range()` member function should return the iterator to the element if found");
+    REQUIRE_EQ(p2.second->first, 2, test_name, "`equal_range()` member function should return the iterator to the element if found");
+
+    INFO_OK(test_name);
+  }
+
+  /* ************************************************************************** */
+  /*                                       Element access                       */
+  /* ************************************************************************** */
+  {
+    std::string test_name("ft::map element access member functions test ");
+    ft::map<int, int> m1;
+    // // operator[]
+    for (int i = 0; i < 100; ++i)
+    {
+      m1[i] = i;
+    }
+    for (int i = 0; i < 100; ++i)
+    {
+      REQUIRE_EQ(m1[i], i, test_name, "`operator[]` member function should return the value of the element if found");
+    }
+    REQUIRE_EQ(m1[1], 1, test_name, "`operator[]` member function should return the value of the element if found");
+    REQUIRE_EQ(m1[100], 0, test_name, "`operator[]` member function should return the value of the element if found");
+
+
+    // at 
+    for (int i = 0; i < 100; ++i)
+    {
+      m1.at(i) = i;
+    }
+    for (int i = 0; i < 100; ++i)
+    {
+      REQUIRE_EQ(m1.at(i), i, test_name, "`at()` member function should return the value of the element if found");
+    }
+    try
+    {
+      m1.at(100);
+    }
+    catch (std::exception& e)
+    {
+      REQUIRE_EQ(1, 1, test_name, "`at()` member function should throw an exception if the element is not found");
+    }
+    catch (...)
+    {
+      REQUIRE_EQ(1, 0, test_name, "`at()` member function should throw an exception if the element is not found");
+    }
+
+    INFO_OK(test_name);
+  }
+
+  /* ************************************************************************** */
+  /*                                       Observers                            */
+  /* ************************************************************************** */
+  {
+
+    //key compare
+    std::string test_name("ft::map observers member functions test ");
+    ft::map<int, int, ft::less<int> > m1;
+    REQUIRE_EQ(typeid(m1.key_comp()), typeid(ft::less<int>), test_name, "`key_comp()` member function should return the key comparison object");
+    ft::map<int, char, std::greater<int> > m2;
+    REQUIRE_EQ(typeid(m2.key_comp()), typeid(std::greater<int>), test_name, "`key_comp()` member function should return the key comparison object");
+
+    // value compare
+    ft::map<int, int> m3;
+    ft::map<int, int>::value_compare vc = m3.value_comp();
+    ft::pair<int, int> p1(1, 1);
+    ft::pair<int, int> p2(2, 2);
+    REQUIRE_EQ(vc(p1, p2), true, test_name, "`value_comp()` member function should return the value comparison object");
+    REQUIRE_EQ(vc(p2, p1), false, test_name, "`value_comp()` member function should return the value comparison object");
+    REQUIRE_EQ(vc(p1, p1), false, test_name, "`value_comp()` member function should return the value comparison object");
+    REQUIRE_EQ(vc(p2, p2), false, test_name, "`value_comp()` member function should return the value comparison object");
+
+    INFO_OK(test_name);
+  }
+  /* ************************************************************************** */
+  /*                             non-member functions                           */
+  /*****************************************************************************/
+  {
+    std::string test_name("ft::map non-member functions test ");
+    ft::map<int, int> m1;
+    ft::map<int, int> m2;
+
+
+    for (int i = 0; i < 100; ++i)
+    {
+      m1[i] = i;
+      m2[i] = i;
+    }
+    // operator==
+    REQUIRE_EQ(m1 == m2, true, test_name, "`operator==` non-member function should return true if the two maps are equal");
+    m1[1] = 2;
+    REQUIRE_EQ(m1 == m2, false, test_name, "`operator==` non-member function should return false if the two maps are not equal");
+    m1[1] = 1;
+    REQUIRE_EQ(m1 == m2, true, test_name, "`operator==` non-member function should return true if the two maps are equal");
+
+    // operator!=
+    REQUIRE_EQ(m1 != m2, false, test_name, "`operator!=` non-member function should return false if the two maps are equal");
+    m1[1] = 2;
+    REQUIRE_EQ(m1 != m2, true, test_name, "`operator!=` non-member function should return true if the two maps are not equal");
+    m1[1] = 1;
+    REQUIRE_EQ(m1 != m2, false, test_name, "`operator!=` non-member function should return false if the two maps are equal");
+
+    // operator<
+    REQUIRE_EQ(m1 < m2, false, test_name, "`operator<` non-member function should return false if the first map is not less than the second map");
+    m1[1] = 0;
+    REQUIRE_EQ(m1 < m2, true, test_name, "`operator<` non-member function should return true if the first map is less than the second map");
+    m1[1] = 1;
+    REQUIRE_EQ(m1 < m2, false, test_name, "`operator<` non-member function should return false if the first map is not less than the second map");
+
+    // operator<=
+    REQUIRE_EQ(m1 <= m2, true, test_name, "`operator<=` non-member function should return true if the first map is less than or equal to the second map");
+    m1[1] = 0;
+    REQUIRE_EQ(m1 <= m2, true, test_name, "`operator<=` non-member function should return true if the first map is less than or equal to the second map");
+    m1[1] = 1;
+    REQUIRE_EQ(m1 <= m2, true, test_name, "`operator<=` non-member function should return true if the first map is less than or equal to the second map");
+
+    // operator>
+    REQUIRE_EQ(m1 > m2, false, test_name, "`operator>` non-member function should return false if the first map is not greater than the second map");
+    m1[1] = 2;
+    REQUIRE_EQ(m1 > m2, true, test_name, "`operator>` non-member function should return true if the first map is greater than the second map");
+    m1[1] = 1;
+    REQUIRE_EQ(m1 > m2, false, test_name, "`operator>` non-member function should return false if the first map is not greater than the second map");
+
+    // operator>=
+    REQUIRE_EQ(m1 >= m2, true, test_name, "`operator>=` non-member function should return true if the first map is greater than or equal to the second map");
+    m1[1] = 2;
+    REQUIRE_EQ(m1 >= m2, true, test_name, "`operator>=` non-member function should return true if the first map is greater than or equal to the second map");
+    m1[1] = 1;
+    REQUIRE_EQ(m1 >= m2, true, test_name, "`operator>=` non-member function should return true if the first map is greater than or equal to the second map");
+
+    // swap non-member function
+    ft::map<int, int> m3;
+    ft::map<int, int> m4;
+    for (int i = 0; i < 100; ++i)
+    {
+      m3[i] = i;
+      m4[i] = i + 1;
+    }
+    ft::swap(m3, m4);
+    for (int i = 0; i < 100; ++i)
+    {
+      REQUIRE_EQ(m3[i], i + 1, test_name, "`swap` non-member function should swap the contents of the two maps");
+      REQUIRE_EQ(m4[i], i, test_name, "`swap` non-member function should swap the contents of the two maps");
+    }
+    INFO_OK(test_name);
+  }
 }

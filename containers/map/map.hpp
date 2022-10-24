@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 01:02:17 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:19:49 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 /* map is allocator-aware, and reversible.                                    */
 /*****************************************************************************/
 
-/// TODO:
-// think about how the copy constructor of the iterator should work
-// why you to put ft::AVLNode<...> and not AVLNode<...>
 #ifndef MAP_HPP
 #define MAP_HPP
 
@@ -318,70 +315,140 @@ namespace ft
       return _alloc.max_size();
     };
 
-    /************** element access **************/
+    /************** Element access **************/
     mapped_type& operator[](const key_type& k)
     {
-      (void)k;
-      // iterator it = find(k);
-      // if (it == end())
-      // {
-      //   insert(make_pair(k, mapped_type()));
-      //   it = find(k);
-      // }
-      // return it->second;
+      // if key is not in map, insert it
+      iterator it = find(k);
+      if (it == end())
+      {
+        insert(value_type(k, mapped_type()));
+        it = find(k);
+      }
+      return it->second;
     };
 
     // // at
-    // mapped_type &at(const key_type &k)
-    // {
-    //   // intresting stuff here
-    // }
+    mapped_type& at(const key_type& k)
+    {
+      // if key is not in map, throw out_of_range
+      iterator it = find(k);
+      if (it == end())
+        throw std::out_of_range("Key not found");
+      return it->second;
 
-    // const mapped_type &at(const key_type &k) const
-    // {
-    //   // intresting stuff here
-    // }
+    }
+
+    const mapped_type& at(const key_type& k) const
+    {
+      const_iterator it = find(k);
+      if (it == end())
+        throw std::out_of_range("Key not found");
+      return it->second;
+    }
 
     /************** Lookup **************/
 
     // count
     size_type count(const key& k) const
     {
-
-      // implement this
-      value_type val = value_type(k, mapped_type());
-
+      // count the number of elements with key k in the container, which is either 1 or 0 since no duplicates are allowed
+      // effectively using find to check if the key exists
+      if (find(k) == end())
+        return 0;
+      return 1;
     };
 
     // find
     iterator find(const key& k)
     {
-      (void)k;
-      // work for later
+
+      // find the element with key k and return an iterator to it if it exists, otherwise return end()
+      if (_root == NULL)
+        return end();
+      value_type val = value_type(k, mapped_type());
+      node_type* current = _root;
+      while (current != NULL)
+      {
+        if (_comp(val, current->data()))
+          current = current->left();
+        else if (_comp(current->data(), val))
+          current = current->right();
+        else
+          return iterator(current, _min, _max);
+      }
+      return end();
     };
 
     const_iterator find(const key& k) const
     {
-      (void)k;
-      // work for later
+      if (_root == NULL)
+        return end();
+      value_type val = value_type(k, mapped_type());
+      node_type* current = _root;
+      while (current != NULL)
+      {
+        if (_comp(val, current->data()))
+          current = current->left();
+        else if (_comp(current->data(), val))
+          current = current->right();
+        else
+          return const_iterator(current, _min, _max);
+      }
+      return end();
     };
 
     // lower_bound
     iterator lower_bound(const key& k)
     {
-      (void)k;
-      // // implement this
-      // node_type* tmp = _root;
-      // value_type val = value_type(k, mapped_type());
-      // while (tmp)
-      // { 
-      //   if (_comp(tmp->data(), val))
-      //     tmp = tmp->right();
-      //   else
-      //     tmp = tmp->left();
-      // }
-      // if (!tmp)
-      // return iterator(tmp, _min, _max);
+      // lower_bound returns the first element that is greater or equal to k
+      // if k is greater than all elements in the map, lower_bound returns end()
+      value_type val = value_type(k, mapped_type());
+      iterator it = begin();
+      // while it != end() and it->first < k
+      while (it != end() && _comp(*it, val))
+        ++it;
+      return it;
+    };
+
+    const_iterator lower_bound(const key& k) const {
+      value_type val = value_type(k, mapped_type());
+      const_iterator it = begin();
+      while (it != end() && _comp(*it, k))
+        ++it;
+      return it;
+    };
+
+
+    // upper_bound
+    iterator upper_bound(const key& k) {
+      // upper_bound returns the first element that is greater than k
+      // if k is greater than all elements in the map, upper_bound returns end()
+      value_type val = value_type(k, mapped_type());
+      iterator it = begin();
+      // while it != end() and it->first <= k
+      while (it != end() && !_comp(val, *it))
+        ++it;
+      return it;
+    };
+
+
+    const_iterator upper_bound(const key& k) const {
+      value_type val = value_type(k, mapped_type());
+      const_iterator it = begin();
+      while (it != end() && !_comp(val, *it))
+        ++it;
+      return it;
+    };
+
+    // equal_range
+    pair<iterator, iterator> equal_range(const key& k) {
+      // returns a pair of iterators where the first is lower_bound and the second is upper_bound
+      return make_pair(lower_bound(k), upper_bound(k));
+    }
+
+    pair<const_iterator, const_iterator> equal_range(const key& k) const {
+      return make_pair(lower_bound(k), upper_bound(k));
     }
 
     /************** modifiers **************/
@@ -408,10 +475,13 @@ namespace ft
     // insert witih hint (2)
     iterator insert(iterator position, const value_type& val)
     {
-      // work for later
-      (void)position;
-      (void)val;
-      return iterator(NULL, NULL, NULL);
+      // insert a new element before position
+      // if position is not a valid iterator, the behavior is undefined
+      // if position is a valid iterator, the behavior is the same as insert(val)
+      node_type* node = _find(*position);
+      if (node == NULL)
+        return insert(val).first;
+      return _insert(node, val).first;
     }
 
     // insert range (3)
@@ -495,8 +565,42 @@ namespace ft
     // swap
     void swap(map& other)
     {
-      // work for later
-      (void)other;
+      // swap the 
+      node_type* tmp_root = _root;
+      node_type* tmp_min = _min;
+      node_type* tmp_max = _max;
+      size_type tmp_size = _size;
+      value_compare tmp_comp = _comp;
+      allocator_type tmp_alloc = _alloc;
+      std::allocator<node_type> tmp_node_alloc = _node_alloc;
+
+      _root = other._root;
+      _min = other._min;
+      _max = other._max;
+      _size = other._size;
+      _comp = other._comp;
+      _alloc = other._alloc;
+      _node_alloc = other._node_alloc;
+
+      other._root = tmp_root;
+      other._min = tmp_min;
+      other._max = tmp_max;
+      other._size = tmp_size;
+      other._comp = tmp_comp;
+      other._alloc = tmp_alloc;
+      other._node_alloc = tmp_node_alloc;
+    };
+
+    /************** observers **************/
+
+    key_compare key_comp() const
+    {
+      return _comp;
+    };
+
+    value_compare value_comp() const
+    {
+      return _comp;
     };
 
   private:
@@ -666,17 +770,6 @@ namespace ft
       while (node->left())
         node = node->left();
       return node;
-
-      // node_type *old_min = _min;
-      // if (old_min == NULL)
-      //   // in case it's been removed let's start from the root
-      //   old_min = _root;
-      // while (old_min->left())
-      // {
-      //   old_min = old_min->left();
-      // }
-      // _min = old_min;
-      // return old_min;
     };
 
     // maximum
@@ -688,20 +781,6 @@ namespace ft
       while (node->right())
         node = node->right();
       return node;
-      // node_type *old_max = _max;
-      // if (!old_max)
-      //   // it might be removed, so we need to find it again
-      //   old_max = _root;
-      // while (old_max->right() != NULL)
-      //   old_max = old_max->right();
-      // _max = old_max;
-      // // updating _dummy_end
-      // // _dummy_end = _node_alloc.allocate(1);
-      // // value_type val = make_pair(_max->data().first + 1, _max->data().second);
-      // // _node_alloc.construct(_dummy_end, node_type(val, _comp, _max));
-      // // _max->setRight(_dummy_end);
-      // // _dummy_end->setParent(_max);
-      // return old_max;
     };
 
     // _finding
@@ -796,35 +875,56 @@ namespace ft
         _splice(min);
         _balance(node);
       }
-      // check tree balance
-
-      // update _dummy_end
-      // _update_dummy_end();
-      // update min and max
       _max = _maximum();
       _min = _minimum();
     };
 
-    // node_type* _new_dummy_end(node_type* old_dummy_end, value_type val) {
-    //   // _node_alloc.destroy(old_dummy_end);
-    //   // _node_alloc.deallocate(old_dummy_end, 1);
-    //   old_dummy_end = _node_alloc.allocate(1);
-    //   _node_alloc.construct(old_dummy_end, node_type(val, _comp));
-    //   return old_dummy_end;
-    // }
-    // void _update_dummy_end() {
-    //   if (!_dummy_end)
-    //     _dummy_end = _new_node(value_type(_max->data().first + 1, _max->data().second), _max);
-    //   else if (_max->data().first + 1 != _dummy_end->data().first)
-    //   {
-    //     //   _node_alloc.destroy(_dummy_end);
-    //     //   _node_alloc.deallocate(_dummy_end, 1);
-    //     _dummy_end = _new_node(value_type(_max->data().first + 1, _max->data().second), _max);
-    //   }
-    //   _max->setRight(_dummy_end);
-    //   _dummy_end->setParent(_max);
-    // }
+
   }; // map class
+
+  // non-member function overloads
+  template <class Key, class T, class Compare, class Alloc>
+  bool operator==(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+  {
+    return lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+  }
+
+  template <class Key, class T, class Compare, class Alloc>
+  bool operator!=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+  {
+    return !(lhs == rhs);
+  }
+  
+  template <class Key, class T, class Compare, class Alloc>
+  bool operator<(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+  {
+    return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+  }
+
+  template <class Key, class T, class Compare, class Alloc>
+  bool operator<=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+  {
+    return !(rhs < lhs);
+  }
+  
+  template <class Key, class T, class Compare, class Alloc>
+  bool operator>(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+  {
+    return rhs < lhs;
+  }
+
+  template <class Key, class T, class Compare, class Alloc>
+  bool operator>=(const map<Key, T, Compare, Alloc>& lhs, const map<Key, T, Compare, Alloc>& rhs)
+  {
+    return !(lhs < rhs);
+  }
+  
+  template <class Key, class T, class Compare, class Alloc>
+  void swap(map<Key, T, Compare, Alloc>& x, map<Key, T, Compare, Alloc>& y)
+  {
+    x.swap(y);
+  }
+
 
 }; // ft namespace
 
