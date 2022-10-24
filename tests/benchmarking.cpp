@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:22:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 20:50:27 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/24 20:55:49 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void ft_benchmarking_tests_suite()
     for (int i = 0; i < VEC_TEST_SIZE; i++)
       ft_vector.push_back(i);
     ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-    //sleep(2);
+    sleep(2);
     std_start = std::clock();
     for (int i = 0; i < VEC_TEST_SIZE; i++)
       std_vector.push_back(i);
@@ -57,7 +57,7 @@ void ft_benchmarking_tests_suite()
     for (int i = 0; i < VEC_TEST_SIZE; i++)
       ft_vector.pop_back();
     ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-    //sleep(2);
+    sleep(2);
     std_start = std::clock();
     for (int i = 0; i < VEC_TEST_SIZE; i++)
       std_vector.pop_back();
@@ -86,7 +86,7 @@ void ft_benchmarking_tests_suite()
         *it = 0;
       ft_ite_duration = (std::clock() - ft_ite_start) / (double)CLOCKS_PER_SEC;
 
-      //sleep(2);
+      sleep(2);
       std_ite_start = std::clock();
       for (std::vector<int>::iterator it = std_ite_vec.begin(); it != std_ite_vec.end(); it++)
         *it = 0;
@@ -107,7 +107,7 @@ void ft_benchmarking_tests_suite()
     ft_start = std::clock();
     ft_vector.resize(VEC_TEST_SIZE * 2);
     ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-    //sleep(2);
+    sleep(2);
     std_start = std::clock();
     std_vector.resize(VEC_TEST_SIZE * 2);
     std_duration2 = (std::clock() - std_start) / (double)CLOCKS_PER_SEC;
@@ -125,7 +125,7 @@ void ft_benchmarking_tests_suite()
     ft_start = std::clock();
     ft_vector.clear();
     ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-    //sleep(2);
+    sleep(2);
     std_start = std::clock();
     std_vector.clear();
     std_duration2 = (std::clock() - std_start) / (double)CLOCKS_PER_SEC;
@@ -157,7 +157,7 @@ void ft_benchmarking_tests_suite()
       for (int i = 0; i < MAP_TEST_SIZE; i++)
         ft_map.insert(ft::make_pair(i, i));
       ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-      //sleep(2);
+      sleep(2);
       std_start = std::clock();
       for (int i = 0; i < MAP_TEST_SIZE; i++)
         std_map.insert(std::make_pair(i, i));
@@ -180,7 +180,7 @@ void ft_benchmarking_tests_suite()
         ft_map.erase(i);
       ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
 
-      //sleep(2);
+      sleep(2);
       std_start = std::clock();
     
       for (int i = 0; i < MAP_TEST_SIZE; i++)
@@ -200,7 +200,7 @@ void ft_benchmarking_tests_suite()
       for (int i = 0; i < MAP_TEST_SIZE; i++)
         ft_map[i] = i;
       ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-      //sleep(2);
+      sleep(2);
       std_start = std::clock();
       for (int i = 0; i < MAP_TEST_SIZE; i++)
         std_map[i] = i;
@@ -219,7 +219,7 @@ void ft_benchmarking_tests_suite()
       for (int i = 0; i < MAP_TEST_SIZE; i++)
         ft_map.find(i);
       ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-      //sleep(2);
+      sleep(2);
       std_start = std::clock();
       for (int i = 0; i < MAP_TEST_SIZE; i++)
         std_map.find(i);
@@ -238,7 +238,7 @@ void ft_benchmarking_tests_suite()
       for (ft::map<int, int>::iterator it = ft_map.begin(); it != ft_map.end(); it++)
         *it;
       ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-      //sleep(2);
+      sleep(2);
       std_start = std::clock();
       for (std::map<int, int>::iterator it = std_map.begin(); it != std_map.end(); it++)
         *it;
@@ -271,7 +271,7 @@ void ft_benchmarking_tests_suite()
     for (int i = 0; i < STACK_TEST_SIZE; i++)
       ft_stack.push(i);
     ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-    //sleep(2);
+    sleep(2);
     std_start = std::clock();
     for (int i = 0; i < STACK_TEST_SIZE; i++)
       std_stack.push(i);
@@ -290,7 +290,7 @@ void ft_benchmarking_tests_suite()
     for (int i = 0; i < STACK_TEST_SIZE; i++)
       ft_stack.pop();
     ft_duration = (std::clock() - ft_start) / (double)CLOCKS_PER_SEC;
-    //sleep(2);
+    sleep(2);
     std_start = std::clock();
     for (int i = 0; i < STACK_TEST_SIZE; i++)
       std_stack.pop();
