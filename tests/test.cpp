@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:49:06 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/25 15:55:05 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:25:06 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void ft_run_all_tests()
   ft_enable_if_tests_suite();
   ft_is_integral_tests_suite();
   ft_equal_tests_suite();
-
   ft_map_tests_suite();
   ft_benchmark_vec_tests_suite();
   ft_benchmark_map_tests_suite();
   ft_benchmark_stack_tests_suite();
+  char* seed = new char[10];
+  snprintf(seed, 10, "%ld", (time(NULL) % 100));
+  main_test(seed);
 }
 
 int main(int argc, char** argv)

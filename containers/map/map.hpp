@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/26 10:28:02 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:24:00 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #include <make_pair.hpp>
 #include <lexico_compare.hpp>
 #include <equal.hpp>
+#include <stack.hpp>
 
 namespace ft
 {
@@ -238,26 +239,71 @@ namespace ft
       _max = NULL;
       _size = 0;
       *this = x;
-      // _root = NULL;
-      // _min = NULL;
-      // _max = NULL;
-      // _size = 0;
-      // insert(x.begin(), x.end());
     };
 
     /* destructor */
     ~map()
     {
-      clear();
+      // clear();
     };
 
     /* operator= */
+    // feeew
     map& operator=(const map& x)
     {
       if (this == &x)
         return *this;
       clear();
-      insert(x.begin(), x.end()); 
+      // treversing the tree at the node level and inserting the nodes
+      stack<node_type*> s;
+      node_type* current = x._root;
+      _root = _new_node(current->data(), NULL);
+      node_type* tmp = _root;
+      // push the root and set current to left until we reach the left most node
+      while (current)
+      {
+        s.push(current);
+        current = current->left();
+        if (current)
+        {
+          tmp->setLeft(_new_node(current->data(), tmp));
+          tmp = tmp->left();
+        }
+      }
+      // pop the stack and set current to right
+      while (!s.empty())
+      {
+        // pop the stack
+        current = s.top();
+        s.pop();
+        // set current to right
+        current = current->right();
+        // create a new node and set the parent
+        if (current)
+        {
+          tmp->setRight(_new_node(current->data(), tmp));
+          tmp = tmp->right();
+        }
+        // push the right node and set current to left until we reach the left most node
+        while (current)
+        {
+          s.push(current);
+          current = current->left();
+          if (current)
+          {
+            tmp->setLeft(_new_node(current->data(), tmp));
+            tmp = tmp->left();
+          }
+        }
+
+      }
+      _size = x._size;
+      _min = x._min;
+      _max = x._max;
+
+
+
+      // insert(x.begin(), x.end());
       return *this;
     };
 
@@ -490,8 +536,12 @@ namespace ft
       node_type* node = _find(*position);
       if (node == NULL)
         return insert(val).first;
-      return _insert(node, val).first;
-    }
+
+      pair<iterator, bool> ret = _insert(val);
+      if (ret.second)
+        _size++;
+      return ret.first;
+    };
 
     // insert range (3)
     template <class InputIterator>
@@ -687,7 +737,7 @@ namespace ft
 
       node_type* roof = tmp;
       // checking for balance at 3 levels
-      for (int i = 0; i < 2; i++)
+      for (int i = 0; i < 3; i++)
       {
         if (roof->parent() == NULL)
           break;
@@ -895,11 +945,35 @@ namespace ft
       if (!_max || _comp(_max->data(), val))
         _max = new_node;
 
-    // updating dummy end
-    // _update_dummy_end();
-    // return iterator to the new node
+      // updating dummy end
+      // _update_dummy_end();
+      // return iterator to the new node
       return make_pair(iterator(new_node, _min, _max), true);
     };
+
+    // insrting with hint
+    iterator _insert(node_type* node, value_type& val) {
+      // if node exist return an iterator to it.
+      if (!_comp(node->data(), val) && !_comp(val, node->data()))
+      {
+        return iterator(node, _min, _max);
+      }
+      node_type* new_node = _new_node(val, node);
+      if (_comp(val, node->data()))
+        // if smaller than it's parent, insert it to the left
+        node->setLeft(new_node);
+      else
+        // if greater insert to the right
+        node->setRight(new_node);
+      // check tree balance
+      _balance(node);
+      if (!_min || _comp(val, _min->data()))
+        _min = new_node;
+      if (!_max || _comp(_max->data(), val))
+        _max = new_node;
+      return iterator(new_node, _min, _max);
+    };
+
 
     // _removing
     void _remove(const value_type& data)

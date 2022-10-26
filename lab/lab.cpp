@@ -6,12 +6,20 @@ using namespace std;
 
 int main()
 {
-    set<int> s;
-    s.insert(1);
-    s.insert(2);
-    s.insert(3);
-    s.insert(2);
-    for (set<int>::iterator it = s.begin(); it != s.end(); it++)
-        cout << *it << endl;
+    map<string, int> m;
+    m.insert(pair<string, int>("a", 1));
+    m.insert(pair<string, int>("b", 2));
+    m.insert(pair<string, int>("c", 3));
+
+
+    map<string, int>::iterator it = m.begin();
+    map<string, int>::iterator it2 = m.end();
+    map<string, int> m2;
+    m2.insert(it, it2);
+
+    for (map<string, int>::iterator it = m2.begin(); it != m2.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+
+
     return 0;
 }

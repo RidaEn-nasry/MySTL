@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:49:04 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/26 10:31:07 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:24:14 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ int main_test(char* argv) {
   }
   std::cout << "should be constant with the same seed: " << sum << std::endl;
 
-  // std::cout << COUNT << std::endl;
   {
     ft::map<int, int> copy = map_int;
   }

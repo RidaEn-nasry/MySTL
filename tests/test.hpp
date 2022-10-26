@@ -37,7 +37,7 @@
 #include <typeinfo>
 
 #define VEC_TEST_SIZE 1000000
-#define MAP_TEST_SIZE 1000000
+#define MAP_TEST_SIZE 10000
 #define STACK_TEST_SIZE 1000000
 
 #define INFO_ERR() std::cout << "\033[31m[ERROR]\033[0m " << __FILE__ << ":" << __LINE__ << " " << __FUNCTION__ << "(): " << std::endl;
