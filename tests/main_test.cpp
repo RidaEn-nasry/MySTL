@@ -6,14 +6,14 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:49:04 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 18:34:15 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/26 10:31:07 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0//CREATE A REAL STL EXAMPLE
 #include <map>
 #include <stack>
 #include <vector>
@@ -104,7 +104,6 @@ int main_test(char* argv) {
   {
     map_int.insert(ft::make_pair(rand(), rand()));
   }
-
   int sum = 0;
   for (int i = 0; i < 10000; i++)
   {
@@ -113,9 +112,11 @@ int main_test(char* argv) {
   }
   std::cout << "should be constant with the same seed: " << sum << std::endl;
 
+  // std::cout << COUNT << std::endl;
   {
     ft::map<int, int> copy = map_int;
   }
+
   MutantStack<char> iterable_stack;
   for (char letter = 'a'; letter <= 'z'; letter++)
     iterable_stack.push(letter);

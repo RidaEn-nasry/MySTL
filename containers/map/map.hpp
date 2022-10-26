@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:48:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 18:21:16 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/26 10:28:02 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 #include <make_pair.hpp>
 #include <lexico_compare.hpp>
 #include <equal.hpp>
-
 
 namespace ft
 {
@@ -238,7 +237,12 @@ namespace ft
       _min = NULL;
       _max = NULL;
       _size = 0;
-      insert(x.begin(), x.end());
+      *this = x;
+      // _root = NULL;
+      // _min = NULL;
+      // _max = NULL;
+      // _size = 0;
+      // insert(x.begin(), x.end());
     };
 
     /* destructor */
@@ -250,8 +254,10 @@ namespace ft
     /* operator= */
     map& operator=(const map& x)
     {
+      if (this == &x)
+        return *this;
       clear();
-      insert(x.begin(), x.end());
+      insert(x.begin(), x.end()); 
       return *this;
     };
 
@@ -507,7 +513,6 @@ namespace ft
         ++first;
       }
 
-      // else insert a new element
       for (; first != last; ++first)
       {
         pair<iterator, bool> ret = _insert(*first);
@@ -534,7 +539,6 @@ namespace ft
       // if tree is empty, do nothing
       if (_root == NULL)
         return 0;
-
       // if key is not in the tree, do nothing
       value_type val = value_type(erase_key, mapped_type());
       node_type* node = _find(val);
@@ -619,7 +623,7 @@ namespace ft
     {
       return !(lhs == rhs);
     };
-    
+
     friend bool operator<(const map& lhs, const map& rhs)
     {
       return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
@@ -639,13 +643,13 @@ namespace ft
     {
       return !(lhs < rhs);
     };
-    
+
     // swap
     friend void swap(map& lhs, map& rhs)
     {
       lhs.swap(rhs);
     };
-  
+
 
   private:
     allocator_type _alloc;
@@ -678,7 +682,19 @@ namespace ft
 
       // checking balance starting from node and going up to the root
       node_type* tmp = node;
-      while (tmp != _root && tmp != NULL)
+      if (tmp == NULL)
+        return;
+
+      node_type* roof = tmp;
+      // checking for balance at 3 levels
+      for (int i = 0; i < 2; i++)
+      {
+        if (roof->parent() == NULL)
+          break;
+        roof = roof->parent();
+      }
+
+      while (tmp != roof && tmp != NULL)
       {
         int balance = tmp->balance();
         // if subtree is balanced, continue
@@ -800,6 +816,13 @@ namespace ft
       // if it's NULL, don't segfault yourself
       if (tmp)
         tmp->setParent(node->parent());
+      if (node->parent())
+      {
+        if (node == _min)
+          _min = node->parent();
+        if (node == _max)
+          _max = node->parent();
+      }
       _node_alloc.destroy(node);
       _node_alloc.deallocate(node, 1);
       // return tmp;
@@ -867,13 +890,14 @@ namespace ft
         node->setRight(new_node);
       // check tree balance
       _balance(node);
-      // update min and max
-      _max = _maximum();
-      _min = _minimum();
+      if (!_min || _comp(val, _min->data()))
+        _min = new_node;
+      if (!_max || _comp(_max->data(), val))
+        _max = new_node;
 
-      // updating dummy end
-      // _update_dummy_end();
-      // return iterator to the new node
+    // updating dummy end
+    // _update_dummy_end();
+    // return iterator to the new node
       return make_pair(iterator(new_node, _min, _max), true);
     };
 
@@ -919,9 +943,17 @@ namespace ft
         _splice(min);
         _balance(node);
       }
-      _max = _maximum();
-      _min = _minimum();
+      // _max = _maximum();
+      // _min = _minimum();
     };
+
+    // advance 
+    void _advance(const_iterator& it, size_type n)
+    {
+      while (n--)
+        ++it;
+    };
+
 
 
   }; // map class

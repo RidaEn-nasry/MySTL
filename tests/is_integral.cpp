@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 22:11:11 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 20:48:00 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:18:02 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void ft_is_integral_tests_suite() {
         REQUIRE_EQ(ft::is_integral<unsigned int>::value, true, test_name, "is_integral<unsigned int>::value should be true");
         REQUIRE_EQ(ft::is_integral<unsigned long long int>::value, true, test_name, "is_integral<unsigned long long int>::value should be true");
         INFO_OK(test_name);
-        //sleep(1);
+        sleep(1);
     }
 
 };

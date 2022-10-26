@@ -19,9 +19,9 @@
       "name": "(lldb) Launch",
       "type": "lldb",
       "request": "launch",
-      "program": "/Users/ren-nasr/Reimplementing-STL-Containers./test",
+      "program": "/Users/wa5ina/42/rsc/test",
       "args": [
-        "benchmark"
+        "main"
       ],
       "cwd": "${cwd}",
 

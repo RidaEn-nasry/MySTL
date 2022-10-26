@@ -36,9 +36,9 @@
 #include <sys/wait.h>
 #include <typeinfo>
 
-#define VEC_TEST_SIZE 3
-#define MAP_TEST_SIZE 3
-#define STACK_TEST_SIZE 3
+#define VEC_TEST_SIZE 1000000
+#define MAP_TEST_SIZE 1000000
+#define STACK_TEST_SIZE 1000000
 
 #define INFO_ERR() std::cout << "\033[31m[ERROR]\033[0m " << __FILE__ << ":" << __LINE__ << " " << __FUNCTION__ << "(): " << std::endl;
 #define INFO_OK(test_name) std::cout << "\033[1;34m" << test_name << "\033[0m" \
@@ -170,6 +170,8 @@ void ft_is_integral_tests_suite();
 void ft_equal_tests_suite();
 void ft_map_tests_suite();
 void ft_avlnode_tests_suite();
-void ft_benchmarking_tests_suite();
+void ft_benchmark_vec_tests_suite();
+void ft_benchmark_map_tests_suite();
+void ft_benchmark_stack_tests_suite();
 int main_test(char* argv);
 #endif

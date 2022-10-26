@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 13:56:03 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 18:15:40 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:12:50 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,12 +440,12 @@ namespace ft
         _size++;
         return position;
       }
-      else if (this->_size == this->_capacity)
+      else if (this->_size >= this->_capacity)
       {
         // get position index
         size_type index = position - this->begin();
-        reserve(this->_capacity == 0 ? 1 : this->_capacity * 1.5);
-        reserve(_capacity * 1.5);
+        // reserve(this->_capacity == 0 ? 1 : this->_capacity * 1.5);
+        reserve(_capacity * 2);
         // reassign position
         position = this->begin() + index;
       }

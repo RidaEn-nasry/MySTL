@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 21:48:04 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 20:47:38 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:17:56 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void ft_lexico_compare_tests_suite()
         a[5] = 4;
         REQUIRE_EQ(ft::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end()), true, test_name, "lexicographical_compare should return true if the first sequence is less than the second");
         INFO_OK(test_name);
-        //sleep(1);
+        sleep(1);
     };
     
     /*********************************************************/
@@ -52,7 +52,7 @@ void ft_lexico_compare_tests_suite()
         a[5] = 4;
         REQUIRE_EQ(ft::lexicographical_compare(a.begin(), a.end(), b.begin(), b.end(), ft::less<int>()), true, test_name, "lexicographical_compare should return true if the first sequence is less than the second");
         INFO_OK(test_name);
-        //sleep(1);
+        sleep(1);
     };
 
 };

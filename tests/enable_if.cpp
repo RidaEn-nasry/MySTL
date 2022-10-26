@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 11:42:52 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 20:48:11 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:18:09 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void ft_enable_if_tests_suite()
     REQUIRE_EQ(a, 1, test_name, "enable_if<true, int>::type should be int");
     REQUIRE_STREQ(typeid(ft::enable_if<true, int>::type).name(), typeid(int).name(), test_name, "enable_if<true, int>::type should be of type int");
     INFO_OK(test_name);
-    //sleep(1);
+    sleep(1);
   }
 }

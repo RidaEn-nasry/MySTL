@@ -6,7 +6,7 @@
 /*   By: ren-nasr <ren-nasr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 11:49:06 by ren-nasr          #+#    #+#             */
-/*   Updated: 2022/10/24 20:42:48 by ren-nasr         ###   ########.fr       */
+/*   Updated: 2022/10/25 15:55:05 by ren-nasr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ void ft_run_all_tests()
   ft_equal_tests_suite();
 
   ft_map_tests_suite();
-  ft_benchmarking_tests_suite();
+  ft_benchmark_vec_tests_suite();
+  ft_benchmark_map_tests_suite();
+  ft_benchmark_stack_tests_suite();
 }
 
 int main(int argc, char** argv)
 {
-  if (argc != 2)
+  if (argc < 2)
   {
     std::cout << "Usage: ./test [test_name] \t \
     use `./test -list` to list all tests"
@@ -57,17 +59,28 @@ int main(int argc, char** argv)
     ft_is_integral_tests_suite();
   else if (strcmp(argv[1], "equal") == 0)
     ft_equal_tests_suite();
- 
+
   else if (strcmp(argv[1], "map") == 0)
     ft_map_tests_suite();
   else if (strcmp(argv[1], "benchmark") == 0)
-    ft_benchmarking_tests_suite();
+  {
+    if (argc == 2) {
+      ft_benchmark_vec_tests_suite();
+      ft_benchmark_map_tests_suite();
+      ft_benchmark_stack_tests_suite();
+    }
+    else if (strcmp(argv[2], "vector") == 0)
+      ft_benchmark_vec_tests_suite();
+    else if (strcmp(argv[2], "map") == 0)
+      ft_benchmark_map_tests_suite();
+    else if (strcmp(argv[2], "stack") == 0)
+      ft_benchmark_stack_tests_suite();
+  }
   else if (strcmp(argv[1], "main") == 0)
   {
     // convert an srand to char* 
     char* seed = new char[10];
     snprintf(seed, 10, "%ld", (time(NULL) % 100));
-    std::cout << "seed: " << seed << std::endl;
     main_test(seed);
   }
   else
